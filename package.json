@@ -1,0 +1,14 @@
+{
+  "name": "cypress-common",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:Universiteitsbibliotheek/cypress-common.git",
+  "author": "Koen Verheyen <koen.verheyen@inuits.eu>",
+  "license": "MIT",
+  "scripts": {
+    "test": "cypress run"
+  },
+  "dependencies": {
+    "cypress": "^1.4.1"
+  }
+}
