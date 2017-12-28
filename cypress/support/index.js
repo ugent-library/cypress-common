@@ -16,3 +16,4 @@
 import '../../helpers/chai';
 
 import '../../commands/map';
+import '../../commands/prop';
