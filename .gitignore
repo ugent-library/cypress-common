@@ -2,3 +2,5 @@ node_modules/
 .vscode/
 cypress/screenshots/
 cypress/videos/
+
+run-tests.sh

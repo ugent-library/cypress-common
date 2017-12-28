@@ -1,0 +1,2 @@
+# Check https://dashboard.cypress.io/#/projects/dkufj2/settings for the record key
+$(npm bin)/cypress run --config videoRecording=true --record --key <record key>
