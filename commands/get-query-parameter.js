@@ -5,7 +5,7 @@ Cypress.Commands.add('getQueryParameter', { prevSubject: 'optional' }, (subject,
     if (Cypress._.isNil(subject)) {
         subj = cy.location('search', { log: false });
     } else if (Cypress._.isObject(subject) && subject.hasOwnProperty('toString')) {
-        // subj = cy.wrap(subject.toString(), { log: false });
+        subj = cy.wrap(subject.toString(), { log: false });
     } else if (Cypress._.isString(subject)) {
         subj = cy.wrap(subject, { log: false });
     } else {
