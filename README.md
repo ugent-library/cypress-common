@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Universiteitsbibliotheek/cypress-common.svg?branch=master)](https://travis-ci.org/Universiteitsbibliotheek/cypress-common)
+
 # Helper commands & functions for Cypress test projects
 
 This project contains several comman [helper functions](helpers/) and [commands](commands/) that can be used in [Cypress.io](https://cypress.io) projects.
