@@ -6,7 +6,7 @@ Cypress.Commands.add('random', { prevSubject: true }, (subject) => {
 
             Cypress.log({
                 name: 'random',
-                message: [],
+                message: [`[${index}] => ${result}`],
                 consoleProps: () => {
                     return {
                         subject: subject,
