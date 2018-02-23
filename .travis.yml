@@ -1,7 +1,7 @@
 language: node_js
 
 node_js:
-  - 7
+  - 8
 
 script:
   - yarn test --config videoRecording=true --record --key $CYPRESS_DASHBOARD_KEY
