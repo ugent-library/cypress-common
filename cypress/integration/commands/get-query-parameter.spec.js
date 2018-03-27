@@ -3,7 +3,7 @@ describe('The getQueryParameter command', function () {
 
     describe('When chained directly of cy', function () {
         beforeEach(function () {
-            cy.visit('http://blank.org/' + path);
+            cy.visit('https://blank.org/' + path);
         });
 
         it('should use the current location', function () {
