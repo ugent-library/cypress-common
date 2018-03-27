@@ -96,64 +96,6 @@ describe('The additional chai helpers', function () {
         });
     });
 
-    describe('The sorted property', function () {
-        describe('The ascending() method', function () {
-            describe('In regular mode', function () {
-                it('should not throw when subject is sorted ascending', function () {
-                    expect(['a', 'b', 'c']).to.be.sorted.ascending();
-                });
-
-                it('should throw when subject is not sorted ascending', function (done) {
-                    expectAssertionErrorOnFail(done, 'expected [ \'a\', \'c\', \'b\' ] to be sorted ascending');
-
-                    // The test
-                    expect(['a', 'c', 'b']).to.be.sorted.ascending();
-                });
-            });
-
-            describe('In negative mode', function () {
-                it('should not throw when subject is not sorted ascending', function () {
-                    expect(['a', 'c', 'b']).to.not.be.sorted.ascending();
-                });
-
-                it('should throw when subject is sorted ascending', function (done) {
-                    expectAssertionErrorOnFail(done, 'expected [ \'a\', \'b\', \'c\' ] to not be sorted ascending');
-
-                    // The test
-                    expect(['a', 'b', 'c']).to.not.be.sorted.ascending();
-                });
-            });
-
-            describe('The descending() method', function () {
-                describe('In regular mode', function () {
-                    it('should not throw when subject is sorted descending', function () {
-                        expect(['c', 'b', 'a']).to.be.sorted.descending();
-                    });
-
-                    it('should throw when subject is not sorted descending', function (done) {
-                        expectAssertionErrorOnFail(done, 'expected [ \'c\', \'a\', \'b\' ] to be sorted descending');
-
-                        // The test
-                        expect(['c', 'a', 'b']).to.be.sorted.descending();
-                    });
-                });
-
-                describe('In negative mode', function () {
-                    it('should not throw when subject is not sorted descending', function () {
-                        expect(['c', 'a', 'b']).to.not.be.sorted.descending();
-                    });
-
-                    it('should throw when subject is sorted descending', function (done) {
-                        expectAssertionErrorOnFail(done, 'expected [ \'c\', \'b\', \'a\' ] to not be sorted descending');
-
-                        // The test
-                        expect(['c', 'b', 'a']).to.not.be.sorted.descending();
-                    });
-                });
-            });
-        });
-    });
-
     describe('The inViewport method', function () {
         before(() => {
             let $element = Cypress.$(`<button id="test" style="position: absolute">Test</button>`);

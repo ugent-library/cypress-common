@@ -91,15 +91,12 @@ A list of helper functions for Chai assertions:
 * `readonly()`: Asserts that an HTML field is readonly
 * `starts.with(<substring>)`: Asserts that a string starts with a substring
 * `ends.with(<substring>)`: Asserts that a string ends with a substring
-* `sorted.ascending()`: Asserts that a collection is sorted ascending
-* `sorted.descending()`: Asserts that a collection is sorted descending
 * `inViewport(<the window object>)`: Asserts that a DOM element is currently visible inside the browser viewport
 
 These helpers can be used both as a Chai expectation:
 
 ```
 expect('This is a test').to.end.with('a test');
-expect([1, 2, 3]).to.be.sorted.ascending();
 expect(Cypress.$('#aButton')).to.be.inViewport(window);
 ```
 
@@ -114,6 +111,5 @@ All Chai helpers can also be inversed with the `.not` flag:
 
 ```
 expect('This is a test').to.not.start.with('a test');
-expect([1, 3, 2]).to.not.be.sorted.descending();
 cy.get('input#name').should('not.be.readonly');
 ```
