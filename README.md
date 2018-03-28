@@ -7,25 +7,18 @@ This project contains several comman [helper functions](helpers/) and [commands]
 Follow these steps to use this project:
 
 * Create a Cypress test project
-* From the root of the project add this project as a submodule:
+* Add this project as an npm/yarn package (replace `<version>` with the desired git version tag):
 
-```
-git submodule add git@github.com:Universiteitsbibliotheek/cypress-common.git cypress/support/common/
-```
-
-* If you want to use a specific cypress-common version, `cd` into the common folder and and checkout the desired version tag, eg.:
-
-```
-cd cypress/support/common/
-git checkout 1.0
-```
+  ```
+  yarn add https://github.com/Universiteitsbibliotheek/cypress-common.git#<version>
+  ```
 
 * Import the desired functions/commands in your `cypress/support/index.js` file:
 
-```
-import './common/helpers/chai';
-import './common/commands/map';
-```
+  ```
+  import 'cypress-common/helpers/chai';
+  import 'cypress-common/commands/map';
+  ```
 
 * Use the imported functions/commands in your integration tests.
 
