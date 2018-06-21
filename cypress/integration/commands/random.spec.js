@@ -11,7 +11,7 @@ describe('The random command', function () {
     });
 
     it('should return a random item of a jQuery object (wrapped again by cypress)', function () {
-        cy.visit('http://google.com');
+        cy.visit('https://vrtnws.be');
 
         cy.get('button, a').as('items')
             .its('length')

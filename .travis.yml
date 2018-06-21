@@ -4,7 +4,7 @@ node_js:
   - 8
 
 script:
-  - yarn test --config videoRecording=true --record --key $CYPRESS_DASHBOARD_KEY
+  - yarn test --config video=true --record --key $CYPRESS_DASHBOARD_KEY
 
 cache: 
   yarn: true
