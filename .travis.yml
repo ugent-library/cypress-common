@@ -9,8 +9,8 @@ script:
 cache: 
   yarn: true
   directories:
-  	- ~/.npm
-  	- ~/.cache
+    - ~/.npm
+    - ~/.cache
 
 notifications:
   email:
