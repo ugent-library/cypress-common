@@ -12,7 +12,7 @@ describe('The map command', function () {
     });
 
     it('should map all elements in jQuery object', function () {
-        cy.visit('https://www.vrtnws.be');
+        cy.visit('https://lib.ugent.be/');
 
         cy.get('a').as('links')
             .its('length')
