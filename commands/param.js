@@ -6,7 +6,7 @@ Cypress.Commands.add(
     let url = null
 
     if (Cypress._.isNil(subject)) {
-      subj = cy.location({ log: false })
+      subj = cy.location('search', { log: false })
     } else if (
       Cypress._.isObject(subject) &&
       subject.hasOwnProperty('toString')
@@ -21,7 +21,19 @@ Cypress.Commands.add(
     }
 
     return subj
-      .then(url => new URL(url, 'http://localhost').searchParams.get(name))
+      .then(url => {
+        const values = new URLSearchParams(url).getAll(name)
+        switch (values.length) {
+          case 0:
+            return null
+
+          case 1:
+            return values[0]
+
+          default:
+            return values
+        }
+      })
       .then(result => {
         const message = [name, result || '(default)']
 

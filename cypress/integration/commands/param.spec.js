@@ -1,5 +1,5 @@
 describe('The param command', function () {
-  const path = '?query=test%20search&item=abc&count=123'
+  const path = '?query=test%20search&item=abc&count=123&item=def'
 
   describe('When chained directly of cy', function () {
     beforeEach(function () {
@@ -8,7 +8,7 @@ describe('The param command', function () {
 
     it('should use the current location', function () {
       cy.param('query').should('eq', 'test search')
-      cy.param('item').should('eq', 'abc')
+      cy.param('item').should('eql', ['abc', 'def'])
       cy.param('count').should('eq', '123')
     })
 
@@ -36,7 +36,7 @@ describe('The param command', function () {
         .should('eq', 'test search')
       cy.wrap(subj)
         .param('item')
-        .should('eq', 'abc')
+        .should('eql', ['abc', 'def'])
       cy.wrap(subj)
         .param('count')
         .should('eq', '123')
@@ -70,7 +70,7 @@ describe('The param command', function () {
         .should('eq', 'test search')
       cy.wrap(subj)
         .param('item')
-        .should('eq', 'abc')
+        .should('eql', ['abc', 'def'])
       cy.wrap(subj)
         .param('count')
         .should('eq', '123')
@@ -94,7 +94,7 @@ describe('The param command', function () {
         .should('eq', 'test search')
       cy.wrap(path)
         .param('item')
-        .should('eq', 'abc')
+        .should('eql', ['abc', 'def'])
       cy.wrap(path)
         .param('count')
         .should('eq', '123')
