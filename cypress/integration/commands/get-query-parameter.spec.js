@@ -53,6 +53,40 @@ describe('The getQueryParameter command', function () {
     })
   })
 
+  describe('When used on a subject with a url property', function () {
+    let subj
+
+    beforeEach(() => {
+      subj = {
+        propA: 1,
+        url: path,
+        propB: true
+      }
+    })
+
+    it('should get the url property', function () {
+      cy.wrap(subj)
+        .getQueryParameter('query')
+        .should('eq', 'test search')
+      cy.wrap(subj)
+        .getQueryParameter('item')
+        .should('eq', 'abc')
+      cy.wrap(subj)
+        .getQueryParameter('count')
+        .should('eq', '123')
+    })
+
+    it('should return the default for an unknown parameter', function () {
+      cy.wrap(subj)
+        .getQueryParameter('wrong', 'abc123')
+        .should('eq', 'abc123')
+
+      cy.wrap(subj)
+        .getQueryParameter('wrong')
+        .should('be.null')
+    })
+  })
+
   describe('When used on a string subject', function () {
     it('should use the string as subject', function () {
       cy.wrap(path)

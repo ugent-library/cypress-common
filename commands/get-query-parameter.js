@@ -12,6 +12,8 @@ Cypress.Commands.add(
       subject.hasOwnProperty('toString')
     ) {
       subj = cy.wrap(subject.toString(), { log: false })
+    } else if (Cypress._.isObject(subject) && subject.hasOwnProperty('url')) {
+      subj = cy.wrap(subject.url, { log: false })
     } else if (Cypress._.isString(subject)) {
       subj = cy.wrap(subject, { log: false })
     } else {
