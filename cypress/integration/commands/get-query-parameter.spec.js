@@ -12,7 +12,9 @@ describe('The getQueryParameter command', function () {
       cy.getQueryParameter('count').should('eq', '123')
     })
 
-    it('should return null for an unknown parameter', function () {
+    it('should return the default for an unknown parameter', function () {
+      cy.getQueryParameter('wrong', 'abc123').should('eq', 'abc123')
+
       cy.getQueryParameter('wrong').should('be.null')
     })
   })
@@ -40,7 +42,11 @@ describe('The getQueryParameter command', function () {
         .should('eq', '123')
     })
 
-    it('should return null for an unknown parameter', function () {
+    it('should return the default for an unknown parameter', function () {
+      cy.wrap(subj)
+        .getQueryParameter('wrong', 'abc123')
+        .should('eq', 'abc123')
+
       cy.wrap(subj)
         .getQueryParameter('wrong')
         .should('be.null')
@@ -60,7 +66,11 @@ describe('The getQueryParameter command', function () {
         .should('eq', '123')
     })
 
-    it('should return null for an unknown parameter', function () {
+    it('should return the default for an unknown parameter', function () {
+      cy.wrap(path)
+        .getQueryParameter('wrong', 'abc123')
+        .should('eq', 'abc123')
+
       cy.wrap(path)
         .getQueryParameter('wrong')
         .should('be.null')
