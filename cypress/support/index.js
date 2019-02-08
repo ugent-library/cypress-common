@@ -13,11 +13,11 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 
-import '../../helpers/chai';
+import '../../helpers/chai'
 
-import '../../commands/map';
-import '../../commands/prop';
-import '../../commands/random';
-import '../../commands/split';
-import '../../commands/sum';
-import '../../commands/get-query-parameter';
+import '../../commands/map'
+import '../../commands/prop'
+import '../../commands/random'
+import '../../commands/split'
+import '../../commands/sum'
+import '../../commands/param'

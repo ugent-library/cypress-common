@@ -24,13 +24,13 @@ Follow these steps to use this project:
 
 ## Commands
 
-### [getQueryParameter(name)](commands/get-query-parameter.js)
+### [param(name)](commands/param.js)
 
 Read a query parameter from the current location or from a chained string or object with `toString` method.
 
 ```
-cy.getQueryParameter('search').should('eq', 'Wikipedia');
-cy.get('iframe').its('src').getQueryParameter('viewMode').should('eq', 'embedded');
+cy.param('search').should('eq', 'Wikipedia');
+cy.get('iframe').its('src').param('viewMode').should('eq', 'embedded');
 ```
 
 ### [map(iteratee)](commands/map.js)

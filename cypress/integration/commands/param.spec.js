@@ -1,4 +1,4 @@
-describe('The getQueryParameter command', function () {
+describe('The param command', function () {
   const path = '?query=test%20search&item=abc&count=123'
 
   describe('When chained directly of cy', function () {
@@ -7,15 +7,15 @@ describe('The getQueryParameter command', function () {
     })
 
     it('should use the current location', function () {
-      cy.getQueryParameter('query').should('eq', 'test search')
-      cy.getQueryParameter('item').should('eq', 'abc')
-      cy.getQueryParameter('count').should('eq', '123')
+      cy.param('query').should('eq', 'test search')
+      cy.param('item').should('eq', 'abc')
+      cy.param('count').should('eq', '123')
     })
 
     it('should return the default for an unknown parameter', function () {
-      cy.getQueryParameter('wrong', 'abc123').should('eq', 'abc123')
+      cy.param('wrong', 'abc123').should('eq', 'abc123')
 
-      cy.getQueryParameter('wrong').should('be.null')
+      cy.param('wrong').should('be.null')
     })
   })
 
@@ -32,23 +32,23 @@ describe('The getQueryParameter command', function () {
 
     it('should invoke the toString method', function () {
       cy.wrap(subj)
-        .getQueryParameter('query')
+        .param('query')
         .should('eq', 'test search')
       cy.wrap(subj)
-        .getQueryParameter('item')
+        .param('item')
         .should('eq', 'abc')
       cy.wrap(subj)
-        .getQueryParameter('count')
+        .param('count')
         .should('eq', '123')
     })
 
     it('should return the default for an unknown parameter', function () {
       cy.wrap(subj)
-        .getQueryParameter('wrong', 'abc123')
+        .param('wrong', 'abc123')
         .should('eq', 'abc123')
 
       cy.wrap(subj)
-        .getQueryParameter('wrong')
+        .param('wrong')
         .should('be.null')
     })
   })
@@ -66,23 +66,23 @@ describe('The getQueryParameter command', function () {
 
     it('should get the url property', function () {
       cy.wrap(subj)
-        .getQueryParameter('query')
+        .param('query')
         .should('eq', 'test search')
       cy.wrap(subj)
-        .getQueryParameter('item')
+        .param('item')
         .should('eq', 'abc')
       cy.wrap(subj)
-        .getQueryParameter('count')
+        .param('count')
         .should('eq', '123')
     })
 
     it('should return the default for an unknown parameter', function () {
       cy.wrap(subj)
-        .getQueryParameter('wrong', 'abc123')
+        .param('wrong', 'abc123')
         .should('eq', 'abc123')
 
       cy.wrap(subj)
-        .getQueryParameter('wrong')
+        .param('wrong')
         .should('be.null')
     })
   })
@@ -90,23 +90,23 @@ describe('The getQueryParameter command', function () {
   describe('When used on a string subject', function () {
     it('should use the string as subject', function () {
       cy.wrap(path)
-        .getQueryParameter('query')
+        .param('query')
         .should('eq', 'test search')
       cy.wrap(path)
-        .getQueryParameter('item')
+        .param('item')
         .should('eq', 'abc')
       cy.wrap(path)
-        .getQueryParameter('count')
+        .param('count')
         .should('eq', '123')
     })
 
     it('should return the default for an unknown parameter', function () {
       cy.wrap(path)
-        .getQueryParameter('wrong', 'abc123')
+        .param('wrong', 'abc123')
         .should('eq', 'abc123')
 
       cy.wrap(path)
-        .getQueryParameter('wrong')
+        .param('wrong')
         .should('be.null')
     })
   })
@@ -124,19 +124,19 @@ describe('The getQueryParameter command', function () {
     it('should throw an error if subject is a number', function (done) {
       assertFailure(done, 123)
 
-      cy.wrap(123).getQueryParameter('name')
+      cy.wrap(123).param('name')
     })
 
     it('should throw an error if subject is a boolean', function (done) {
       assertFailure(done, true)
 
-      cy.wrap(true).getQueryParameter('name')
+      cy.wrap(true).param('name')
     })
 
     it('should throw an error if subject is an object without toString method', function (done) {
       assertFailure(done, '[object Object]')
 
-      cy.wrap({ propA: 123, propB: false }).getQueryParameter('name')
+      cy.wrap({ propA: 123, propB: false }).param('name')
     })
   })
 })

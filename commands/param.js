@@ -1,5 +1,5 @@
 Cypress.Commands.add(
-  'getQueryParameter',
+  'param',
   { prevSubject: 'optional' },
   (subject, name, _default = null) => {
     let subj = null
@@ -26,7 +26,7 @@ Cypress.Commands.add(
         const message = [name, result || '(default)']
 
         Cypress.log({
-          name: 'getQueryParameter',
+          name: 'param',
           message: message,
           consoleProps: () => {
             return {
