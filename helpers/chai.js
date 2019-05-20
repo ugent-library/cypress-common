@@ -32,13 +32,13 @@ chai.Assertion.addProperty('end', function () {
 
 chai.Assertion.addMethod('param', function (name, value = null) {
   const negate = chai.util.flag(this, 'negate') || false
-  if (negate) {
+  if (negate && value) {
     throw new chai.AssertionError('chai method param does not support negation')
   }
 
   const param = getParam(this._obj, name)
 
-  this.assert(param != null, `expected param '${name}' to exist`)
+  this.assert(param != null, `expected param '${name}' to exist`, `expected param '${name}' to not exist`)
 
   if (value) {
     this.assert(
