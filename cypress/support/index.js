@@ -21,3 +21,12 @@ import '../../commands/random'
 import '../../commands/split'
 import '../../commands/sum'
 import '../../commands/param'
+
+global.expectAssertionErrorOnFail = (done, message) => {
+  cy.on('fail', function (error) {
+    expect(error.constructor.name).to.eq('AssertionError')
+    expect(error.message).to.eq(message)
+
+    done()
+  })
+}

@@ -1,4 +1,4 @@
-var getParam = require('../helpers/paramHelper').getParam
+var getParam = require('../helpers/chai/paramHelper').getParam
 
 Cypress.Commands.add('param', { prevSubject: 'optional' }, (subject, name, _default = null) => {
   let subj = null
