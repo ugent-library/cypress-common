@@ -1,5 +1,5 @@
-import './readonly'
-import './startWith'
-import './endWith'
-import './param'
-import './inViewport'
+require('./readonly')
+require('./startWith')
+require('./endWith')
+require('./param')
+require('./inViewport')
