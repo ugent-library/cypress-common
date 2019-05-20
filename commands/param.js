@@ -1,3 +1,5 @@
+import { getParam } from '../helpers/paramHelper'
+
 Cypress.Commands.add('param', { prevSubject: 'optional' }, (subject, name, _default = null) => {
   let subj = null
   let url = null
@@ -15,20 +17,7 @@ Cypress.Commands.add('param', { prevSubject: 'optional' }, (subject, name, _defa
   }
 
   return subj
-    .then(url => {
-      url = url.slice(url.indexOf('?')) // Only use the query
-      const values = new URLSearchParams(url).getAll(name)
-      switch (values.length) {
-        case 0:
-          return null
-
-        case 1:
-          return values[0]
-
-        default:
-          return values
-      }
-    })
+    .then(url => getParam(url, name))
     .then(result => {
       const message = [name, result || '(default)']
 

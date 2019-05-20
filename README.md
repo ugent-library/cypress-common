@@ -84,12 +84,14 @@ A list of helper functions for Chai assertions:
 * `readonly()`: Asserts that an HTML field is readonly
 * `starts.with(<substring>)`: Asserts that a string starts with a substring
 * `ends.with(<substring>)`: Asserts that a string ends with a substring
+* `have.param(<name>, <value>)`: Asserts that a URL string contains a query parameter with a value (value is optional)
 * `inViewport(<the window object>)`: Asserts that a DOM element is currently visible inside the browser viewport
 
 These helpers can be used both as a Chai expectation:
 
 ```
 expect('This is a test').to.end.with('a test');
+expect('https://www.google.com/search?query=abc123').to.have.param('query', 'abc123');
 expect(Cypress.$('#aButton')).to.be.inViewport(window);
 ```
 
@@ -97,6 +99,7 @@ or in the Cypress should notation:
 
 ```
 cy.get('input#province').should('be.readonly');
+cy.location('href').should('have.param', 'query', 'abc123');
 cy.window().then(w => cy.get('#aButton').should('be.inViewport'));
 ```
 
@@ -104,5 +107,6 @@ All Chai helpers can also be inversed with the `.not` flag:
 
 ```
 expect('This is a test').to.not.start.with('a test');
+expect('https://www.google.com/search?query=abc123').to.not.have.param('source');
 cy.get('input#name').should('not.be.readonly');
 ```
