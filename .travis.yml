@@ -1,7 +1,7 @@
 language: node_js
 
 node_js:
-  - 10
+  - 8
 
 script:
   - yarn test --config video=true --record --key $CYPRESS_DASHBOARD_KEY
@@ -16,3 +16,9 @@ notifications:
   email:
     on_success: change
     on_failure: always
+
+addons:
+  chrome: stable
+  apt:
+    packages:
+      - libgconf-2-4
