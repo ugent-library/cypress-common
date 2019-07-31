@@ -2,7 +2,7 @@
 
 # Helper commands & functions for Cypress test projects
 
-This project contains several comman [helper functions](helpers/) and [commands](commands/) that can be used in [Cypress.io](https://cypress.io) projects.
+This project contains several common [helper functions](helpers/) and [commands](commands/) that can be used in [Cypress.io](https://cypress.io) projects.
 
 Follow these steps to use this project:
 
