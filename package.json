@@ -9,7 +9,7 @@
     "test": "cypress run"
   },
   "devDependencies": {
-    "cypress": "^3.4.1"
+    "cypress": "^3.5.0"
   },
   "resolutions": {
     "lodash": "4.17.15"
