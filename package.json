@@ -1,6 +1,6 @@
 {
   "name": "cypress-common",
-  "version": "3.6.0",
+  "version": "3.7.0",
   "main": "index.js",
   "repository": "git@github.com:Universiteitsbibliotheek/cypress-common.git",
   "author": "Koen Verheyen <koen.verheyen@inuits.eu>",
