@@ -1,21 +1,27 @@
-Cypress.Commands.add('random', { prevSubject: true }, (subject) => {
-    cy.wrap(subject, { log: false })
-        .then((items) => {
-            let index = Cypress._.random(items.length - 1);
-            let result = items[index];
+Cypress.Commands.add('random', { prevSubject: true }, (subject, lower = 0, upper = null) => {
+  cy.wrap(subject, { log: false }).then(items => {
+    if (!lower && !upper) {
+      lower = 0
+      upper = items.length - 1
+    }
 
-            Cypress.log({
-                name: 'random',
-                message: [`[${index}] => ${result}`],
-                consoleProps: () => {
-                    return {
-                        subject: subject,
-                        index: index,
-                        result: result,
-                    };
-                }
-            });
+    const index = Cypress._.random(lower, upper)
+    const result = items[index] || null
 
-            return result;
-        });
-});
+    Cypress.log({
+      name: 'random',
+      message: [`[${index}] => ${result}`],
+      consoleProps: () => {
+        return {
+          lower,
+          upper,
+          subject,
+          index,
+          result
+        }
+      }
+    })
+
+    return result
+  })
+})

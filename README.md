@@ -51,13 +51,16 @@ cy.get('img#logo').prop('src'); // Yields the src property value of the selected
 cy.get('img#logo').prop('alt', 'The corporate logo'); // Yields the selected IMG component
 ```
 
-### [random()](commands/random.js)
+### [random([lower[, upper]])](commands/random.js)
 
 Yields a random element from the list of chained elements.
 
 ```
 cy.get('a').random(); // Yields a random A element
 cy.wrap([1, 3, 5, 7, 9]).random(); // Yields an odd number between 0 and 10
+cy.get('a').random(5); // Yields a random of the first 5 A elements
+cy.get('a').random(10, 20); // Yields a random A element from the 10..20 range
+cy.wrap([1, 2, 3]).random(4, 5); // Yields null
 ```
 
 ### [split(delimiter)](commands/split.js)
