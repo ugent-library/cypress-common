@@ -1,21 +1,28 @@
-Cypress.Commands.add('prop', { prevSubject: true }, function (subject, property) {
-    // Initiate command log
-    let consoleProps = {
-        property: property,
-    };
+Cypress.Commands.add('prop', { prevSubject: true }, (subject, property, newValue = null) => {
+  // Initiate command log
+  const consoleProps = { property }
+  const message = [property]
 
-    let log = Cypress.log({
-        name: 'prop',
-        message: [property],
-        consoleProps: () => {
-            return consoleProps;
-        },
-    });
+  if (newValue) {
+    consoleProps.newValue = newValue
+    message.push(newValue)
+  }
 
-    return cy.wrap(subject.prop(property), { log: false })
-        .then(function (result) {
-            consoleProps.result = result;
+  let log = Cypress.log({
+    name: 'prop',
+    message,
+    consoleProps: () => {
+      return consoleProps
+    }
+  })
 
-            log.snapshot().end();
-        });
-});
+  if (newValue) {
+    return cy.wrap(subject.prop(property, newValue), { log: false })
+  } else {
+    return cy.wrap(subject.prop(property), { log: false }).then(result => {
+      consoleProps.result = result
+
+      log.snapshot().end()
+    })
+  }
+})

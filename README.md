@@ -6,21 +6,21 @@ This project contains several common [helper functions](helpers/) and [commands]
 
 Follow these steps to use this project:
 
-* Create a Cypress test project
-* Add this project as an npm/yarn package (replace `<version>` with the desired git version tag):
+- Create a Cypress test project
+- Add this project as an npm/yarn package (replace `<version>` with the desired git version tag):
 
   ```
   yarn add https://github.com/Universiteitsbibliotheek/cypress-common.git#<version>
   ```
 
-* Import the desired functions/commands in your `cypress/support/index.js` file:
+- Import the desired functions/commands in your `cypress/support/index.js` file:
 
   ```
   import 'cypress-common/helpers/chai';
   import 'cypress-common/commands/map';
   ```
 
-* Use the imported functions/commands in your integration tests.
+- Use the imported functions/commands in your integration tests.
 
 ## Commands
 
@@ -42,12 +42,13 @@ cy.get('a').map('href'); // Yields an array of href attributes of each A-tag
 cy.get('img').map(img => Math.max(img.height, img.width)); // Yields the maximum side size for each IMG-tag
 ```
 
-### [prop(name)](commands/prop.js)
+### [prop(name[, value])](commands/prop.js)
 
 Invokes the jQuery [prop](https://api.jquery.com/prop/) method.
 
 ```
 cy.get('img#logo').prop('src'); // Yields the src property value of the selected IMG
+cy.get('img#logo').prop('alt', 'The corporate logo'); // Yields the selected IMG component
 ```
 
 ### [random()](commands/random.js)
@@ -81,11 +82,11 @@ cy.get('img').map('height').sum();
 
 A list of helper functions for Chai assertions:
 
-* `readonly()`: Asserts that an HTML field is readonly
-* `starts.with(<substring>)`: Asserts that a string starts with a substring
-* `ends.with(<substring>)`: Asserts that a string ends with a substring
-* `have.param(<name>, <value>)`: Asserts that a URL string contains a query parameter with a value (value is optional)
-* `inViewport(<the window object>)`: Asserts that a DOM element is currently visible inside the browser viewport
+- `readonly()`: Asserts that an HTML field is readonly
+- `starts.with(<substring>)`: Asserts that a string starts with a substring
+- `ends.with(<substring>)`: Asserts that a string ends with a substring
+- `have.param(<name>, <value>)`: Asserts that a URL string contains a query parameter with a value (value is optional)
+- `inViewport(<the window object>)`: Asserts that a DOM element is currently visible inside the browser viewport
 
 These helpers can be used both as a Chai expectation:
 
