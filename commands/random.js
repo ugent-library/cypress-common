@@ -3,6 +3,9 @@ Cypress.Commands.add('random', { prevSubject: true }, (subject, lower = 0, upper
     if (!lower && !upper) {
       lower = 0
       upper = items.length - 1
+    } else if (!upper) {
+      upper = lower
+      lower = 0
     }
 
     const index = Cypress._.random(lower, upper)
