@@ -13,17 +13,12 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 
-import '../../helpers/chai'
+import '../../helpers'
 
-import '../../commands/map'
-import '../../commands/prop'
-import '../../commands/random'
-import '../../commands/split'
-import '../../commands/sum'
-import '../../commands/param'
+import '../../commands'
 
 global.expectAssertionErrorOnFail = (done, message) => {
-  cy.on('fail', function (error) {
+  cy.on('fail', function(error) {
     expect(error.constructor.name).to.eq('AssertionError')
     expect(error.message).to.eq(message)
 
