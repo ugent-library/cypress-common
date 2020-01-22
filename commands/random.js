@@ -1,30 +1,26 @@
 Cypress.Commands.add('random', { prevSubject: true }, (subject, lower = 0, upper = null) => {
-  cy.wrap(subject, { log: false }).then(items => {
-    if (!lower && !upper) {
-      lower = 0
-      upper = items.length - 1
-    } else if (!upper) {
-      upper = lower
-      lower = 0
-    }
+  if (!lower && !upper) {
+    lower = 0
+    upper = subject.length - 1
+  } else if (!upper) {
+    upper = lower
+    lower = 0
+  }
 
-    const index = Cypress._.random(lower, upper)
-    const result = items[index] || null
+  const index = Cypress._.random(lower, upper)
+  const yielded = subject[index] || null
 
-    Cypress.log({
-      name: 'random',
-      message: [`[${index}] => ${result}`],
-      consoleProps: () => {
-        return {
-          lower,
-          upper,
-          subject,
-          index,
-          result
-        }
-      }
+  Cypress.log({
+    name: 'random',
+    message: [`[${index}] => ${yielded}`],
+    consoleProps: () => ({
+      lower,
+      upper,
+      subject,
+      index,
+      yielded
     })
-
-    return result
   })
+
+  return yielded
 })

@@ -1,17 +1,15 @@
 Cypress.Commands.add('map', { prevSubject: true }, (subject, iteratee) => {
-    let result = Cypress._.map(subject, iteratee);
+  let yielded = Cypress._.map(subject, iteratee)
 
-    Cypress.log({
-        name: 'map',
-        message: [subject],
-        consoleProps: () => {
-            return {
-                subject: subject,
-                iteratee: iteratee,
-                result: result,
-            };
-        },
-    });
+  Cypress.log({
+    name: 'map',
+    message: [subject],
+    consoleProps: () => ({
+      subject,
+      iteratee,
+      yielded
+    })
+  })
 
-    return cy.wrap(result, { log: false });
-});
+  return yielded
+})

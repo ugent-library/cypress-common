@@ -18,22 +18,20 @@ Cypress.Commands.add('param', { prevSubject: 'optional' }, (subject, name, _defa
 
   return subj
     .then(url => getParam(url, name))
-    .then(result => {
-      const message = [name, result || '(default)']
+    .then(yielded => {
+      const message = [name, yielded || '(default)']
 
       Cypress.log({
         name: 'param',
         message: message,
-        consoleProps: () => {
-          return {
-            subject: url,
-            name: name,
-            result: result,
-            default: _default
-          }
-        }
+        consoleProps: () => ({
+          subject: url,
+          name,
+          yielded,
+          default: _default
+        })
       })
 
-      return result || _default
+      return yielded || _default
     })
 })
