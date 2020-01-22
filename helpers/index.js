@@ -1,1 +1,1 @@
-import './chai'
+require('./chai')

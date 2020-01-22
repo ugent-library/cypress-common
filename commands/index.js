@@ -1,6 +1,6 @@
-import './map'
-import './prop'
-import './random'
-import './split'
-import './sum'
-import './param'
+require('./map')
+require('./prop')
+require('./random')
+require('./split')
+require('./sum')
+require('./param')
