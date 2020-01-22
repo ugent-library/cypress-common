@@ -79,6 +79,14 @@ Yields the (aggregate) sum of the chained elements.
 cy.get('img').map('height').sum();
 ```
 
+### [unique([sorted])](commands/sorted.js)
+
+Yields the subject without duplictes. Use the `sorted` parameter to also sort the yielded array.
+
+```
+cy.get('a').map('href').unique(); // Find all unique hyperlinks on a page
+```
+
 ## Helpers
 
 ### [chai.js](helpers/chai.js)
