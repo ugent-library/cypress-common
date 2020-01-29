@@ -6,10 +6,17 @@
   "author": "Koen Verheyen <koen.verheyen@inuits.eu>",
   "license": "BSD-3-Clause",
   "scripts": {
-    "test": "cypress run"
+    "test": "cypress run",
+    "precommit": "node node_modules/js-precommit-hook"
+  },
+  "precommit": {
+    "silent": true,
+    "run": "precommit"
   },
   "devDependencies": {
-    "cypress": "^3.8.3"
+    "cypress": "^3.8.3",
+    "js-precommit-hook": "https://github.com/Universiteitsbibliotheek/js-precommit-hook",
+    "pre-commit": "^1.2.2"
   },
   "resolutions": {
     "lodash": "4.17.15"
