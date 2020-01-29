@@ -17,8 +17,5 @@
     "cypress": "^3.8.3",
     "js-precommit-hook": "https://github.com/Universiteitsbibliotheek/js-precommit-hook",
     "pre-commit": "^1.2.2"
-  },
-  "resolutions": {
-    "lodash": "4.17.15"
   }
 }
