@@ -1,29 +1,29 @@
-describe('The param command', function () {
+describe('The param command', () => {
   const query = '?query=test%20search&item=abc&count=123&item=def'
   const url = 'https://www.google.com/' + query
 
-  describe('When chained directly of cy', function () {
-    beforeEach(function () {
+  describe('When chained directly of cy', () => {
+    beforeEach(() => {
       cy.visit(url)
     })
 
-    it('should use the current location', function () {
+    it('should use the current location', () => {
       cy.param('query').should('eq', 'test search')
       cy.param('item').should('eql', ['abc', 'def'])
       cy.param('count').should('eq', '123')
     })
 
-    it('should return the default for an unknown parameter', function () {
+    it('should return the default for an unknown parameter', () => {
       cy.param('wrong', 'abc123').should('eq', 'abc123')
 
       cy.param('wrong').should('be.null')
     })
   })
 
-  describe('When used on a subject with a toString method', function () {
+  describe('When used on a subject with a toString method', () => {
     let subj
 
-    beforeEach(function () {
+    beforeEach(() => {
       subj = {
         propA: 1,
         propB: true,
@@ -31,7 +31,7 @@ describe('The param command', function () {
       }
     })
 
-    it('should invoke the toString method', function () {
+    it('should invoke the toString method', () => {
       cy.wrap(subj)
         .param('query')
         .should('eq', 'test search')
@@ -45,7 +45,7 @@ describe('The param command', function () {
         .should('eq', '123')
     })
 
-    it('should invoke the toString method (full url)', function () {
+    it('should invoke the toString method (full url)', () => {
       subj.toString = () => url
 
       cy.wrap(subj)
@@ -61,7 +61,7 @@ describe('The param command', function () {
         .should('eq', '123')
     })
 
-    it('should return the default for an unknown parameter', function () {
+    it('should return the default for an unknown parameter', () => {
       cy.wrap(subj)
         .param('wrong', 'abc123')
         .should('eq', 'abc123')
@@ -72,7 +72,7 @@ describe('The param command', function () {
     })
   })
 
-  describe('When used on a subject with a url property', function () {
+  describe('When used on a subject with a url property', () => {
     let subj
 
     beforeEach(() => {
@@ -83,7 +83,7 @@ describe('The param command', function () {
       }
     })
 
-    it('should get the url property', function () {
+    it('should get the url property', () => {
       cy.wrap(subj)
         .param('query')
         .should('eq', 'test search')
@@ -97,7 +97,7 @@ describe('The param command', function () {
         .should('eq', '123')
     })
 
-    it('should get the url property (full url)', function () {
+    it('should get the url property (full url)', () => {
       subj.url = url
 
       cy.wrap(subj)
@@ -113,7 +113,7 @@ describe('The param command', function () {
         .should('eq', '123')
     })
 
-    it('should return the default for an unknown parameter', function () {
+    it('should return the default for an unknown parameter', () => {
       cy.wrap(subj)
         .param('wrong', 'abc123')
         .should('eq', 'abc123')
@@ -124,8 +124,8 @@ describe('The param command', function () {
     })
   })
 
-  describe('When used on a string subject', function () {
-    it('should use the string as subject', function () {
+  describe('When used on a string subject', () => {
+    it('should use the string as subject', () => {
       cy.wrap(query)
         .param('query')
         .should('eq', 'test search')
@@ -139,7 +139,7 @@ describe('The param command', function () {
         .should('eq', '123')
     })
 
-    it('should use the string as subject (full url)', function () {
+    it('should use the string as subject (full url)', () => {
       cy.wrap(url)
         .param('query')
         .should('eq', 'test search')
@@ -153,7 +153,7 @@ describe('The param command', function () {
         .should('eq', '123')
     })
 
-    it('should return the default for an unknown parameter', function () {
+    it('should return the default for an unknown parameter', () => {
       cy.wrap(query)
         .param('wrong', 'abc123')
         .should('eq', 'abc123')
@@ -164,10 +164,9 @@ describe('The param command', function () {
     })
   })
 
-  describe('The alternate flow', function () {
+  describe('The alternate flow', () => {
     const assertFailure = (done, subject) => {
-      cy.on('fail', function (error) {
-        debugger
+      cy.on('fail', error => {
         expect(error.constructor.name).to.eq('Error')
         expect(error.message).to.eq(`Cannot get query parameter for ${subject}`)
 
@@ -175,19 +174,19 @@ describe('The param command', function () {
       })
     }
 
-    it('should throw an error if subject is a number', function (done) {
+    it('should throw an error if subject is a number', done => {
       assertFailure(done, 123)
 
       cy.wrap(123).param('name')
     })
 
-    it('should throw an error if subject is a boolean', function (done) {
+    it('should throw an error if subject is a boolean', done => {
       assertFailure(done, true)
 
       cy.wrap(true).param('name')
     })
 
-    it('should throw an error if subject is an object without toString method and url property', function (done) {
+    it('should throw an error if subject is an object without toString method and url property', done => {
       assertFailure(done, '[object Object]')
 
       cy.wrap({ propA: 123, propB: false }).param('name')
