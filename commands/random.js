@@ -8,7 +8,7 @@ Cypress.Commands.add('random', { prevSubject: true }, (subject, lower = 0, upper
   }
 
   const index = Cypress._.random(lower, upper)
-  const yielded = subject[index] || null
+  const yielded = index in subject ? subject[index] : null
 
   Cypress.log({
     name: 'random',

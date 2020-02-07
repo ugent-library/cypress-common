@@ -31,7 +31,7 @@ describe('The random command', () => {
 
   it('should be possible to pass an upper bound', () => {
     for (let i = 0; i < 100; i++) {
-      cy.wrap(list, { log: false })
+      cy.wrap(list)
         .random(10)
         .should('be.at.most', 10)
     }
@@ -39,7 +39,7 @@ describe('The random command', () => {
 
   it('should be possible to pass a lower and upper bound', () => {
     for (let i = 0; i < 100; i++) {
-      cy.wrap(list, { log: false })
+      cy.wrap(list)
         .random(30, 70)
         .should('be.within', 30, 70)
     }
