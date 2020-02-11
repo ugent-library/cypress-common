@@ -1,12 +1,12 @@
 language: node_js
 
 node_js:
-  - 8
+  - 10
 
 script:
   - yarn test --config video=true --record --key $CYPRESS_DASHBOARD_KEY
 
-cache: 
+cache:
   yarn: true
   directories:
     - ~/.npm
