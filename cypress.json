@@ -1,4 +1,5 @@
 {
   "projectId": "dkufj2",
-  "video": false
+  "video": false,
+  "retries": 2
 }
