@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/Universiteitsbibliotheek/cypress-common.svg?branch=master)](https://travis-ci.org/Universiteitsbibliotheek/cypress-common)
+[![cypress-common](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/simple/dkufj2&style=flat&logo=cypress)](https://dashboard.cypress.io/projects/dkufj2/runs)
 ![CodeQL](https://github.com/Universiteitsbibliotheek/cypress-common/workflows/CodeQL/badge.svg)
 
 # Helper commands & functions for Cypress test projects
