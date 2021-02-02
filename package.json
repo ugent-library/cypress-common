@@ -14,7 +14,7 @@
     "run": "precommit"
   },
   "devDependencies": {
-    "cypress": "^6.3.0",
+    "cypress": "^6.4.0",
     "js-precommit-hook": "https://github.com/Universiteitsbibliotheek/js-precommit-hook#^1.2.0"
   }
 }
