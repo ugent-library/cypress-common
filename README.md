@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/Universiteitsbibliotheek/cypress-common.svg?branch=master)](https://travis-ci.org/Universiteitsbibliotheek/cypress-common)
 [![cypress-common](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/simple/dkufj2&style=flat&logo=cypress)](https://dashboard.cypress.io/projects/dkufj2/runs)
-![CodeQL](https://github.com/Universiteitsbibliotheek/cypress-common/workflows/CodeQL/badge.svg)
+![CodeQL](https://github.com/ugent-library/cypress-common/workflows/CodeQL/badge.svg)
 
 # Helper commands & functions for Cypress test projects
 
@@ -12,7 +12,7 @@ Follow these steps to use this project:
 - Add this project as an npm/yarn package (replace `<version>` with the desired git version tag):
 
   ```
-  yarn add https://github.com/Universiteitsbibliotheek/cypress-common.git#<version>
+  yarn add https://github.com/ugent-library/cypress-common.git#<version>
   ```
 
 - Import the desired functions/commands in your `cypress/support/index.js` file:
