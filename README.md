@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/ugent-library/cypress-common.svg?branch=master)](https://travis-ci.org/ugent-library/cypress-common)
+[![Build Status](https://travis-ci.com/ugent-library/cypress-common.svg?branch=master)](https://travis-ci.com/ugent-library/cypress-common)
 [![cypress-common](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/simple/dkufj2&style=flat&logo=cypress)](https://dashboard.cypress.io/projects/dkufj2/runs)
 ![CodeQL](https://github.com/ugent-library/cypress-common/workflows/CodeQL/badge.svg)
 
