@@ -1,6 +1,6 @@
 [![GitHub Action Cypress Tests](https://github.com/ugent-library/cypress-common/actions/workflows/main.yml/badge.svg)](https://github.com/ugent-library/cypress-common/actions/workflows/main.yml)
 [![cypress-common](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/simple/dkufj2&style=flat&logo=cypress)](https://dashboard.cypress.io/projects/dkufj2/runs)
-![CodeQL](https://github.com/ugent-library/cypress-common/workflows/CodeQL/badge.svg)
+[![CodeQL](https://github.com/ugent-library/cypress-common/workflows/CodeQL/badge.svg)](https://github.com/ugent-library/cypress-common/actions/workflows/codeql-analysis.yml)
 
 # Helper commands & functions for Cypress test projects
 
