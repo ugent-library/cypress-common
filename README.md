@@ -65,12 +65,15 @@ cy.get('a').random(10, 20); // Yields a random A element from the 10..20 range
 cy.wrap([1, 2, 3]).random(4, 5); // Yields null
 ```
 
-### [split(delimiter)](commands/split.js)
+### [split([delimiter = ''[, filterEmptyElements = false]])](commands/split.js)
 
 Splits the subject string in multiple elements based on a delimiter.
 
 ```
 cy.get('textarea#notes').invoke('val').split('\n'); // Yields an array of lines of a selected TEXTAREA
+cy.wrap('abc def').split(); // Yields ['a', 'b', 'c', ' ', 'd', 'e', 'f']
+cy.location('pathname').split('/'); // Eg.: ['', 'en', 'tags', 'foo', 'bar', '']
+cy.location('pathname').split('/', true); // Eg.: ['en', 'tags', 'foo', 'bar']
 ```
 
 ### [sum()](commands/sum.js)
