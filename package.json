@@ -16,8 +16,5 @@
   "devDependencies": {
     "cypress": "^10.0.0",
     "js-precommit-hook": "https://github.com/ugent-library/js-precommit-hook#^1.2.0"
-  },
-  "resolutions": {
-    "json-schema": "^0.4.0"
   }
 }
