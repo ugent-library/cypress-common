@@ -6,8 +6,6 @@ describe('The unique command', () => {
   })
 
   it('should return the subject without duplicates and sorted', () => {
-    cy.wrap(['def', 'xyz', 'abc', 'def', 'abc', 'xyz'])
-      .unique(true)
-      .should('eql', ['abc', 'def', 'xyz'])
+    cy.wrap(['def', 'xyz', 'abc', 'def', 'abc', 'xyz']).unique(true).should('eql', ['abc', 'def', 'xyz'])
   })
 })

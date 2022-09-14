@@ -18,7 +18,7 @@ import '../../helpers'
 import '../../commands'
 
 global.expectAssertionErrorOnFail = (done, message) => {
-  cy.on('fail', function(error) {
+  cy.on('fail', error => {
     expect(error.constructor.name).to.eq('AssertionError')
     expect(error.message).to.eq(message)
 

@@ -27,48 +27,32 @@ describe('The param command', () => {
       subj = {
         propA: 1,
         propB: true,
-        toString: () => query
+        toString: () => query,
       }
     })
 
     it('should invoke the toString method', () => {
-      cy.wrap(subj)
-        .param('query')
-        .should('eq', 'test search')
+      cy.wrap(subj).param('query').should('eq', 'test search')
 
-      cy.wrap(subj)
-        .param('item')
-        .should('eql', ['abc', 'def'])
+      cy.wrap(subj).param('item').should('eql', ['abc', 'def'])
 
-      cy.wrap(subj)
-        .param('count')
-        .should('eq', '123')
+      cy.wrap(subj).param('count').should('eq', '123')
     })
 
     it('should invoke the toString method (full url)', () => {
       subj.toString = () => url
 
-      cy.wrap(subj)
-        .param('query')
-        .should('eq', 'test search')
+      cy.wrap(subj).param('query').should('eq', 'test search')
 
-      cy.wrap(subj)
-        .param('item')
-        .should('eql', ['abc', 'def'])
+      cy.wrap(subj).param('item').should('eql', ['abc', 'def'])
 
-      cy.wrap(subj)
-        .param('count')
-        .should('eq', '123')
+      cy.wrap(subj).param('count').should('eq', '123')
     })
 
     it('should return the default for an unknown parameter', () => {
-      cy.wrap(subj)
-        .param('wrong', 'abc123')
-        .should('eq', 'abc123')
+      cy.wrap(subj).param('wrong', 'abc123').should('eq', 'abc123')
 
-      cy.wrap(subj)
-        .param('wrong')
-        .should('be.null')
+      cy.wrap(subj).param('wrong').should('be.null')
     })
   })
 
@@ -79,88 +63,56 @@ describe('The param command', () => {
       subj = {
         propA: 1,
         url: query,
-        propB: true
+        propB: true,
       }
     })
 
     it('should get the url property', () => {
-      cy.wrap(subj)
-        .param('query')
-        .should('eq', 'test search')
+      cy.wrap(subj).param('query').should('eq', 'test search')
 
-      cy.wrap(subj)
-        .param('item')
-        .should('eql', ['abc', 'def'])
+      cy.wrap(subj).param('item').should('eql', ['abc', 'def'])
 
-      cy.wrap(subj)
-        .param('count')
-        .should('eq', '123')
+      cy.wrap(subj).param('count').should('eq', '123')
     })
 
     it('should get the url property (full url)', () => {
       subj.url = url
 
-      cy.wrap(subj)
-        .param('query')
-        .should('eq', 'test search')
+      cy.wrap(subj).param('query').should('eq', 'test search')
 
-      cy.wrap(subj)
-        .param('item')
-        .should('eql', ['abc', 'def'])
+      cy.wrap(subj).param('item').should('eql', ['abc', 'def'])
 
-      cy.wrap(subj)
-        .param('count')
-        .should('eq', '123')
+      cy.wrap(subj).param('count').should('eq', '123')
     })
 
     it('should return the default for an unknown parameter', () => {
-      cy.wrap(subj)
-        .param('wrong', 'abc123')
-        .should('eq', 'abc123')
+      cy.wrap(subj).param('wrong', 'abc123').should('eq', 'abc123')
 
-      cy.wrap(subj)
-        .param('wrong')
-        .should('be.null')
+      cy.wrap(subj).param('wrong').should('be.null')
     })
   })
 
   describe('When used on a string subject', () => {
     it('should use the string as subject', () => {
-      cy.wrap(query)
-        .param('query')
-        .should('eq', 'test search')
+      cy.wrap(query).param('query').should('eq', 'test search')
 
-      cy.wrap(query)
-        .param('item')
-        .should('eql', ['abc', 'def'])
+      cy.wrap(query).param('item').should('eql', ['abc', 'def'])
 
-      cy.wrap(query)
-        .param('count')
-        .should('eq', '123')
+      cy.wrap(query).param('count').should('eq', '123')
     })
 
     it('should use the string as subject (full url)', () => {
-      cy.wrap(url)
-        .param('query')
-        .should('eq', 'test search')
+      cy.wrap(url).param('query').should('eq', 'test search')
 
-      cy.wrap(url)
-        .param('item')
-        .should('eql', ['abc', 'def'])
+      cy.wrap(url).param('item').should('eql', ['abc', 'def'])
 
-      cy.wrap(url)
-        .param('count')
-        .should('eq', '123')
+      cy.wrap(url).param('count').should('eq', '123')
     })
 
     it('should return the default for an unknown parameter', () => {
-      cy.wrap(query)
-        .param('wrong', 'abc123')
-        .should('eq', 'abc123')
+      cy.wrap(query).param('wrong', 'abc123').should('eq', 'abc123')
 
-      cy.wrap(query)
-        .param('wrong')
-        .should('be.null')
+      cy.wrap(query).param('wrong').should('be.null')
     })
   })
 
