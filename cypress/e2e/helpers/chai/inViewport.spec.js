@@ -1,5 +1,5 @@
 describe('The inViewport method', () => {
-  before(() => {
+  beforeEach(() => {
     let $element = Cypress.$(`<button id="test" style="position: absolute">Test</button>`)
 
     cy.document().then(d => {
