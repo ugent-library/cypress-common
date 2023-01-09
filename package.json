@@ -14,7 +14,7 @@
     "run": "precommit"
   },
   "devDependencies": {
-    "cypress": "^12.0.1",
+    "cypress": "^12.3.0",
     "js-precommit-hook": "https://github.com/ugent-library/js-precommit-hook#v2.0.0"
   }
 }
