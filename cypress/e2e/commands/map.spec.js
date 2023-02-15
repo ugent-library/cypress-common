@@ -1,6 +1,6 @@
 describe('The map command', () => {
   it('should map all items of an array', () => {
-    cy.wrap([2, 8, 11, 28, 29, 33])
+    cy.wrap([3, 8, 11, 28, 29, 33])
       .map(i => i - 1)
       .should('eql', [1, 7, 10, 27, 28, 32])
       .map(i => i * 2)
