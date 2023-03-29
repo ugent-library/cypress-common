@@ -2,19 +2,26 @@
   "name": "cypress-common",
   "version": "3.13.1",
   "main": "index.js",
+  "types": "index.d.ts",
   "repository": "git@github.com:ugent-library/cypress-common.git",
   "author": "Koen Verheyen <koen.verheyen@inuits.eu>",
   "license": "BSD-3-Clause",
   "scripts": {
+    "lint": "tsc",
     "test": "cypress run",
     "precommit": "node node_modules/js-precommit-hook"
   },
   "precommit": {
     "silent": true,
-    "run": "precommit"
+    "run": [
+      "lint",
+      "precommit"
+    ]
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.191",
     "cypress": "^12.7.0",
-    "js-precommit-hook": "https://github.com/ugent-library/js-precommit-hook#v2.0.0"
+    "js-precommit-hook": "https://github.com/ugent-library/js-precommit-hook#v2.0.0",
+    "typescript": "^5.0.2"
   }
 }

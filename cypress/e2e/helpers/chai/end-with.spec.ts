@@ -1,3 +1,5 @@
+import { expectAssertionErrorOnFail } from 'cypress/support/e2e'
+
 describe('The end.with method', () => {
   describe('In regular mode', () => {
     it('should not throw when string ends with substring', () => {

@@ -1,3 +1,5 @@
+import { expectAssertionErrorOnFail } from 'cypress/support/e2e'
+
 describe('The param method', () => {
   describe('In regular mode', () => {
     it('should not throw when the param exists', () => {

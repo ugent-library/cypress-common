@@ -1,3 +1,5 @@
+import { expectAssertionErrorOnFail, expectErrorOnFail } from 'cypress/support/e2e'
+
 describe('The inViewport method', () => {
   beforeEach(() => {
     let $element = Cypress.$(`<button id="test" style="position: absolute">Test</button>`)
@@ -23,6 +25,28 @@ describe('The inViewport method', () => {
 
       cy.window().then(w => {
         expect(Cypress.$('#test')).to.be.inViewport(w)
+      })
+    })
+
+    it('should throw when invoked without the window argument', done => {
+      expectErrorOnFail(
+        done,
+        'You should provide the window object, retrieved by "cy.window()", as an argument to the "inViewport" assertion.'
+      )
+
+      cy.window().then(w => {
+        expect(Cypress.$('#test')).to.be.inViewport(undefined as unknown as Window)
+      })
+    })
+
+    it('should throw when invoked with a non-window argument', done => {
+      expectErrorOnFail(
+        done,
+        'You should provide the window object, retrieved by "cy.window()", as an argument to the "inViewport" assertion.'
+      )
+
+      cy.document().then(d => {
+        expect(Cypress.$('#test')).to.be.inViewport(d as unknown as Window)
       })
     })
   })

@@ -21,7 +21,7 @@ describe('The param command', () => {
   })
 
   describe('When used on a subject with a toString method', () => {
-    let subj
+    let subj: { propA: number; propB: boolean; toString: () => string }
 
     beforeEach(() => {
       subj = {
@@ -57,7 +57,7 @@ describe('The param command', () => {
   })
 
   describe('When used on a subject with a url property', () => {
-    let subj
+    let subj: { propA: number; url: string; propB: boolean }
 
     beforeEach(() => {
       subj = {
@@ -117,7 +117,7 @@ describe('The param command', () => {
   })
 
   describe('The alternate flow', () => {
-    const assertFailure = (done, subject) => {
+    const assertFailure = (done: Mocha.Done, subject: string | number | boolean) => {
       cy.on('fail', error => {
         expect(error.constructor.name).to.eq('Error')
         expect(error.message).to.eq(`Cannot get query parameter for ${subject}`)

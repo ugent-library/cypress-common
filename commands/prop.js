@@ -1,27 +1,27 @@
-Cypress.Commands.add('prop', { prevSubject: true }, (subject, property, newValue = null) => {
-  if (newValue) {
-    subject.prop(property, newValue)
+Cypress.Commands.add('prop', { prevSubject: true }, (subject, propertyName, value = null) => {
+  if (value) {
+    subject.prop(propertyName, value)
 
     Cypress.log({
       name: 'prop',
-      message: `${property} = ${newValue}`,
+      message: `${propertyName} = ${value}`,
       consoleProps: () => ({
-        property,
-        newValue
-      })
+        propertyName,
+        value,
+      }),
     })
 
     return subject
   } else {
-    const yielded = subject.prop(property)
+    const yielded = subject.prop(propertyName)
 
     Cypress.log({
       name: 'prop',
-      message: property,
+      message: propertyName,
       consoleProps: () => ({
-        property,
-        yielded
-      })
+        propertyName,
+        yielded,
+      }),
     })
 
     return yielded

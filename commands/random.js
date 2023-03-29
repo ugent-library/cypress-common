@@ -18,8 +18,8 @@ Cypress.Commands.add('random', { prevSubject: true }, (subject, lower = 0, upper
       upper,
       subject,
       index,
-      yielded
-    })
+      yielded,
+    }),
   })
 
   return yielded

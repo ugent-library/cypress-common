@@ -1,5 +1,7 @@
+import { expectAssertionErrorOnFail } from 'cypress/support/e2e'
+
 describe('The readonly property', () => {
-  let $input
+  let $input: JQuery<HTMLInputElement>
 
   beforeEach(() => {
     $input = Cypress.$('<input />', { readonly: true })

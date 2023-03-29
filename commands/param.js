@@ -1,6 +1,6 @@
-var getParam = require('../helpers/chai/paramHelper').getParam
+var getParam = require('../helpers/chai/param-helper').getParam
 
-Cypress.Commands.add('param', { prevSubject: 'optional' }, (subject, name, _default = null) => {
+Cypress.Commands.add('param', { prevSubject: 'optional' }, (subject, name, defaultValue = null) => {
   let subj = null
   let url = null
 
@@ -28,10 +28,10 @@ Cypress.Commands.add('param', { prevSubject: 'optional' }, (subject, name, _defa
           subject: url,
           name,
           yielded,
-          default: _default
-        })
+          default: defaultValue,
+        }),
       })
 
-      return yielded || _default
+      return yielded || defaultValue
     })
 })

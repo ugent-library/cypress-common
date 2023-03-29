@@ -1,7 +1,7 @@
 require('./map')
+require('./param')
 require('./prop')
 require('./random')
 require('./split')
 require('./sum')
-require('./param')
 require('./unique')

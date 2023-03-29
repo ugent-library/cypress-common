@@ -1,8 +1,7 @@
-chai.Assertion.addMethod('inViewport', function(window) {
+chai.Assertion.addMethod('inViewport', function (window) {
   if (!window || window.constructor.name !== 'Window') {
     throw new Error(
-      'You should provide the window object, retrieved by "cy.window()" as the second ' +
-        'argument for the "inViewport" assertion.'
+      'You should provide the window object, retrieved by "cy.window()", as an argument to the "inViewport" assertion.'
     )
   }
 

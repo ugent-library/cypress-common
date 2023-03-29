@@ -1,4 +1,4 @@
-var getParam = require('./paramHelper').getParam
+var getParam = require('./param-helper').getParam
 
 chai.Assertion.addMethod('param', function (name, value = null) {
   const negate = chai.util.flag(this, 'negate') || false

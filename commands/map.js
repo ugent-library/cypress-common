@@ -7,8 +7,8 @@ Cypress.Commands.add('map', { prevSubject: true }, (subject, iteratee) => {
     consoleProps: () => ({
       subject,
       iteratee,
-      yielded
-    })
+      yielded,
+    }),
   })
 
   return yielded
