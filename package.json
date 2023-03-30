@@ -1,6 +1,6 @@
 {
   "name": "cypress-common",
-  "version": "3.13.1",
+  "version": "3.14.0",
   "main": "index.js",
   "types": "index.d.ts",
   "repository": "git@github.com:ugent-library/cypress-common.git",
