@@ -1,6 +1,6 @@
 declare global {
   export namespace Cypress {
-    interface Chainable<Subject = any> {
+    interface Chainable {
       /**
        * Splits the subject string in multiple elements based on a delimiter.
        *

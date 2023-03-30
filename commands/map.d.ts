@@ -4,7 +4,7 @@ declare global {
   namespace Cypress {
     type Iteratee<T, U> = ((value: T, index: number | string, collection: T[]) => U) | IterateeShorthand<T>
 
-    interface Chainable<Subject = any> {
+    interface Chainable {
       /**
        * Maps a set of chained elements using a lodash iteratee.
        *

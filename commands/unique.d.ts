@@ -1,6 +1,6 @@
 declare global {
   export namespace Cypress {
-    interface Chainable<Subject = any> {
+    interface Chainable {
       /**
        * Yields the subject without any duplicates.
        *

@@ -25,7 +25,7 @@ describe('The prop command', () => {
   it('should be possible to set a property on an object', () => {
     cy.get('#someLink').as('some-link').prop<string>('title', 'some other title').prop<string>('href', '/def')
 
-    cy.get('@some-link').should((sl: JQuery<HTMLElement>) => {
+    cy.get('@some-link').should(sl => {
       // Check the DOM way
       expect(sl.get(0)).to.have.property('title', 'some other title')
       expect(sl.get(0)).to.have.property('href', 'https://www.google.com/def')

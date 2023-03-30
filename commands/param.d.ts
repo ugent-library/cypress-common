@@ -1,6 +1,6 @@
 declare global {
   export namespace Cypress {
-    interface Chainable<Subject = any> {
+    interface Chainable {
       /**
        * Read a query parameter from the current location or from a chained string or object with `toString` method.
        *

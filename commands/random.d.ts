@@ -1,13 +1,25 @@
 declare global {
   export namespace Cypress {
-    interface Chainable<Subject = any> {
+    interface Chainable {
+      /**
+       * Yields a random element from the list of chained elements.
+       */
+      random<T>(): Chainable<T | null>
+
       /**
        * Yields a random element from the list of chained elements.
        *
-       * @param lower The lower bound. (optional)
-       * @param upper The upper bound. (optional)
+       * @param upper The upper index bound.
        */
-      random(lower?: number, upper?: number | null): Chainable<Subject>
+      random<T>(upper: number): Chainable<T | null>
+
+      /**
+       * Yields a random element from the list of chained elements.
+       *
+       * @param lower The lower index bound.
+       * @param upper The upper index bound.
+       */
+      random<T>(lower: number, upper: number): Chainable<T | null>
     }
   }
 }

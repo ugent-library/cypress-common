@@ -1,6 +1,6 @@
 declare global {
   export namespace Cypress {
-    interface Chainable<Subject = any> {
+    interface Chainable {
       /**
        * Yields the (aggregate) sum of the chained elements.
        */

@@ -1,6 +1,6 @@
 declare global {
   export namespace Cypress {
-    interface Chainable<Subject = any> {
+    interface Chainable<Subject> {
       /**
        * Get the value of a property for the first element in the set of matched elements. Invokes the jQuery prop method.
        *
