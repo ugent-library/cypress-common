@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "@types/lodash": "^4.14.191",
-    "cypress": "^12.17.3",
+    "cypress": "^12.17.4",
     "js-precommit-hook": "https://github.com/ugent-library/js-precommit-hook#2.1.0",
     "typescript": "^5.0.2"
   }
