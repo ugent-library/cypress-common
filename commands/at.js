@@ -3,7 +3,7 @@ Cypress.Commands.add('at', { prevSubject: true }, (subject, index) => {
 
   Cypress.log({
     name: 'at',
-    message: [subject],
+    message: index,
     consoleProps: () => ({
       subject,
       index,
