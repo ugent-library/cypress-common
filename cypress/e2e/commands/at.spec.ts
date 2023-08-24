@@ -45,4 +45,13 @@ describe('The at command', () => {
     cy.wrap(null).at(5).should('be.undefined')
     cy.wrap(undefined).at(-6).should('be.undefined')
   })
+
+  it('should also work if the index is a string instead of a number', () => {
+    cy.wrap(list)
+      .at<number>('2' as unknown as number)
+      .should('equal', 2)
+    cy.wrap(list)
+      .at<number>('-2' as unknown as number)
+      .should('equal', 8)
+  })
 })

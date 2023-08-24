@@ -26,13 +26,15 @@ Follow these steps to use this project:
 
 ## Commands
 
-### [param(name)](commands/param.js)
+### [at(index)](commands/at.js)
 
-Read a query parameter from the current location or from a chained string or object with `toString` method.
+Yields the element at index (zero-based) n of array. If n is negative, the nth element from the end is yielded.
 
 ```js
-cy.param('search').should('eq', 'Wikipedia')
-cy.get('iframe').its('src').param('viewMode').should('eq', 'embedded')
+cy.get('img').at(2) // Yields the third image element
+cy.get('a').prop('href').at(1) // Yields "t" (provided href is a URL that starts with "http")
+cy.wrap([1, 2, 3, 4]).at(3) // Yields 4
+cy.wrap([1, 2, 3, 4]).at(-1) // Yields 4
 ```
 
 ### [map(iteratee)](commands/map.js)
@@ -43,6 +45,15 @@ Maps a set of chained elements using a lodash iteratee.
 cy.get('a').map('href') // Yields an array of href attributes of each A-tag
 cy.get('img').map(img => Math.max(img.height, img.width)) // Yields the maximum side size for each IMG-tag
 cy.wrap([1, 2, 3]).map(i => i * i) // Yields [1, 4, 9]
+```
+
+### [param(name)](commands/param.js)
+
+Read a query parameter from the current location or from a chained string or object with `toString` method.
+
+```js
+cy.param('search').should('eq', 'Wikipedia')
+cy.get('iframe').its('src').param('viewMode').should('eq', 'embedded')
 ```
 
 ### [prop(name[, value])](commands/prop.js)
