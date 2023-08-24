@@ -2,7 +2,7 @@ declare global {
   export namespace Cypress {
     interface Chainable {
       /**
-       * Yields the element at index n of array. If n is negative, the nth element from the end is yielded.
+       * Yields the element at index n (zero-based) of "array-likes". If n is negative, the n-th element from the end is yielded.
        *
        * @param index The index of the element to yield.
        */

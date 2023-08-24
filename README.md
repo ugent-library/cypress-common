@@ -28,13 +28,17 @@ Follow these steps to use this project:
 
 ### [at(index)](commands/at.js)
 
-Yields the element at index (zero-based) n of array. If n is negative, the nth element from the end is yielded.
+Yields the element at index n (zero-based) of "array-likes". If n is negative, the n-th element from the end is yielded.
+
+This command uses lodash's [nth](https://lodash.com/docs#nth) method under the hood, which is very similar to the vanilla [Array.prototype.at](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/at) method but yields undefined instead of throwing when the subject is not an array-like.
 
 ```js
 cy.get('img').at(2) // Yields the third image element
 cy.get('a').prop('href').at(1) // Yields "t" (provided href is a URL that starts with "http")
 cy.wrap([1, 2, 3, 4]).at(3) // Yields 4
 cy.wrap([1, 2, 3, 4]).at(-1) // Yields 4
+cy.wrap([1, 2, 3, 4]).at(10) // Yields undefined
+cy.wrap({ abc: 123 }).at(4) // Yields undefined
 ```
 
 ### [map(iteratee)](commands/map.js)
