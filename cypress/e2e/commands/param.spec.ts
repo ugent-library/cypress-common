@@ -1,10 +1,10 @@
 describe('The param command', () => {
-  const query = '?query=test%20search&item=abc&count=123&item=def'
-  const url = 'https://www.google.com/' + query
+  const query = '?q=test%20search&item=abc&count=123&item=def'
+  const url = 'https://lib.ugent.be/' + query
 
   describe('When chained directly of cy', () => {
     beforeEach(() => {
-      cy.origin('https://www.google.com', { args: url }, url => {
+      cy.origin('https://lib.ugent.be', { args: url }, url => {
         Cypress.require('../../../commands/param')
 
         cy.visit(url)
@@ -12,15 +12,15 @@ describe('The param command', () => {
     })
 
     it('should use the current location', () => {
-      cy.origin('https://www.google.com', () => {
-        cy.param('query').should('eq', 'test search')
+      cy.origin('https://lib.ugent.be', () => {
+        cy.param('q').should('eq', 'test search')
         cy.param('item').should('eql', ['abc', 'def'])
         cy.param('count').should('eq', '123')
       })
     })
 
     it('should return the default for an unknown parameter', () => {
-      cy.origin('https://www.google.com', () => {
+      cy.origin('https://lib.ugent.be', () => {
         cy.param('wrong', 'abc123').should('eq', 'abc123')
 
         cy.param('wrong').should('be.null')
@@ -40,7 +40,7 @@ describe('The param command', () => {
     })
 
     it('should invoke the toString method', () => {
-      cy.wrap(subj).param('query').should('eq', 'test search')
+      cy.wrap(subj).param('q').should('eq', 'test search')
 
       cy.wrap(subj).param('item').should('eql', ['abc', 'def'])
 
@@ -50,7 +50,7 @@ describe('The param command', () => {
     it('should invoke the toString method (full url)', () => {
       subj.toString = () => url
 
-      cy.wrap(subj).param('query').should('eq', 'test search')
+      cy.wrap(subj).param('q').should('eq', 'test search')
 
       cy.wrap(subj).param('item').should('eql', ['abc', 'def'])
 
@@ -76,7 +76,7 @@ describe('The param command', () => {
     })
 
     it('should get the url property', () => {
-      cy.wrap(subj).param('query').should('eq', 'test search')
+      cy.wrap(subj).param('q').should('eq', 'test search')
 
       cy.wrap(subj).param('item').should('eql', ['abc', 'def'])
 
@@ -86,7 +86,7 @@ describe('The param command', () => {
     it('should get the url property (full url)', () => {
       subj.url = url
 
-      cy.wrap(subj).param('query').should('eq', 'test search')
+      cy.wrap(subj).param('q').should('eq', 'test search')
 
       cy.wrap(subj).param('item').should('eql', ['abc', 'def'])
 
@@ -102,7 +102,7 @@ describe('The param command', () => {
 
   describe('When used on a string subject', () => {
     it('should use the string as subject', () => {
-      cy.wrap(query).param('query').should('eq', 'test search')
+      cy.wrap(query).param('q').should('eq', 'test search')
 
       cy.wrap(query).param('item').should('eql', ['abc', 'def'])
 
@@ -110,7 +110,7 @@ describe('The param command', () => {
     })
 
     it('should use the string as subject (full url)', () => {
-      cy.wrap(url).param('query').should('eq', 'test search')
+      cy.wrap(url).param('q').should('eq', 'test search')
 
       cy.wrap(url).param('item').should('eql', ['abc', 'def'])
 
