@@ -1,5 +1,4 @@
 import '../../helpers'
-
 import '../../commands'
 
 export function expectErrorOnFail(done: Mocha.Done, message: string, errorTypeName: string = 'Error') {

@@ -8,5 +8,6 @@ export default defineConfig({
   e2e: {
     specPattern: 'cypress/e2e/**/*.{js,jsx,ts,tsx}',
     experimentalRunAllSpecs: true,
+    experimentalOriginDependencies: true,
   },
 })

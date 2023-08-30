@@ -10,19 +10,23 @@ describe('The map command', () => {
   })
 
   it('should map all elements in jQuery object', () => {
-    cy.visit('https://lib.ugent.be/')
+    cy.origin('https://lib.ugent.be', () => {
+      Cypress.require('../../../commands/map')
 
-    cy.get('a')
-      .as('links')
-      .its('length')
-      .should('be.above', 5)
-      .then(length => {
-        cy.get('@links')
-          .each($a => expect($a).to.be.an('object'))
-          .map<HTMLAnchorElement, string>('href')
-          .each(href => expect(href).to.be.a('string'))
-          .should('be.an', 'array')
-          .should('have.length', length)
-      })
+      cy.visit('/')
+
+      cy.get('a')
+        .as('links')
+        .its('length')
+        .should('be.above', 5)
+        .then(length => {
+          cy.get('@links')
+            .each($a => expect($a).to.be.an('object'))
+            .map<HTMLAnchorElement, string>('href')
+            .each(href => expect(href).to.be.a('string'))
+            .should('be.an', 'array')
+            .should('have.length', length)
+        })
+    })
   })
 })

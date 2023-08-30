@@ -11,13 +11,17 @@ describe('The random command', () => {
   })
 
   it('should return a random item of a jQuery object (wrapped again by cypress)', () => {
-    cy.visit('https://lib.ugent.be/')
+    cy.origin('https://lib.ugent.be', () => {
+      Cypress.require('../../../commands/random')
 
-    cy.get('img, a').as('items').its('length').should('be.above', 30)
+      cy.visit('/')
 
-    cy.get('@items').random<HTMLElement>().should('be.an', 'object').should('have.length', 1)
+      cy.get('img, a').as('items').its('length').should('be.above', 30)
 
-    cy.get('@items').random<HTMLElement>().invoke('prop', 'tagName').should('be.oneOf', ['IMG', 'A'])
+      cy.get('@items').random<HTMLElement>().should('be.an', 'object').should('have.length', 1)
+
+      cy.get('@items').random<HTMLElement>().invoke('prop', 'tagName').should('be.oneOf', ['IMG', 'A'])
+    })
   })
 
   it('should be possible to pass an upper bound', () => {

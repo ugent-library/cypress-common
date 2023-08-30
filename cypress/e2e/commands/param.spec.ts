@@ -4,19 +4,27 @@ describe('The param command', () => {
 
   describe('When chained directly of cy', () => {
     beforeEach(() => {
-      cy.visit(url)
+      cy.origin('https://www.google.com', { args: url }, url => {
+        Cypress.require('../../../commands/param')
+
+        cy.visit(url)
+      })
     })
 
     it('should use the current location', () => {
-      cy.param('query').should('eq', 'test search')
-      cy.param('item').should('eql', ['abc', 'def'])
-      cy.param('count').should('eq', '123')
+      cy.origin('https://www.google.com', () => {
+        cy.param('query').should('eq', 'test search')
+        cy.param('item').should('eql', ['abc', 'def'])
+        cy.param('count').should('eq', '123')
+      })
     })
 
     it('should return the default for an unknown parameter', () => {
-      cy.param('wrong', 'abc123').should('eq', 'abc123')
+      cy.origin('https://www.google.com', () => {
+        cy.param('wrong', 'abc123').should('eq', 'abc123')
 
-      cy.param('wrong').should('be.null')
+        cy.param('wrong').should('be.null')
+      })
     })
   })
 
