@@ -1,5 +1,5 @@
 describe('The attr command', () => {
-  let someLink = '<a id="someLink" href="abc" title="the title" data-id="987" data-type="link">test</a>'
+  const someLink = '<a id="someLink" href="abc" title="the title" data-id="987" data-type="link">test</a>'
 
   beforeEach(() => {
     cy.origin('https://lib.ugent.be', { args: someLink }, someLink => {
@@ -14,7 +14,7 @@ describe('The attr command', () => {
   })
 
   it('should return a attribute from an object', () => {
-    cy.origin('https://lib.ugent.be', { args: someLink }, someLink => {
+    cy.origin('https://lib.ugent.be', () => {
       cy.get('#someLink').as('some-link').attr('href').should('eq', 'abc')
 
       cy.get('@some-link').attr('title').should('eq', 'the title')
@@ -39,6 +39,7 @@ describe('The attr command', () => {
       })
 
       cy.get('@some-link').attr('title').should('eq', 'some other title')
+
       cy.get('@some-link').attr('href').should('eq', '/def')
     })
   })

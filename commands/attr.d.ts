@@ -6,7 +6,7 @@ declare global {
        *
        * @param attributeName The name of the attribute to get.
        */
-      attr(attributeName: string): Chainable
+      attr(attributeName: string): Chainable<string>
 
       /**
        * Set one or more attributes for the set of matched elements. Invokes the jQuery attr method.

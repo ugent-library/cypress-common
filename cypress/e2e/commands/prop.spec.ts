@@ -1,14 +1,16 @@
 describe('The prop command', () => {
-  let someLink = '<a id="someLink" href="abc" title="the title" data-id="987" data-type="link">test</a>'
+  const someLink = '<a id="someLink" href="abc" title="the title" data-id="987" data-type="link">test</a>'
+  const someMeter = '<meter id="someMeter" min="0" max="123" value="75">75%</meter>'
 
   beforeEach(() => {
-    cy.origin('https://lib.ugent.be', { args: someLink }, someLink => {
+    cy.origin('https://lib.ugent.be', { args: { someLink, someMeter } }, ({ someLink, someMeter }) => {
       Cypress.require('../../../commands/prop')
 
       cy.visit('/')
 
       cy.document().then(doc => {
         Cypress.$(someLink).appendTo(doc.body)
+        Cypress.$(someMeter).appendTo(doc.body)
       })
     })
   })
@@ -25,6 +27,9 @@ describe('The prop command', () => {
         .prop<DOMStringMap>('dataset')
         .then(dataset => ({ ...dataset })) // Convert DOMStringMap to a plain object
         .should('eql', { id: '987', type: 'link' })
+
+      cy.get('#someMeter').as('some-meter').prop('max').should('be.a', 'number').should('eq', 123)
+      cy.get('@some-meter').prop<number>('max').should('eq', 123)
     })
   })
 
@@ -44,6 +49,19 @@ describe('The prop command', () => {
 
       cy.get('@some-link').prop<string>('title').should('eq', 'some other title')
       cy.get('@some-link').prop<string>('href').should('eq', 'https://lib.ugent.be/def')
+
+      // Update a numeric property
+      cy.get('#someMeter').as('some-meter').prop<number>('max', 456)
+
+      cy.get('@some-meter').should(sl => {
+        // Check the DOM way
+        expect(sl.get(0)).to.have.property('max', 456)
+
+        // Check the JQuery way
+        expect(sl.prop('max')).to.eq(456)
+      })
+
+      cy.get('@some-meter').prop<number>('max').should('eq', 456)
     })
   })
 })
