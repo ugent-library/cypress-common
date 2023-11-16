@@ -41,6 +41,15 @@ cy.wrap([1, 2, 3, 4]).at(10) // Yields undefined
 cy.wrap({ abc: 123 }).at(4) // Yields undefined
 ```
 
+### [attr(name[, value])](commands/attr.js)
+
+Invokes the jQuery [attr](https://api.jquery.com/attr/) method.
+
+```js
+cy.get('img#logo').attr('src') // Yields the src attribute value of the selected IMG
+cy.get('img#logo').attr('alt', 'The corporate logo') // Yields the selected IMG component
+```
+
 ### [map(iteratee)](commands/map.js)
 
 Maps a set of chained elements using a lodash iteratee.
@@ -64,8 +73,9 @@ cy.get('iframe').its('src').param('viewMode').should('eq', 'embedded')
 
 Invokes the jQuery [prop](https://api.jquery.com/prop/) method.
 
-```js
+```ts
 cy.get('img#logo').prop('src') // Yields the src property value of the selected IMG
+cy.get('img#logo').prop<string>('src') // Typescript version of the line above
 cy.get('img#logo').prop('alt', 'The corporate logo') // Yields the selected IMG component
 ```
 

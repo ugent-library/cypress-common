@@ -1,4 +1,5 @@
 /// <reference types="./at" />
+/// <reference types="./attr" />
 /// <reference types="./map" />
 /// <reference types="./param" />
 /// <reference types="./prop" />

@@ -1,4 +1,5 @@
 require('./at')
+require('./attr')
 require('./map')
 require('./param')
 require('./prop')

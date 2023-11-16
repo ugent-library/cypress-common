@@ -1,5 +1,9 @@
+import chaiDom from 'chai-dom'
+
 import '../../helpers'
 import '../../commands'
+
+chai.use(chaiDom)
 
 export function expectErrorOnFail(done: Mocha.Done, message: string, errorTypeName: string = 'Error') {
   cy.on('fail', error => {
