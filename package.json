@@ -21,7 +21,7 @@
     "@types/lodash": "^4.14.201",
     "chai": "^4.3.10",
     "chai-dom": "^1.12.0",
-    "cypress": "^13.5.1",
+    "cypress": "^13.6.3",
     "js-precommit-hook": "https://github.com/ugent-library/js-precommit-hook#2.1.0",
     "typescript": "^5.2.2"
   }
