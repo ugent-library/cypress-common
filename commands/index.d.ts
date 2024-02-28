@@ -2,6 +2,7 @@
 /// <reference types="./attr" />
 /// <reference types="./map" />
 /// <reference types="./param" />
+/// <reference types="./params" />
 /// <reference types="./prop" />
 /// <reference types="./random" />
 /// <reference types="./split" />
