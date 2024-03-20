@@ -4,14 +4,14 @@ declare global {
       /**
        * Yields a random element from the list of chained elements.
        */
-      random<T>(): Chainable<T | null>;
+      random<T = Subject>(): Chainable<Subject | null>;
 
       /**
        * Yields a random element from the list of chained elements.
        *
        * @param upper The upper index bound.
        */
-      random<T>(upper: number): Chainable<T | null>;
+      random<T = Subject>(upper: number): Chainable<T | null>;
 
       /**
        * Yields a random element from the list of chained elements.
@@ -19,7 +19,7 @@ declare global {
        * @param lower The lower index bound.
        * @param upper The upper index bound.
        */
-      random<T>(lower: number, upper: number): Chainable<T | null>;
+      random<T = Subject>(lower: number, upper: number): Chainable<T | null>;
     }
   }
 }
