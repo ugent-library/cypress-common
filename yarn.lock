@@ -789,9 +789,9 @@ isstream@~0.1.2:
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
   integrity sha512-Yljz7ffyPbrLpLngrMtZ7NduUgVvi6wG9RJ9IUcyCd59YQ911PBJphODUcbOVbqYfxe1wuYf/LJ8PauMRwsM/g==
 
-"js-precommit-hook@https://github.com/ugent-library/js-precommit-hook#2.1.0":
-  version "2.1.0"
-  resolved "https://github.com/ugent-library/js-precommit-hook#83c85db75171d138968170400e9173c9c332452e"
+"js-precommit-hook@https://github.com/ugent-library/js-precommit-hook#2.1.1":
+  version "2.1.1"
+  resolved "https://github.com/ugent-library/js-precommit-hook#229986e679ac8a237b7177aae325039a5466adab"
   dependencies:
     colors "^1.4.0"
     pre-commit "^1.2.2"
