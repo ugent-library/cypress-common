@@ -24,5 +24,8 @@
     "cypress": "^13.15.0",
     "js-precommit-hook": "ugent-library/js-precommit-hook",
     "typescript": "^5.2.2"
+  },
+  "resolutions": {
+    "cross-spawn": "^7.0.6"
   }
 }
