@@ -1,14 +1,14 @@
-Cypress.Commands.add('sum', { prevSubject: true }, subject => {
-  let yielded = Cypress._.reduce(subject, Cypress._.add, 0)
+Cypress.Commands.add("sum", { prevSubject: true }, (subject) => {
+  let yielded = Cypress._.reduce(subject, Cypress._.add, 0);
 
   Cypress.log({
-    name: 'sum',
+    name: "sum",
     message: [subject, yielded],
     consoleProps: () => ({
       subject: subject,
-      result: yielded
-    })
-  })
+      result: yielded,
+    }),
+  });
 
-  return yielded
-})
+  return yielded;
+});

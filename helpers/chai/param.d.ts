@@ -6,6 +6,6 @@ declare module Chai {
      * @param name
      * @param value (optional)
      */
-    param(name: string, value?: string | string[]): void
+    param(name: string, value?: string | string[]): void;
   }
 }

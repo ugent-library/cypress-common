@@ -115,12 +115,12 @@ describe("The params command", () => {
   describe("The alternate flow", () => {
     const assertFailure = (
       done: Mocha.Done,
-      subject: string | number | boolean
+      subject: string | number | boolean,
     ) => {
       cy.on("fail", (error) => {
         expect(error.constructor.name).to.eq("Error");
         expect(error.message).to.eq(
-          `Cannot get query parameter for ${subject}`
+          `Cannot get query parameter for ${subject}`,
         );
 
         done();

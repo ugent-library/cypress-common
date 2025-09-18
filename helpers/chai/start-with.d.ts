@@ -9,7 +9,7 @@ declare module Chai {
        *
        * @param substring
        */
-      with(substring: string): void
-    }
+      with(substring: string): void;
+    };
   }
 }

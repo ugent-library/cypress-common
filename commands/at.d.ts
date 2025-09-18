@@ -6,9 +6,9 @@ declare global {
        *
        * @param index The index of the element to yield.
        */
-      at<T>(index: number): Chainable<T | undefined>
+      at<T>(index: number): Chainable<T | undefined>;
     }
   }
 }
 
-export {}
+export {};

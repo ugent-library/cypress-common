@@ -1,2 +1,2 @@
-require('./helpers')
-require('./commands')
+require("./helpers");
+require("./commands");

@@ -149,7 +149,7 @@ These helpers can be used both as a Chai expectation:
 expect("This is a test").to.end.with("a test");
 expect("https://www.google.com/search?query=abc123").to.have.param(
   "query",
-  "abc123"
+  "abc123",
 );
 expect(Cypress.$("#aButton")).to.be.inViewport(window);
 ```
@@ -167,7 +167,7 @@ All Chai helpers can also be inversed with the `.not` flag:
 ```js
 expect("This is a test").to.not.start.with("a test");
 expect("https://www.google.com/search?query=abc123").to.not.have.param(
-  "source"
+  "source",
 );
 cy.get("input#name").should("not.be.readonly");
 ```

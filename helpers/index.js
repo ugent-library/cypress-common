@@ -1,1 +1,1 @@
-require('./chai')
+require("./chai");

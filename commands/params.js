@@ -18,27 +18,25 @@ Cypress.Commands.add("params", { prevSubject: "optional" }, (subject) => {
   }
 
   return subj
-    .then((url) =>
-      {
-      const paramsEntries = new URLSearchParams(url.slice(url.indexOf("?")))
-        .entries();
-        
-        return [...paramsEntries]
-          .reduce((previous, [name, value]) => {
-            if (name in previous) {
-              if (!Array.isArray(previous[name])) {
-                previous[name] = [previous[name]];
-              }
+    .then((url) => {
+      const paramsEntries = new URLSearchParams(
+        url.slice(url.indexOf("?")),
+      ).entries();
 
-              previous[name].push(value);
-            } else {
-              previous[name] = value;
-            }
+      return [...paramsEntries].reduce((previous, [name, value]) => {
+        if (name in previous) {
+          if (!Array.isArray(previous[name])) {
+            previous[name] = [previous[name]];
+          }
 
-            return previous;
-          }, {});
-      }
-    )
+          previous[name].push(value);
+        } else {
+          previous[name] = value;
+        }
+
+        return previous;
+      }, {});
+    })
     .then((yielded) => {
       const message = [yielded];
 

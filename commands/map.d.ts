@@ -1,8 +1,10 @@
-import { IterateeShorthand } from 'cypress/types/lodash'
+import { IterateeShorthand } from "cypress/types/lodash";
 
 declare global {
   namespace Cypress {
-    type Iteratee<T, U> = ((value: T, index: number | string, collection: T[]) => U) | IterateeShorthand<T>
+    type Iteratee<T, U> =
+      | ((value: T, index: number | string, collection: T[]) => U)
+      | IterateeShorthand<T>;
 
     interface Chainable {
       /**
@@ -10,7 +12,7 @@ declare global {
        *
        * @param iteratee The function invoked per iteration.
        */
-      map<T, U>(iteratee: Iteratee<T, U>): Chainable<U[]>
+      map<T, U>(iteratee: Iteratee<T, U>): Chainable<U[]>;
     }
   }
 }

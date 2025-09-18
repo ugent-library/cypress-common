@@ -1,19 +1,23 @@
-import chaiDom from 'chai-dom'
+import chaiDom from "chai-dom";
 
-import '../../helpers'
-import '../../commands'
+import "../../helpers";
+import "../../commands";
 
-chai.use(chaiDom)
+chai.use(chaiDom);
 
-export function expectErrorOnFail(done: Mocha.Done, message: string, errorTypeName: string = 'Error') {
-  cy.on('fail', error => {
-    expect(error.constructor.name).to.eq(errorTypeName)
-    expect(error.message).to.eq(message)
+export function expectErrorOnFail(
+  done: Mocha.Done,
+  message: string,
+  errorTypeName: string = "Error",
+) {
+  cy.on("fail", (error) => {
+    expect(error.constructor.name).to.eq(errorTypeName);
+    expect(error.message).to.eq(message);
 
-    done()
-  })
+    done();
+  });
 }
 
 export function expectAssertionErrorOnFail(done: Mocha.Done, message: string) {
-  expectErrorOnFail(done, message, 'AssertionError')
+  expectErrorOnFail(done, message, "AssertionError");
 }

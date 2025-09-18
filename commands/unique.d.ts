@@ -6,9 +6,9 @@ declare global {
        *
        * @param sorted Boolean indicating whether the yielded array should also be sorted. (default = false)
        */
-      unique(sorted?: boolean): Chainable<[]>
+      unique(sorted?: boolean): Chainable<[]>;
     }
   }
 }
 
-export {}
+export {};

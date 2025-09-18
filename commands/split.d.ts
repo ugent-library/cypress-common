@@ -7,9 +7,12 @@ declare global {
        * @param separator The separator pattern to split by. (default = empty string which splits every character)
        * @param filterEmptyElements Boolean indicating whether falsy values should be filtered from the yielded results. (default = false)
        */
-      split(separator?: string | RegExp, filterEmptyElements?: boolean): Chainable<string[]>
+      split(
+        separator?: string | RegExp,
+        filterEmptyElements?: boolean,
+      ): Chainable<string[]>;
     }
   }
 }
 
-export {}
+export {};

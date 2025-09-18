@@ -1,14 +1,18 @@
-import { defineConfig } from 'cypress'
+import { defineConfig } from "cypress";
 
 export default defineConfig({
-  projectId: 'dkufj2',
+  projectId: "dkufj2",
   video: false,
   retries: 2,
-  blockHosts: ['*google-analytics.com', '*hotjar.com', '*ugent.containers.piwik.pro'],
+  blockHosts: [
+    "*google-analytics.com",
+    "*hotjar.com",
+    "*ugent.containers.piwik.pro",
+  ],
 
   e2e: {
-    specPattern: 'cypress/e2e/**/*.{js,jsx,ts,tsx}',
+    specPattern: "cypress/e2e/**/*.{js,jsx,ts,tsx}",
     experimentalRunAllSpecs: true,
     experimentalOriginDependencies: true,
   },
-})
+});

@@ -7,9 +7,9 @@ declare global {
        * @param name The name of the query parameter.
        * @param defaultValue The value to return if the query parameter is not present on the subject. (optional)
        */
-      param(name: string, defaultValue?: string): Chainable<string | null>
+      param(name: string, defaultValue?: string): Chainable<string | null>;
     }
   }
 }
 
-export {}
+export {};

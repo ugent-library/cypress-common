@@ -3,6 +3,6 @@ declare module Chai {
     /**
      * Asserts that an HTML field is readonly.
      */
-    readonly(): void
+    readonly(): void;
   }
 }

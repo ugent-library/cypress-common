@@ -1,29 +1,33 @@
-Cypress.Commands.add('attr', { prevSubject: true }, (subject, attributeName, value = null) => {
-  if (value) {
-    subject.attr(attributeName, value)
+Cypress.Commands.add(
+  "attr",
+  { prevSubject: true },
+  (subject, attributeName, value = null) => {
+    if (value) {
+      subject.attr(attributeName, value);
 
-    Cypress.log({
-      name: 'attr',
-      message: `${attributeName} = ${value}`,
-      consoleProps: () => ({
-        attributeName,
-        value,
-      }),
-    })
+      Cypress.log({
+        name: "attr",
+        message: `${attributeName} = ${value}`,
+        consoleProps: () => ({
+          attributeName,
+          value,
+        }),
+      });
 
-    return subject
-  } else {
-    const yielded = subject.attr(attributeName)
+      return subject;
+    } else {
+      const yielded = subject.attr(attributeName);
 
-    Cypress.log({
-      name: 'attr',
-      message: attributeName,
-      consoleProps: () => ({
-        attributeName,
-        yielded,
-      }),
-    })
+      Cypress.log({
+        name: "attr",
+        message: attributeName,
+        consoleProps: () => ({
+          attributeName,
+          yielded,
+        }),
+      });
 
-    return yielded
-  }
-})
+      return yielded;
+    }
+  },
+);

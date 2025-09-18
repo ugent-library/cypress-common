@@ -5,6 +5,6 @@ declare module Chai {
      *
      * @param window
      */
-    inViewport(window: Window): void
+    inViewport(window: Window): void;
   }
 }

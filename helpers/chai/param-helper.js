@@ -1,17 +1,17 @@
 module.exports = {
-  getParam (url, name) {
-    url = url.slice(url.indexOf('?')) // Only use the query
+  getParam(url, name) {
+    url = url.slice(url.indexOf("?")); // Only use the query
 
-    const values = new URLSearchParams(url).getAll(name)
+    const values = new URLSearchParams(url).getAll(name);
     switch (values.length) {
       case 0:
-        return null
+        return null;
 
       case 1:
-        return values[0]
+        return values[0];
 
       default:
-        return values
+        return values;
     }
-  }
-}
+  },
+};
