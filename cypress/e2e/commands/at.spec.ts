@@ -14,7 +14,7 @@ describe("The at command", () => {
     cy.origin("https://lib.ugent.be", () => {
       Cypress.require("../../../commands/at");
 
-      cy.visit("/");
+      cy.visit("/en/libraries");
 
       cy.get("img, a").as("items").its("length").should("be.above", 30);
 

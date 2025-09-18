@@ -1,5 +1,5 @@
 describe("The param command", () => {
-  const query = "?q=test%20search&item=abc&count=123&item=def";
+  const query = "/en/libraries?q=test%20search&item=abc&count=123&item=def";
   const url = "https://lib.ugent.be/" + query;
 
   describe("When chained directly of cy", () => {

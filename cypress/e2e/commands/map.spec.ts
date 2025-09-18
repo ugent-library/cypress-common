@@ -15,9 +15,9 @@ describe("The map command", () => {
     cy.origin("https://lib.ugent.be", () => {
       Cypress.require("../../../commands/map");
 
-      cy.visit("/");
+      cy.visit("/en/libraries");
 
-      cy.get("a")
+      cy.get("a:not([onclick])")
         .as("links")
         .its("length")
         .should("be.above", 5)

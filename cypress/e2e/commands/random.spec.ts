@@ -14,7 +14,7 @@ describe("The random command", () => {
     cy.origin("https://lib.ugent.be", () => {
       Cypress.require("../../../commands/random");
 
-      cy.visit("/");
+      cy.visit("/en/libraries");
 
       cy.get("img, a").as("items").its("length").should("be.above", 30);
 

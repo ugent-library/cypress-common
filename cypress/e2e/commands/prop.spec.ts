@@ -11,7 +11,7 @@ describe("The prop command", () => {
       ({ someLink, someMeter }) => {
         Cypress.require("../../../commands/prop");
 
-        cy.visit("/");
+        cy.visit("/en/libraries");
 
         cy.document().then((doc) => {
           Cypress.$(someLink).appendTo(doc.body);
@@ -26,7 +26,7 @@ describe("The prop command", () => {
       cy.get("#someLink")
         .as("some-link")
         .prop<string>("href")
-        .should("eq", "https://lib.ugent.be/abc");
+        .should("eq", "https://lib.ugent.be/en/libraries/abc");
 
       cy.get("@some-link").prop<string>("innerText").should("eq", "test");
 

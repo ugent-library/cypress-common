@@ -6,7 +6,7 @@ describe("The attr command", () => {
     cy.origin("https://lib.ugent.be", { args: someLink }, (someLink) => {
       Cypress.require("../../../commands/attr");
 
-      cy.visit("/");
+      cy.visit("/en/libraries");
 
       cy.document().then((doc) => {
         Cypress.$(someLink).appendTo(doc.body);
