@@ -12,7 +12,7 @@ Follow these steps to use this project:
 - Add this project as an npm/yarn package (replace `<version>` with the desired git version tag):
 
   ```sh
-  yarn add https://github.com/ugent-library/cypress-common.git#<version>
+  npm install https://github.com/ugent-library/cypress-common.git#v<version>
   ```
 
 - Import the desired functions/commands in your `cypress/support/index.js` file:
