@@ -17,15 +17,15 @@
     "precommit"
   ],
   "dependencies": {
-    "chai": "^6.0.1",
+    "chai": "^6.2.1",
     "chai-dom": "^1.12.1"
   },
   "devDependencies": {
     "@types/chai-dom": "^1.11.3",
-    "@types/lodash": "^4.17.20",
+    "@types/lodash": "^4.17.21",
     "cypress": "^15.8.0",
     "js-precommit-hook": "ugent-library/js-precommit-hook#^v2.1.4",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.3"
   },
   "overrides": {
     "cross-spawn": "^7.0.6"
