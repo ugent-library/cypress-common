@@ -28,6 +28,7 @@
     "typescript": "^5.9.3"
   },
   "overrides": {
-    "cross-spawn": "^7.0.6"
+    "cross-spawn": "^7.0.6",
+    "systeminformation": "^5.27.14"
   }
 }
