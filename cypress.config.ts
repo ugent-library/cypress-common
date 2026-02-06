@@ -4,6 +4,7 @@ export default defineConfig({
   projectId: "dkufj2",
   video: false,
   retries: 2,
+  allowCypressEnv: false,
   blockHosts: [
     "*google-analytics.com",
     "*hotjar.com",
