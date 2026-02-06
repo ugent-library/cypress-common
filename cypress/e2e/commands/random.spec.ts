@@ -10,6 +10,41 @@ describe("The random command", () => {
       .should("be.oneOf", list);
   });
 
+  it("should return a random item of a set", () => {
+    cy.wrap(new Set(list))
+      .random()
+      .should("not.be.an", "array")
+      .should("not.be.an", "object")
+      .should(Cypress._.isInteger)
+      .should("be.oneOf", list);
+  });
+
+  it("should return a random item of a map", () => {
+    cy.wrap(new Map(list.map((i) => [i.toString(), i])))
+      .random()
+      .should("not.be.an", "array")
+      .should("not.be.an", "object")
+      .should(Cypress._.isInteger)
+      .should("be.oneOf", list);
+  });
+
+  it("should return a random item of a custom iterable", () => {
+    const iterable = {
+      [Symbol.iterator]: function* () {
+        for (let i of list) {
+          yield i;
+        }
+      },
+    };
+
+    cy.wrap(iterable)
+      .random()
+      .should("not.be.an", "array")
+      .should("not.be.an", "object")
+      .should(Cypress._.isInteger)
+      .should("be.oneOf", list);
+  });
+
   it("should return a random item of a jQuery object (wrapped again by cypress)", () => {
     cy.origin("https://lib.ugent.be", () => {
       Cypress.require("../../../commands/random");
