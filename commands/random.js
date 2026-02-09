@@ -50,11 +50,12 @@ function determineSubjectOperators(subject) {
         itemFn: (i) => subject[i],
       };
     } else if (subject instanceof Set) {
+      const array = Array.from(subject);
       return {
-        length: subject.size,
+        length: array.length,
         keysFn: (i) => i,
-        inFn: (i) => subject.has(i),
-        itemFn: (i) => Array.from(subject).at(i),
+        inFn: (i) => i in array,
+        itemFn: (i) => array.at(i),
       };
     } else if (subject instanceof Map) {
       return {

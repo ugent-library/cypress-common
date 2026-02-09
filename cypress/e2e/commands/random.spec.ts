@@ -1,5 +1,6 @@
 describe("The random command", () => {
-  const list = [...Array(100).keys()];
+  // [100 ... 1]
+  const list = Array.from(Array(100).keys()).map((k) => 100 - k);
 
   it("should return a random item of an array", () => {
     cy.wrap(list)
@@ -11,12 +12,11 @@ describe("The random command", () => {
   });
 
   it("should return a random item of a set", () => {
-    cy.wrap(new Set(list))
+    cy.wrap(new Set(["A", "B", "C", "D", "E"]))
       .random()
       .should("not.be.an", "array")
       .should("not.be.an", "object")
-      .should(Cypress._.isInteger)
-      .should("be.oneOf", list);
+      .should("be.oneOf", ["A", "B", "C", "D", "E"]);
   });
 
   it("should return a random item of a map", () => {
@@ -67,18 +67,18 @@ describe("The random command", () => {
 
   it("should be possible to pass an upper bound", () => {
     for (let i = 0; i < 100; i++) {
-      cy.wrap(list).random(10).should("be.at.most", 10);
+      cy.wrap(list).random(10).should("be.within", 90, 100);
     }
   });
 
   it("should be possible to pass a lower and upper bound", () => {
     for (let i = 0; i < 100; i++) {
-      cy.wrap(list).random(30, 70).should("be.within", 30, 70);
+      cy.wrap(list).random(10, 20).should("be.within", 80, 90);
     }
   });
 
   it("should yield null if the lower and upper parameters are out of the array bounds", () => {
-    cy.wrap(list).random(200, 300).should("be.null");
+    cy.wrap(list).random(100, 105).should("be.null");
   });
 
   it("should yield null if the source array is empty", () => {
