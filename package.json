@@ -1,33 +1,33 @@
 {
-  "name": "cypress-common",
-  "version": "3.18.1",
-  "main": "index.js",
-  "types": "index.d.ts",
-  "repository": "git@github.com:ugent-library/cypress-common.git",
-  "author": "Koen Verheyen <koen.verheyen@inuits.eu>",
-  "license": "BSD-3-Clause",
-  "scripts": {
-    "lint": "tsc --project cypress",
-    "test": "cypress run",
-    "precommit": "node node_modules/js-precommit-hook"
-  },
-  "pre-commit": [
-    "lint",
-    "test",
-    "precommit"
-  ],
-  "dependencies": {
-    "chai": "^6.2.2",
-    "chai-dom": "^1.12.1"
-  },
-  "devDependencies": {
-    "@types/chai-dom": "^1.11.3",
-    "@types/lodash": "^4.17.23",
-    "cypress": "^15.14.0",
-    "js-precommit-hook": "ugent-library/js-precommit-hook#^v2.1.4",
-    "typescript": "^5.9.3"
-  },
-  "overrides": {
-    "cross-spawn": "^7.0.6"
-  }
+	"name": "cypress-common",
+	"version": "3.18.1",
+	"main": "index.js",
+	"types": "index.d.ts",
+	"repository": "git@github.com:ugent-library/cypress-common.git",
+	"author": "Koen Verheyen <koen.verheyen@inuits.eu>",
+	"license": "BSD-3-Clause",
+	"scripts": {
+		"lint": "tsc --project cypress",
+		"test": "cypress run",
+		"precommit": "node node_modules/js-precommit-hook"
+	},
+	"pre-commit": [
+		"lint",
+		"test",
+		"precommit"
+	],
+	"dependencies": {
+		"chai": "^6.2.2",
+		"chai-dom": "^1.12.1"
+	},
+	"devDependencies": {
+		"@types/chai-dom": "^1.11.3",
+		"@types/lodash": "^4.17.24",
+		"cypress": "^15.14.0",
+		"js-precommit-hook": "github:ugent-library/js-precommit-hook#semver:v2.1.5",
+		"typescript": "^6.0.3"
+	},
+	"overrides": {
+		"cross-spawn": "^7.0.6"
+	}
 }

@@ -1,15 +1,15 @@
 Cypress.Commands.add("params", { prevSubject: "optional" }, (subject) => {
   let subj = null;
-  let url = null;
+  const url = null;
 
   if (Cypress._.isNil(subject)) {
     subj = cy.location("search", { log: false });
   } else if (
     Cypress._.isObject(subject) &&
-    subject.hasOwnProperty("toString")
+    Object.hasOwn(subject, "toString")
   ) {
     subj = cy.wrap(subject.toString(), { log: false });
-  } else if (Cypress._.isObject(subject) && subject.hasOwnProperty("url")) {
+  } else if (Cypress._.isObject(subject) && Object.hasOwn(subject, "url")) {
     subj = cy.wrap(subject.url, { log: false });
   } else if (Cypress._.isString(subject)) {
     subj = cy.wrap(subject, { log: false });

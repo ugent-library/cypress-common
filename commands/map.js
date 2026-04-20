@@ -1,5 +1,5 @@
 Cypress.Commands.add("map", { prevSubject: true }, (subject, iteratee) => {
-  let yielded = Cypress._.map(subject, iteratee);
+  const yielded = Cypress._.map(subject, iteratee);
 
   Cypress.log({
     name: "map",

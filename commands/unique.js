@@ -2,7 +2,7 @@ Cypress.Commands.add(
   "unique",
   { prevSubject: true },
   (subject, sorted = false) => {
-    let yielded = Cypress._.uniq(subject);
+    const yielded = Cypress._.uniq(subject);
 
     if (sorted) {
       yielded.sort();

@@ -1,5 +1,5 @@
 Cypress.Commands.add("at", { prevSubject: true }, (subject, index) => {
-  let yielded = Cypress._.nth(subject, index);
+  const yielded = Cypress._.nth(subject, index);
 
   Cypress.log({
     name: "at",

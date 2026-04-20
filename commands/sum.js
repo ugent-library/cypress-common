@@ -1,5 +1,5 @@
 Cypress.Commands.add("sum", { prevSubject: true }, (subject) => {
-  let yielded = Cypress._.reduce(subject, Cypress._.add, 0);
+  const yielded = Cypress._.reduce(subject, Cypress._.add, 0);
 
   Cypress.log({
     name: "sum",
