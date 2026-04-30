@@ -23,7 +23,7 @@
 	"devDependencies": {
 		"@types/chai-dom": "^1.11.3",
 		"@types/lodash": "^4.17.24",
-		"cypress": "^15.14.0",
+		"cypress": "^15.14.2",
 		"js-precommit-hook": "github:ugent-library/js-precommit-hook#semver:v2.1.5",
 		"typescript": "^6.0.3"
 	},
