@@ -1,19 +1,23 @@
 import { defineConfig } from "cypress";
 
 export default defineConfig({
-  projectId: "dkufj2",
-  video: false,
-  retries: 2,
-  allowCypressEnv: false,
-  blockHosts: [
-    "*google-analytics.com",
-    "*hotjar.com",
-    "*ugent.containers.piwik.pro",
-  ],
+	projectId: "dkufj2",
+	video: false,
+	retries: 2,
+	allowCypressEnv: false,
+	blockHosts: [
+		"*google-analytics.com",
+		"*hotjar.com",
+		"*ugent.containers.piwik.pro",
+		"*onetrust.com",
+	],
+	expose: {
+		testUrl: "https://lib.ugent.be",
+	},
 
-  e2e: {
-    specPattern: "cypress/e2e/**/*.{js,jsx,ts,tsx}",
-    experimentalRunAllSpecs: true,
-    experimentalOriginDependencies: true,
-  },
+	e2e: {
+		specPattern: "cypress/e2e/**/*.{js,jsx,ts,tsx}",
+		experimentalRunAllSpecs: true,
+		experimentalOriginDependencies: true,
+	},
 });
