@@ -25,10 +25,7 @@
 		"@types/lodash": "^4.17.24",
 		"@types/node": "^25.9.3",
 		"cypress": "^15.20.0",
-		"js-precommit-hook": "github:ugent-library/js-precommit-hook#semver:v2.1.5",
+		"js-precommit-hook": "github:ugent-library/js-precommit-hook#semver:v2.1.6",
 		"typescript": "^6.0.3"
-	},
-	"overrides": {
-		"cross-spawn": "^7.0.6"
 	}
 }
