@@ -2,9 +2,9 @@ import { defineConfig } from "cypress";
 
 export default defineConfig({
 	projectId: "dkufj2",
+	defaultBrowser: "chrome",
 	video: false,
 	retries: 2,
-	allowCypressEnv: false,
 	blockHosts: [
 		"*google-analytics.com",
 		"*hotjar.com",
