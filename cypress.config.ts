@@ -8,7 +8,7 @@ export default defineConfig({
 	blockHosts: [
 		"*google-analytics.com",
 		"*hotjar.com",
-		"*ugent.containers.piwik.pro",
+		"*piwik.pro",
 		"*onetrust.com",
 	],
 	expose: {
