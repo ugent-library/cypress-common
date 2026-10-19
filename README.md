@@ -4,7 +4,7 @@
 
 # Helper commands & functions for Cypress test projects
 
-This project contains several common [helper functions](helpers/) and [commands](commands/) that can be used in [Cypress.io](https://cypress.io) projects.
+This project contains several common [helper functions](src/helpers/) and [commands](src/commands/) that can be used in [Cypress.io](https://cypress.io) projects.
 
 Follow these steps to use this project:
 
@@ -15,7 +15,7 @@ Follow these steps to use this project:
   npm install https://github.com/ugent-library/cypress-common.git#v<version>
   ```
 
-- Import the desired functions/commands in your `cypress/support/index.js` file:
+- Import the desired functions/commands in your `cypress/support/e2e.ts` file:
 
   ```sh
   import 'cypress-common/helpers/chai';
@@ -26,7 +26,7 @@ Follow these steps to use this project:
 
 ## Commands
 
-### [at(index)](commands/at.js)
+### [at(index)](src/commands/at.ts)
 
 Yields the element at index n (zero-based) of "array-likes". If n is negative, the n-th element from the end is yielded.
 
@@ -41,7 +41,7 @@ cy.wrap([1, 2, 3, 4]).at(10); // Yields undefined
 cy.wrap({ abc: 123 }).at(4); // Yields undefined
 ```
 
-### [attr(name[, value])](commands/attr.js)
+### [attr(name[, value])](src/commands/attr.ts)
 
 Invokes the jQuery [attr](https://api.jquery.com/attr/) method.
 
@@ -50,7 +50,7 @@ cy.get("img#logo").attr("src"); // Yields the src attribute value of the selecte
 cy.get("img#logo").attr("alt", "The corporate logo"); // Yields the selected IMG component
 ```
 
-### [map(iteratee)](commands/map.js)
+### [map(iteratee)](src/commands/map.ts)
 
 Maps a set of chained elements using a lodash iteratee.
 
@@ -60,7 +60,7 @@ cy.get("img").map((img) => Math.max(img.height, img.width)); // Yields the maxim
 cy.wrap([1, 2, 3]).map((i) => i * i); // Yields [1, 4, 9]
 ```
 
-### [param(name[, defaultValue])](commands/param.js)
+### [param(name[, defaultValue])](src/commands/param.ts)
 
 Read a query parameter from the current location or from a chained string or object with `toString` method.
 
@@ -70,7 +70,7 @@ cy.param("noExistingParam", "other").should("eq", "other");
 cy.get("iframe").its("src").param("viewMode").should("eq", "embedded");
 ```
 
-### [params()](commands/params.js)
+### [params()](src/commands/params.ts)
 
 Yields an object representing the search query.
 
@@ -82,7 +82,7 @@ cy.wrap("https://example.com?name=John&name=Doe&age=49")
   .should("eql", { name: ["John", "Doe"], age: "49" });
 ```
 
-### [prop(name[, value])](commands/prop.js)
+### [prop(name[, value])](src/commands/prop.ts)
 
 Invokes the jQuery [prop](https://api.jquery.com/prop/) method.
 
@@ -92,7 +92,7 @@ cy.get("img#logo").prop<string>("src"); // Typescript version of the line above
 cy.get("img#logo").prop("alt", "The corporate logo"); // Yields the selected IMG component
 ```
 
-### [random([[lower, ]upper])](commands/random.js)
+### [random([[lower, ]upper])](src/commands/random.ts)
 
 Yields a random element from the list of chained elements.
 
@@ -104,7 +104,7 @@ cy.get("a").random(10, 20); // Yields a random A element from the 10..20 range
 cy.wrap([1, 2, 3]).random(4, 5); // Yields null
 ```
 
-### [split([delimiter = ''[, filterEmptyElements = false]])](commands/split.js)
+### [split([delimiter = ''[, filterEmptyElements = false]])](src/commands/split.ts)
 
 Splits the subject string in multiple elements based on a delimiter.
 
@@ -115,7 +115,7 @@ cy.location("pathname").split("/"); // Eg.: ['', 'en', 'tags', 'foo', 'bar', '']
 cy.location("pathname").split("/", true); // Eg.: ['en', 'tags', 'foo', 'bar']
 ```
 
-### [sum()](commands/sum.js)
+### [sum()](src/commands/sum.ts)
 
 Yields the (aggregate) sum of the chained elements.
 
@@ -123,7 +123,7 @@ Yields the (aggregate) sum of the chained elements.
 cy.get("img").map("height").sum();
 ```
 
-### [unique([sorted])](commands/sorted.js)
+### [unique([sorted])](src/commands/unique.ts)
 
 Yields the subject without any duplicates. Use the `sorted` parameter to also sort the yielded array.
 
@@ -133,7 +133,7 @@ cy.get("a").map("href").unique(); // Find all unique hyperlinks on a page
 
 ## Helpers
 
-### [chai.js](helpers/chai.js)
+### [chai](src/helpers/chai/)
 
 A list of helper functions for Chai assertions:
 

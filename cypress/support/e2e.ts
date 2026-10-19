@@ -1,7 +1,7 @@
 import chaiDom from "chai-dom";
 
-import "../../helpers";
-import "../../commands";
+import "../../src/helpers";
+import "../../src/commands";
 
 chai.use(chaiDom);
 

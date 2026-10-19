@@ -9,7 +9,7 @@ describe("The prop command", () => {
 			Cypress.expose("testUrl"),
 			{ args: { someLink, someMeter } },
 			({ someLink, someMeter }) => {
-				Cypress.require("../../../commands/prop");
+				Cypress.require("../../../src/commands/prop");
 
 				cy.visit("/en/libraries");
 

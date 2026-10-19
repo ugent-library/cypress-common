@@ -12,7 +12,7 @@ describe("The at command", () => {
 
 	it("should yield a specific item of a jQuery object (wrapped again by cypress)", () => {
 		cy.origin(Cypress.expose("testUrl"), () => {
-			Cypress.require("../../../commands/at");
+			Cypress.require("../../../src/commands/at");
 
 			cy.visit("/en/libraries");
 

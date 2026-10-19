@@ -1,17 +1,57 @@
 {
 	"name": "cypress-common",
 	"version": "3.18.2",
-	"main": "index.js",
-	"types": "index.d.ts",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"default": "./dist/index.js"
+		},
+		"./commands": {
+			"types": "./dist/commands/index.d.ts",
+			"default": "./dist/commands/index.js"
+		},
+		"./commands/*": {
+			"types": "./dist/commands/*.d.ts",
+			"default": "./dist/commands/*.js"
+		},
+		"./helpers": {
+			"types": "./dist/helpers/index.d.ts",
+			"default": "./dist/helpers/index.js"
+		},
+		"./helpers/chai": {
+			"types": "./dist/helpers/chai/index.d.ts",
+			"default": "./dist/helpers/chai/index.js"
+		},
+		"./helpers/chai/*": {
+			"types": "./dist/helpers/chai/*.d.ts",
+			"default": "./dist/helpers/chai/*.js"
+		},
+		"./package.json": "./package.json"
+	},
+	"typesVersions": {
+		"*": {
+			"*": [
+				"dist/*"
+			]
+		}
+	},
+	"files": [
+		"dist"
+	],
 	"repository": "git@github.com:ugent-library/cypress-common.git",
 	"author": "Koen Verheyen <koen.verheyen@inuits.eu>",
 	"license": "BSD-3-Clause",
 	"scripts": {
-		"lint": "tsc --project cypress",
+		"build": "node -e \"fs.rmSync('dist', { recursive: true, force: true })\" && tsc",
+		"check-dist": "scripts/check-dist.sh",
+		"lint": "tsc --noEmit && tsc --project cypress",
 		"test": "cypress run",
 		"precommit": "node node_modules/js-precommit-hook"
 	},
 	"pre-commit": [
+		"check-dist",
 		"lint",
 		"test",
 		"precommit"

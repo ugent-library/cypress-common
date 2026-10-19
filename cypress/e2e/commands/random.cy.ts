@@ -47,7 +47,7 @@ describe("The random command", () => {
 
 	it("should return a random item of a jQuery object (wrapped again by cypress)", () => {
 		cy.origin(Cypress.expose("testUrl"), () => {
-			Cypress.require("../../../commands/random");
+			Cypress.require("../../../src/commands/random");
 
 			cy.visit("/en/libraries");
 
