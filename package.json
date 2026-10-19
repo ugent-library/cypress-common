@@ -30,6 +30,6 @@
 	},
 	"allowScripts": {
 		"pre-commit@2.0.0": true,
-		"cypress@16.1.0": true
+		"cypress@16.2.0": true
 	}
 }
