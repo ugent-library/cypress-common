@@ -8,9 +8,17 @@
 			"types": "./dist/index.d.ts",
 			"default": "./dist/index.js"
 		},
+		"./index.js": {
+			"types": "./dist/index.d.ts",
+			"default": "./dist/index.js"
+		},
 		"./commands": {
 			"types": "./dist/commands/index.d.ts",
 			"default": "./dist/commands/index.js"
+		},
+		"./commands/*.js": {
+			"types": "./dist/commands/*.d.ts",
+			"default": "./dist/commands/*.js"
 		},
 		"./commands/*": {
 			"types": "./dist/commands/*.d.ts",
@@ -20,9 +28,17 @@
 			"types": "./dist/helpers/index.d.ts",
 			"default": "./dist/helpers/index.js"
 		},
+		"./helpers/index.js": {
+			"types": "./dist/helpers/index.d.ts",
+			"default": "./dist/helpers/index.js"
+		},
 		"./helpers/chai": {
 			"types": "./dist/helpers/chai/index.d.ts",
 			"default": "./dist/helpers/chai/index.js"
+		},
+		"./helpers/chai/*.js": {
+			"types": "./dist/helpers/chai/*.d.ts",
+			"default": "./dist/helpers/chai/*.js"
 		},
 		"./helpers/chai/*": {
 			"types": "./dist/helpers/chai/*.d.ts",
@@ -32,6 +48,18 @@
 	},
 	"typesVersions": {
 		"*": {
+			"dist/*": [
+				"dist/*"
+			],
+			"commands": [
+				"dist/commands/index.d.ts"
+			],
+			"helpers": [
+				"dist/helpers/index.d.ts"
+			],
+			"helpers/chai": [
+				"dist/helpers/chai/index.d.ts"
+			],
 			"*": [
 				"dist/*"
 			]
