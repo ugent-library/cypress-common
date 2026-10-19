@@ -5,7 +5,7 @@ describe("The params command", () => {
 	describe("When chained directly of cy", () => {
 		beforeEach(() => {
 			cy.origin(Cypress.expose("testUrl"), { args: url }, (url) => {
-				Cypress.require("../../../commands/params");
+				Cypress.require("../../../src/commands/params");
 
 				cy.visit(url);
 			});

@@ -1,15 +1,12 @@
 {
+	"extends": "../tsconfig.json",
 	"compilerOptions": {
-		"target": "ES2015",
-		"lib": ["ES2015", "dom"],
 		"module": "ES2015",
-		"types": ["cypress", "node"],
 		"moduleResolution": "bundler",
+		"types": ["cypress", "node"],
 		"allowSyntheticDefaultImports": true,
-		"noEmit": true,
-		"noUncheckedIndexedAccess": true,
-		"strict": true,
-		"noImplicitAny": true,
-		"skipLibCheck": true
-	}
+		"rootDir": "..",
+		"noEmit": true
+	},
+	"include": ["**/*", "../src"]
 }

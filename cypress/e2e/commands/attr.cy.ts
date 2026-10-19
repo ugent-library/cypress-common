@@ -4,7 +4,7 @@ describe("The attr command", () => {
 
 	beforeEach(() => {
 		cy.origin(Cypress.expose("testUrl"), { args: someLink }, (someLink) => {
-			Cypress.require("../../../commands/attr");
+			Cypress.require("../../../src/commands/attr");
 
 			cy.visit("/en/libraries");
 

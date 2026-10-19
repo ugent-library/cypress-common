@@ -13,7 +13,7 @@ describe("The map command", () => {
 
 	it("should map all elements in jQuery object", () => {
 		cy.origin(Cypress.expose("testUrl"), () => {
-			Cypress.require("../../../commands/map");
+			Cypress.require("../../../src/commands/map");
 
 			cy.visit("/en/libraries");
 
