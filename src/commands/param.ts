@@ -34,16 +34,12 @@ Cypress.Commands.add(
     });
 
     return urlSubject(subject).then((url) => {
-      updateConsoleProps(log, (consoleProps) => {
-        consoleProps.subject = url;
-      });
+      updateConsoleProps(log, { subject: url });
 
       const yielded = getParam(url, name);
 
       updateLogMessage(log, yielded || "(default)");
-      updateConsoleProps(log, (consoleProps) => {
-        consoleProps.yielded = yielded;
-      });
+      updateConsoleProps(log, { yielded });
 
       return cy.wrap(yielded || defaultValue, NO_LOG);
     });

@@ -23,9 +23,7 @@ Cypress.Commands.add(
     const yielded = Cypress._.reduce(subject, Cypress._.add, 0);
 
     updateLogMessage(log, yielded);
-    updateConsoleProps(log, (consoleProps) => {
-      consoleProps.result = yielded;
-    });
+    updateConsoleProps(log, { result: yielded });
 
     return yielded;
   },

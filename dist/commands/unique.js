@@ -10,8 +10,6 @@ Cypress.Commands.add("unique", { prevSubject: true }, (subject, sorted = false) 
     if (sorted) {
         yielded.sort();
     }
-    (0, util_1.updateConsoleProps)(log, (consoleProps) => {
-        consoleProps.yielded = yielded;
-    });
+    (0, util_1.updateConsoleProps)(log, { yielded });
     return yielded;
 });

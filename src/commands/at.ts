@@ -24,9 +24,7 @@ Cypress.Commands.add(
 
     const yielded = Cypress._.nth(subject, index);
 
-    updateConsoleProps(log, (consoleProps) => {
-      consoleProps.yielded = yielded;
-    });
+    updateConsoleProps(log, { yielded });
 
     return yielded;
   },

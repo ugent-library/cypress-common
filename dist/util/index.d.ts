@@ -9,10 +9,11 @@ export declare const NO_LOG: {
 };
 /**
  * Creates a command log entry. The display name is derived from the camelCase command name
- * (`"uniqueValues"` becomes `"UNIQUE VALUES"`, `"getURLParam"` becomes `"GET URL PARAM"`). Console props are nested under a `props` key,
- * which the other helpers in this module rely on.
+ * (`"uniqueValues"` becomes `"UNIQUE VALUES"`, `"getURLParam"` becomes `"GET URL PARAM"`).
+ * Console props are nested under a `props` key, which the other helpers in this module rely on.
  *
  * @param name The command name.
+ * @param options Optional settings for the log entry.
  * @param options.message The message shown in the command log.
  * @param options.consoleProps Initial console props, shown when clicking the log entry.
  * @param options.$el An optional element to highlight when the log entry is selected.
@@ -51,16 +52,19 @@ export declare function updateLogMessage(log: Cypress.Log | undefined, append: u
  * no log is passed.
  *
  * @param log The log to update.
- * @param callback Receives the console props object, which may be mutated.
+ * @param update Either an object with console props to add or overwrite, or a callback that
+ * receives the console props object and may mutate it (e.g. to append to an existing value).
  *
  * @example
- * const log = logCommand("random", { consoleProps: { min, max } });
+ * const log = logCommand("random", { consoleProps: { min, max, attempts: [] } });
+ *
+ * updateConsoleProps(log, { index, yielded });
  *
  * updateConsoleProps(log, (consoleProps) => {
- *   consoleProps.attempts = attempts;
+ *   consoleProps.attempts.push(attempt);
  * });
  */
-export declare function updateConsoleProps(log: Cypress.Log | undefined, callback: (consoleProps: Cypress.ObjectLike) => void): void;
+export declare function updateConsoleProps(log: Cypress.Log | undefined, update: Cypress.ObjectLike | ((consoleProps: Cypress.ObjectLike) => void)): void;
 /**
  * Creates a `.then()` callback that adds the yielded value to the console props of a log entry
  * and yields it unchanged.

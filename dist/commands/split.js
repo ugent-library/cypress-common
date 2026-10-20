@@ -14,8 +14,6 @@ Cypress.Commands.add("split", { prevSubject: true }, (subject, separator = "", f
     if (filterEmptyElements) {
         yielded = Cypress._.filter(yielded);
     }
-    (0, util_1.updateConsoleProps)(log, (consoleProps) => {
-        consoleProps.yielded = yielded;
-    });
+    (0, util_1.updateConsoleProps)(log, { yielded });
     return yielded;
 });

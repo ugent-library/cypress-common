@@ -15,10 +15,11 @@ exports.addToLog = addToLog;
 exports.NO_LOG = { log: false };
 /**
  * Creates a command log entry. The display name is derived from the camelCase command name
- * (`"uniqueValues"` becomes `"UNIQUE VALUES"`, `"getURLParam"` becomes `"GET URL PARAM"`). Console props are nested under a `props` key,
- * which the other helpers in this module rely on.
+ * (`"uniqueValues"` becomes `"UNIQUE VALUES"`, `"getURLParam"` becomes `"GET URL PARAM"`).
+ * Console props are nested under a `props` key, which the other helpers in this module rely on.
  *
  * @param name The command name.
+ * @param options Optional settings for the log entry.
  * @param options.message The message shown in the command log.
  * @param options.consoleProps Initial console props, shown when clicking the log entry.
  * @param options.$el An optional element to highlight when the log entry is selected.
@@ -91,21 +92,29 @@ function formatLogValue(value) {
  * no log is passed.
  *
  * @param log The log to update.
- * @param callback Receives the console props object, which may be mutated.
+ * @param update Either an object with console props to add or overwrite, or a callback that
+ * receives the console props object and may mutate it (e.g. to append to an existing value).
  *
  * @example
- * const log = logCommand("random", { consoleProps: { min, max } });
+ * const log = logCommand("random", { consoleProps: { min, max, attempts: [] } });
+ *
+ * updateConsoleProps(log, { index, yielded });
  *
  * updateConsoleProps(log, (consoleProps) => {
- *   consoleProps.attempts = attempts;
+ *   consoleProps.attempts.push(attempt);
  * });
  */
-function updateConsoleProps(log, callback) {
+function updateConsoleProps(log, update) {
     if (!log)
         return;
     const consoleProps = log.get("consoleProps")?.() ?? {};
     consoleProps.props ??= {};
-    callback(consoleProps.props);
+    if (typeof update === "function") {
+        update(consoleProps.props);
+    }
+    else {
+        Object.assign(consoleProps.props, update);
+    }
     log.set({ consoleProps: () => consoleProps });
 }
 /**
@@ -125,9 +134,7 @@ function updateConsoleProps(log, callback) {
  */
 function addToConsoleProps(log, propertyKey) {
     return (yieldedResult) => {
-        updateConsoleProps(log, (consoleProps) => {
-            consoleProps[propertyKey] = yieldedResult;
-        });
+        updateConsoleProps(log, { [propertyKey]: yieldedResult });
         return yieldedResult;
     };
 }

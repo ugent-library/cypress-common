@@ -40,9 +40,7 @@ Cypress.Commands.add(
       yielded = Cypress._.filter(yielded);
     }
 
-    updateConsoleProps(log, (consoleProps) => {
-      consoleProps.yielded = yielded;
-    });
+    updateConsoleProps(log, { yielded });
 
     return yielded;
   },

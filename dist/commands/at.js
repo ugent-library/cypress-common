@@ -7,8 +7,6 @@ Cypress.Commands.add("at", { prevSubject: true }, (subject, index) => {
         consoleProps: { subject, index },
     });
     const yielded = Cypress._.nth(subject, index);
-    (0, util_1.updateConsoleProps)(log, (consoleProps) => {
-        consoleProps.yielded = yielded;
-    });
+    (0, util_1.updateConsoleProps)(log, { yielded });
     return yielded;
 });

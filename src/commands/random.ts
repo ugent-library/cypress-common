@@ -56,9 +56,7 @@ Cypress.Commands.add(
     const yielded = inFn(index) ? itemFn(index) : null;
 
     updateLogMessage(log, `[${index}] => ${yielded}`);
-    updateConsoleProps(log, (consoleProps) => {
-      Object.assign(consoleProps, { lower, upper, index, key, yielded });
-    });
+    updateConsoleProps(log, { lower, upper, index, key, yielded });
 
     return yielded;
   },

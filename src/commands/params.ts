@@ -19,9 +19,7 @@ Cypress.Commands.add(
     const log = logCommand("params");
 
     return urlSubject(subject).then((url) => {
-      updateConsoleProps(log, (consoleProps) => {
-        consoleProps.subject = url;
-      });
+      updateConsoleProps(log, { subject: url });
 
       const paramsEntries = new URLSearchParams(
         url.slice(url.indexOf("?")),
@@ -44,9 +42,7 @@ Cypress.Commands.add(
       }, {});
 
       updateLogMessage(log, Object.keys(yielded).join(", "));
-      updateConsoleProps(log, (consoleProps) => {
-        consoleProps.yielded = yielded;
-      });
+      updateConsoleProps(log, { yielded });
 
       return yielded;
     });
