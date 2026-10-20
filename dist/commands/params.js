@@ -20,7 +20,7 @@ Cypress.Commands.add("params", { prevSubject: "optional" }, (subject) => {
             }
             return previous;
         }, {});
-        (0, util_1.updateLogMessage)(log, Object.keys(yielded).join(", "));
+        (0, util_1.updateLogMessage)(log, Object.keys(yielded));
         (0, util_1.updateConsoleProps)(log, { yielded });
         return yielded;
     });

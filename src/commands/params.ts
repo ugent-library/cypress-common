@@ -41,7 +41,7 @@ Cypress.Commands.add(
         return previous;
       }, {});
 
-      updateLogMessage(log, Object.keys(yielded).join(", "));
+      updateLogMessage(log, Object.keys(yielded));
       updateConsoleProps(log, { yielded });
 
       return yielded;
