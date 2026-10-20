@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const param_helper_1 = require("../helpers/chai/param-helper");
+const param_helper_1 = require("../lib/param-helper");
 const url_subject_1 = require("./url-subject");
 Cypress.Commands.add("param", { prevSubject: "optional" }, (subject, name, defaultValue = null) => {
     return (0, url_subject_1.urlSubject)(subject).then((url) => {

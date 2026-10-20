@@ -1,4 +1,4 @@
-import { getParam } from "../helpers/chai/param-helper";
+import { getParam } from "../lib/param-helper";
 import { urlSubject } from "./url-subject";
 
 declare global {

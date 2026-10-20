@@ -24,44 +24,47 @@
 			"types": "./dist/commands/*.d.ts",
 			"default": "./dist/commands/*.js"
 		},
-		"./helpers": {
-			"types": "./dist/helpers/index.d.ts",
-			"default": "./dist/helpers/index.js"
+		"./assertions": {
+			"types": "./dist/assertions/index.d.ts",
+			"default": "./dist/assertions/index.js"
 		},
-		"./helpers/index.js": {
-			"types": "./dist/helpers/index.d.ts",
-			"default": "./dist/helpers/index.js"
+		"./assertions/index.js": {
+			"types": "./dist/assertions/index.d.ts",
+			"default": "./dist/assertions/index.js"
 		},
-		"./helpers/chai": {
-			"types": "./dist/helpers/chai/index.d.ts",
-			"default": "./dist/helpers/chai/index.js"
+		"./assertions/chai": {
+			"types": "./dist/assertions/chai/index.d.ts",
+			"default": "./dist/assertions/chai/index.js"
 		},
-		"./helpers/chai/*.js": {
-			"types": "./dist/helpers/chai/*.d.ts",
-			"default": "./dist/helpers/chai/*.js"
+		"./assertions/chai/*.js": {
+			"types": "./dist/assertions/chai/*.d.ts",
+			"default": "./dist/assertions/chai/*.js"
 		},
-		"./helpers/chai/*": {
-			"types": "./dist/helpers/chai/*.d.ts",
-			"default": "./dist/helpers/chai/*.js"
+		"./assertions/chai/*": {
+			"types": "./dist/assertions/chai/*.d.ts",
+			"default": "./dist/assertions/chai/*.js"
 		},
 		"./package.json": "./package.json"
 	},
 	"typesVersions": {
 		"*": {
-			"dist/*": [
-				"dist/*"
+			"index.js": [
+				"dist/index.d.ts"
 			],
 			"commands": [
 				"dist/commands/index.d.ts"
 			],
-			"helpers": [
-				"dist/helpers/index.d.ts"
+			"commands/*": [
+				"dist/commands/*"
 			],
-			"helpers/chai": [
-				"dist/helpers/chai/index.d.ts"
+			"assertions": [
+				"dist/assertions/index.d.ts"
 			],
-			"*": [
-				"dist/*"
+			"assertions/chai": [
+				"dist/assertions/chai/index.d.ts"
+			],
+			"assertions/chai/*": [
+				"dist/assertions/chai/*"
 			]
 		}
 	},

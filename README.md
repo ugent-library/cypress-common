@@ -2,9 +2,9 @@
 [![cypress-common](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/simple/dkufj2&style=flat&logo=cypress)](https://dashboard.cypress.io/projects/dkufj2/runs)
 [![CodeQL](https://github.com/ugent-library/cypress-common/workflows/CodeQL/badge.svg)](https://github.com/ugent-library/cypress-common/actions/workflows/codeql-analysis.yml)
 
-# Helper commands & functions for Cypress test projects
+# Common commands & assertion chainers for Cypress test projects
 
-This project contains several common [helper functions](src/helpers/) and [commands](src/commands/) that can be used in [Cypress.io](https://cypress.io) projects.
+This project contains several common [assertion chainers](src/assertions/) and [commands](src/commands/) that can be used in [Cypress.io](https://cypress.io) projects.
 
 Follow these steps to use this project:
 
@@ -15,14 +15,14 @@ Follow these steps to use this project:
   npm install https://github.com/ugent-library/cypress-common.git#v<version>
   ```
 
-- Import the desired functions/commands in your `cypress/support/e2e.ts` file:
+- Import the desired assertions/commands in your `cypress/support/e2e.ts` file:
 
-  ```sh
-  import 'cypress-common/helpers/chai';
+  ```ts
+  import 'cypress-common/assertions/chai';
   import 'cypress-common/commands/map';
   ```
 
-- Use the imported functions/commands in your tests.
+- Use the imported assertions/commands in your tests.
 
 ## Commands
 
@@ -131,11 +131,11 @@ Yields the subject without any duplicates. Use the `sorted` parameter to also so
 cy.get("a").map("href").unique(); // Find all unique hyperlinks on a page
 ```
 
-## Helpers
+## Assertions
 
-### [chai](src/helpers/chai/)
+### [chai](src/assertions/chai/)
 
-A list of helper functions for Chai assertions:
+Custom Chai assertions added by this package:
 
 - `readonly()`: Asserts that an HTML field is readonly
 - `starts.with(<substring>)`: Asserts that a string starts with a substring
@@ -143,7 +143,7 @@ A list of helper functions for Chai assertions:
 - `have.param(<name>, <value>)`: Asserts that a URL string contains a query parameter with a value (value is optional)
 - `inViewport(<the window object>)`: Asserts that a DOM element is currently visible inside the browser viewport
 
-These helpers can be used both as a Chai expectation:
+These chainers can be used both as a Chai expectation:
 
 ```js
 expect("This is a test").to.end.with("a test");
@@ -162,7 +162,7 @@ cy.location("href").should("have.param", "query", "abc123");
 cy.window().then((w) => cy.get("#aButton").should("be.inViewport"));
 ```
 
-All Chai helpers can also be inversed with the `.not` flag:
+All Chai chainers can also be inversed with the `.not` flag:
 
 ```js
 expect("This is a test").to.not.start.with("a test");

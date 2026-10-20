@@ -1,6 +1,6 @@
 import chaiDom from "chai-dom";
 
-import "../../src/helpers";
+import "../../src/assertions";
 import "../../src/commands";
 
 chai.use(chaiDom);

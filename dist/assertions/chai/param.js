@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const param_helper_1 = require("./param-helper");
+const param_helper_1 = require("../../lib/param-helper");
 chai.Assertion.addMethod("param", function (name, value = null) {
     const negate = chai.util.flag(this, "negate") || false;
     if (negate && value) {

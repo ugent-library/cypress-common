@@ -1,4 +1,4 @@
-import { getParam } from "./param-helper";
+import { getParam } from "../../lib/param-helper";
 
 declare global {
   namespace Chai {
