@@ -177,6 +177,7 @@ export function addToConsoleProps<T>(
  *
  * @param log The log to update.
  * @param propertyKey The console props key to store the yielded value under.
+ * @param separator The separator between the existing message and the yielded value. (default = ", ")
  * @returns A callback that passes through the yielded value.
  *
  * @example
@@ -184,9 +185,13 @@ export function addToConsoleProps<T>(
  *
  * cy.location("search", NO_LOG)
  *   .then((search) => new URLSearchParams(search).get(name))
- *   .then(addToLog(log, "yielded")); // Message becomes e.g. "page, 2"
+ *   .then(addToLog(log, "yielded", "=")); // With name "page" and "?page=2", the message becomes "page=2"
  */
-export function addToLog<T>(log: Cypress.Log | undefined, propertyKey: string) {
+export function addToLog<T>(
+  log: Cypress.Log | undefined,
+  propertyKey: string,
+  separator?: string,
+) {
   const addToProps = addToConsoleProps<T>(log, propertyKey);
 
   return (yieldedResult: T) => {
@@ -195,7 +200,7 @@ export function addToLog<T>(log: Cypress.Log | undefined, propertyKey: string) {
       (isPrimitive(yieldedResult) ||
         (Array.isArray(yieldedResult) && yieldedResult.every(isPrimitive)))
     ) {
-      updateLogMessage(log, yieldedResult);
+      updateLogMessage(log, yieldedResult, separator);
     }
 
     return addToProps(yieldedResult);
