@@ -1,16 +1,16 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const util_1 = require("../util");
-Cypress.Commands.add("random", { prevSubject: true }, (subject, lower = 0, upper = null) => {
+Cypress.Commands.add("random", { prevSubject: true }, (subject, lower, upper) => {
     const log = (0, util_1.logCommand)("random", {
         consoleProps: { lower, upper, subject },
     });
     const { length, keyFn, inFn, itemFn } = determineSubjectOperators(subject);
-    if (!lower && !upper) {
+    if (lower === undefined) {
         lower = 0;
         upper = length - 1;
     }
-    else if (!upper) {
+    else if (upper === undefined) {
         upper = lower;
         lower = 0;
     }
@@ -35,7 +35,7 @@ function determineSubjectOperators(subject) {
             return {
                 length: subject.length,
                 keyFn: (i) => i,
-                inFn: (i) => i < subject.length,
+                inFn: (i) => i >= 0 && i < subject.length,
                 itemFn: (i) => subject[i],
             };
         }
