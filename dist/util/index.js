@@ -12,7 +12,7 @@ exports.addToLog = addToLog;
  * @example
  * cy.wrap(subject, NO_LOG);
  */
-exports.NO_LOG = { log: false };
+exports.NO_LOG = Object.freeze({ log: false });
 /**
  * Creates a command log entry. The display name is derived from the camelCase command name
  * (`"uniqueValues"` becomes `"UNIQUE VALUES"`, `"getURLParam"` becomes `"GET URL PARAM"`).

@@ -4,9 +4,9 @@
  * @example
  * cy.wrap(subject, NO_LOG);
  */
-export declare const NO_LOG: {
-    log: boolean;
-};
+export declare const NO_LOG: Readonly<{
+    readonly log: false;
+}>;
 /**
  * Creates a command log entry. The display name is derived from the camelCase command name
  * (`"uniqueValues"` becomes `"UNIQUE VALUES"`, `"getURLParam"` becomes `"GET URL PARAM"`).
