@@ -12,11 +12,13 @@ declare global {
   }
 }
 
+const COMMAND_NAME = "params";
+
 Cypress.Commands.add(
-  "params",
+  COMMAND_NAME,
   { prevSubject: "optional" },
   (subject: unknown) => {
-    const log = logCommand("params");
+    const log = logCommand(COMMAND_NAME);
 
     return urlSubject(subject).then((url) => {
       updateConsoleProps(log, { subject: url });

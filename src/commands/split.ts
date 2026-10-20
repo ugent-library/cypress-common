@@ -17,15 +17,17 @@ declare global {
   }
 }
 
+const COMMAND_NAME = "split";
+
 Cypress.Commands.add(
-  "split",
+  COMMAND_NAME,
   { prevSubject: true },
   (
     subject: string,
     separator: string | RegExp = "",
     filterEmptyElements: boolean = false,
   ) => {
-    const log = logCommand("split", {
+    const log = logCommand(COMMAND_NAME, {
       message: separator.toString(),
       consoleProps: {
         subject,

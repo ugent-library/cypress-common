@@ -33,11 +33,13 @@ type SubjectOperators = {
   itemFn: (index: number) => unknown;
 };
 
+const COMMAND_NAME = "random";
+
 Cypress.Commands.add(
-  "random",
+  COMMAND_NAME,
   { prevSubject: true },
   (subject: unknown, lower: number = 0, upper: number | null = null) => {
-    const log = logCommand("random", {
+    const log = logCommand(COMMAND_NAME, {
       consoleProps: { lower, upper, subject },
     });
 

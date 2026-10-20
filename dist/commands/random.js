@@ -1,8 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const util_1 = require("../util");
-Cypress.Commands.add("random", { prevSubject: true }, (subject, lower = 0, upper = null) => {
-    const log = (0, util_1.logCommand)("random", {
+const COMMAND_NAME = "random";
+Cypress.Commands.add(COMMAND_NAME, { prevSubject: true }, (subject, lower = 0, upper = null) => {
+    const log = (0, util_1.logCommand)(COMMAND_NAME, {
         consoleProps: { lower, upper, subject },
     });
     const { length, keyFn, inFn, itemFn } = determineSubjectOperators(subject);
