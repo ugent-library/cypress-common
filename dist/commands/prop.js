@@ -1,27 +1,25 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const util_1 = require("../util");
 Cypress.Commands.add("prop", { prevSubject: true }, (subject, propertyName, value = null) => {
     if (value) {
-        subject.prop(propertyName, value);
-        Cypress.log({
-            name: "prop",
+        (0, util_1.logCommand)("prop", {
             message: `${propertyName} = ${value}`,
-            consoleProps: () => ({
-                propertyName,
-                value,
-            }),
+            consoleProps: { propertyName, value },
+            $el: subject,
         });
+        subject.prop(propertyName, value);
         return subject;
     }
     else {
-        const yielded = subject.prop(propertyName);
-        Cypress.log({
-            name: "prop",
+        const log = (0, util_1.logCommand)("prop", {
             message: propertyName,
-            consoleProps: () => ({
-                propertyName,
-                yielded,
-            }),
+            consoleProps: { propertyName },
+            $el: subject,
+        });
+        const yielded = subject.prop(propertyName);
+        (0, util_1.updateConsoleProps)(log, (consoleProps) => {
+            consoleProps.yielded = yielded;
         });
         return yielded;
     }

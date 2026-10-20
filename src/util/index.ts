@@ -54,7 +54,9 @@ export function logCommand(
 }
 
 /**
- * Appends a value to the message of a log entry. Does nothing if no log is passed.
+ * Appends a value to the message of a log entry. Arrays are formatted as `[a, b]` and cut off
+ * with `...` once their items exceed 50 characters, other values are converted with `String()`.
+ * Does nothing if no log is passed.
  *
  * @param log The log to update.
  * @param append The value to append.
@@ -64,6 +66,7 @@ export function logCommand(
  * const log = logCommand("param", { message: "page" });
  *
  * updateLogMessage(log, 2); // Message is now "page, 2"
+ * updateLogMessage(log, ["a", "b"]); // Message is now "page, 2, [a, b]"
  */
 export function updateLogMessage(
   log: Cypress.Log | undefined,
@@ -73,11 +76,37 @@ export function updateLogMessage(
   if (!log) return;
 
   const message = String(log.get("message") ?? "");
+  const formatted = formatLogValue(append);
 
   log.set(
     "message",
-    message ? `${message}${separator}${String(append)}` : String(append),
+    message ? `${message}${separator}${formatted}` : formatted,
   );
+}
+
+const MAX_ARRAY_MESSAGE_LENGTH = 50;
+
+function formatLogValue(value: unknown): string {
+  if (!Array.isArray(value)) {
+    return String(value);
+  }
+
+  const items: string[] = [];
+  let length = 0;
+
+  for (const item of value.map(formatLogValue)) {
+    length += (items.length > 0 ? 2 : 0) + item.length;
+
+    // Always keep the first item, so the message never ends up as just "[...]"
+    if (items.length > 0 && length > MAX_ARRAY_MESSAGE_LENGTH) {
+      items.push("...");
+      break;
+    }
+
+    items.push(item);
+  }
+
+  return `[${items.join(", ")}]`;
 }
 
 /**
@@ -138,7 +167,7 @@ export function addToConsoleProps<T>(
 
 /**
  * Like {@link addToConsoleProps}, but also appends the yielded value to the log message if it is
- * a (non-empty) string, number or boolean.
+ * a (non-empty) string, number or boolean, or an array of those.
  *
  * @param log The log to update.
  * @param propertyKey The console props key to store the yielded value under.
@@ -156,12 +185,17 @@ export function addToLog<T>(log: Cypress.Log | undefined, propertyKey: string) {
 
   return (yieldedResult: T) => {
     if (
-      ["string", "number", "boolean"].includes(typeof yieldedResult) &&
-      yieldedResult !== ""
+      yieldedResult !== "" &&
+      (isPrimitive(yieldedResult) ||
+        (Array.isArray(yieldedResult) && yieldedResult.every(isPrimitive)))
     ) {
       updateLogMessage(log, yieldedResult);
     }
 
     return addToProps(yieldedResult);
   };
+}
+
+function isPrimitive(value: unknown): value is string | number | boolean {
+  return ["string", "number", "boolean"].includes(typeof value);
 }

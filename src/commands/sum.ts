@@ -1,3 +1,5 @@
+import { logCommand, updateConsoleProps, updateLogMessage } from "../util";
+
 declare global {
   namespace Cypress {
     interface Chainable {
@@ -13,15 +15,16 @@ Cypress.Commands.add(
   "sum",
   { prevSubject: true },
   (subject: ArrayLike<number>) => {
+    const log = logCommand("sum", {
+      message: [subject],
+      consoleProps: { subject },
+    });
+
     const yielded = Cypress._.reduce(subject, Cypress._.add, 0);
 
-    Cypress.log({
-      name: "sum",
-      message: [subject, yielded],
-      consoleProps: () => ({
-        subject: subject,
-        result: yielded,
-      }),
+    updateLogMessage(log, yielded);
+    updateConsoleProps(log, (consoleProps) => {
+      consoleProps.result = yielded;
     });
 
     return yielded;

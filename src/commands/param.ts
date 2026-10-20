@@ -1,4 +1,10 @@
 import { getParam } from "../lib/param-helper";
+import {
+  logCommand,
+  NO_LOG,
+  updateConsoleProps,
+  updateLogMessage,
+} from "../util";
 import { urlSubject } from "./url-subject";
 
 declare global {
@@ -22,21 +28,24 @@ Cypress.Commands.add(
   "param",
   { prevSubject: "optional" },
   (subject: unknown, name: string, defaultValue: string | null = null) => {
-    return urlSubject(subject).then((url) => {
-      const yielded = getParam(url, name);
+    const log = logCommand("param", {
+      message: name,
+      consoleProps: { name, default: defaultValue },
+    });
 
-      Cypress.log({
-        name: "param",
-        message: [name, yielded || "(default)"],
-        consoleProps: () => ({
-          subject: url,
-          name,
-          yielded,
-          default: defaultValue,
-        }),
+    return urlSubject(subject).then((url) => {
+      updateConsoleProps(log, (consoleProps) => {
+        consoleProps.subject = url;
       });
 
-      return cy.wrap(yielded || defaultValue, { log: false });
+      const yielded = getParam(url, name);
+
+      updateLogMessage(log, yielded || "(default)");
+      updateConsoleProps(log, (consoleProps) => {
+        consoleProps.yielded = yielded;
+      });
+
+      return cy.wrap(yielded || defaultValue, NO_LOG);
     });
   },
 );

@@ -1,6 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const util_1 = require("../util");
 Cypress.Commands.add("random", { prevSubject: true }, (subject, lower = 0, upper = null) => {
+    const log = (0, util_1.logCommand)("random", {
+        consoleProps: { lower, upper, subject },
+    });
     const { length, keyFn, inFn, itemFn } = determineSubjectOperators(subject);
     if (!lower && !upper) {
         lower = 0;
@@ -13,17 +17,9 @@ Cypress.Commands.add("random", { prevSubject: true }, (subject, lower = 0, upper
     const index = Cypress._.random(lower, upper);
     const key = keyFn(index);
     const yielded = inFn(index) ? itemFn(index) : null;
-    Cypress.log({
-        name: "random",
-        message: [`[${index}] => ${yielded}`],
-        consoleProps: () => ({
-            lower,
-            upper,
-            subject,
-            index,
-            key,
-            yielded,
-        }),
+    (0, util_1.updateLogMessage)(log, `[${index}] => ${yielded}`);
+    (0, util_1.updateConsoleProps)(log, (consoleProps) => {
+        Object.assign(consoleProps, { lower, upper, index, key, yielded });
     });
     return yielded;
 });

@@ -1,5 +1,7 @@
 import type { IterateeShorthand } from "lodash";
 
+import { logCommand, updateConsoleProps } from "../util";
+
 declare global {
   namespace Cypress {
     type Iteratee<T, U> =
@@ -24,19 +26,18 @@ Cypress.Commands.add(
     subject: ArrayLike<unknown>,
     iteratee: Cypress.Iteratee<unknown, unknown>,
   ) => {
+    const log = logCommand("map", {
+      message: [subject],
+      consoleProps: { subject, iteratee },
+    });
+
     const yielded = Cypress._.map<unknown, unknown>(
       subject,
       Cypress._.iteratee(iteratee),
     );
 
-    Cypress.log({
-      name: "map",
-      message: [subject],
-      consoleProps: () => ({
-        subject,
-        iteratee,
-        yielded,
-      }),
+    updateConsoleProps(log, (consoleProps) => {
+      consoleProps.yielded = yielded;
     });
 
     return yielded;

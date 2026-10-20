@@ -31,7 +31,9 @@ export declare function logCommand(name: string, { message, consoleProps, $el, }
     $el?: JQuery;
 }): Cypress.Log;
 /**
- * Appends a value to the message of a log entry. Does nothing if no log is passed.
+ * Appends a value to the message of a log entry. Arrays are formatted as `[a, b]` and cut off
+ * with `...` once their items exceed 50 characters, other values are converted with `String()`.
+ * Does nothing if no log is passed.
  *
  * @param log The log to update.
  * @param append The value to append.
@@ -41,6 +43,7 @@ export declare function logCommand(name: string, { message, consoleProps, $el, }
  * const log = logCommand("param", { message: "page" });
  *
  * updateLogMessage(log, 2); // Message is now "page, 2"
+ * updateLogMessage(log, ["a", "b"]); // Message is now "page, 2, [a, b]"
  */
 export declare function updateLogMessage(log: Cypress.Log | undefined, append: unknown, separator?: string): void;
 /**
@@ -76,7 +79,7 @@ export declare function updateConsoleProps(log: Cypress.Log | undefined, callbac
 export declare function addToConsoleProps<T>(log: Cypress.Log | undefined, propertyKey: string): (yieldedResult: T) => T;
 /**
  * Like {@link addToConsoleProps}, but also appends the yielded value to the log message if it is
- * a (non-empty) string, number or boolean.
+ * a (non-empty) string, number or boolean, or an array of those.
  *
  * @param log The log to update.
  * @param propertyKey The console props key to store the yielded value under.

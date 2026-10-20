@@ -1,3 +1,5 @@
+import { logCommand, updateConsoleProps } from "../util";
+
 declare global {
   namespace Cypress {
     interface Chainable<Subject> {
@@ -26,28 +28,26 @@ Cypress.Commands.add(
   { prevSubject: true },
   (subject: JQuery, propertyName: string, value: unknown = null) => {
     if (value) {
-      subject.prop(propertyName, value);
-
-      Cypress.log({
-        name: "prop",
+      logCommand("prop", {
         message: `${propertyName} = ${value}`,
-        consoleProps: () => ({
-          propertyName,
-          value,
-        }),
+        consoleProps: { propertyName, value },
+        $el: subject,
       });
+
+      subject.prop(propertyName, value);
 
       return subject;
     } else {
+      const log = logCommand("prop", {
+        message: propertyName,
+        consoleProps: { propertyName },
+        $el: subject,
+      });
+
       const yielded = subject.prop(propertyName);
 
-      Cypress.log({
-        name: "prop",
-        message: propertyName,
-        consoleProps: () => ({
-          propertyName,
-          yielded,
-        }),
+      updateConsoleProps(log, (consoleProps) => {
+        consoleProps.yielded = yielded;
       });
 
       return yielded;
