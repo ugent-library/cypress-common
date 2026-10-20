@@ -4,7 +4,7 @@
 
 # Common commands & assertion chainers for Cypress test projects
 
-This project contains several common [assertion chainers](src/assertions/) and [commands](src/commands/) that can be used in [Cypress.io](https://cypress.io) projects.
+This project contains several common [assertion chainers](src/assertions/) and [commands](src/commands/) that can be used in [Cypress.io](https://cypress.io) projects, plus [utility functions](src/util/) for logging your own custom commands.
 
 Follow these steps to use this project:
 
@@ -170,4 +170,113 @@ expect("https://www.google.com/search?query=abc123").to.not.have.param(
   "source",
 );
 cy.get("input#name").should("not.be.readonly");
+```
+
+## Utils
+
+The [`cypress-common/util`](src/util/) module contains helper functions to log your own custom commands in the Cypress command log, the same way the commands in this package do.
+
+The recommended pattern is to create the log entry as the first statement of a command and to add data to it as it becomes available. That way the command still shows up in the command log, with everything known so far, when it fails halfway.
+
+```ts
+import {
+  addToLog,
+  logCommand,
+  NO_LOG,
+  updateConsoleProps,
+} from "cypress-common/util";
+
+Cypress.Commands.add(
+  "getURLParam",
+  { prevSubject: "optional" },
+  (subject: string | undefined, name: string) => {
+    const log = logCommand("getURLParam", {
+      message: name,
+      consoleProps: { name },
+    });
+
+    return cy
+      .location("href", NO_LOG)
+      .then((href) => {
+        updateConsoleProps(log, { href });
+
+        return new URL(subject ?? href).searchParams.get(name);
+      })
+      .then(addToLog(log, "yielded"));
+  },
+);
+```
+
+All functions that take a `log` do nothing if it is `undefined`. This happens when Cypress hides the log entry, and it also lets you turn logging off yourself, e.g. `const log = options.log !== false ? logCommand(...) : undefined`.
+
+### [NO_LOG](src/util/index.ts)
+
+Options object to suppress logging of the Cypress commands used inside your own command.
+
+```ts
+cy.wrap(subject, NO_LOG);
+cy.location("search", NO_LOG);
+```
+
+### [logCommand(name[, options])](src/util/index.ts)
+
+Creates a command log entry and returns it. The display name is derived from the camelCase command name: `"uniqueValues"` is shown as `UNIQUE VALUES`, `"getURLParam"` as `GET URL PARAM`.
+
+Options:
+
+- `message`: the message shown in the command log
+- `consoleProps`: the initial console props, shown in the browser console when clicking the log entry
+- `$el`: an element to highlight when the log entry is selected
+
+```ts
+const log = logCommand("attr", {
+  message: name,
+  consoleProps: { name },
+  $el: subject,
+});
+```
+
+### [updateLogMessage(log, append[, separator = ", "])](src/util/index.ts)
+
+Appends a value to the message of a log entry. Arrays are formatted as `[a, b]` and cut off with `...` once their items exceed 50 characters. Other values are converted with `String()`.
+
+```ts
+const log = logCommand("param", { message: "page" });
+
+updateLogMessage(log, 2); // Message is now "page, 2"
+updateLogMessage(log, ["a", "b"]); // Message is now "page, 2, [a, b]"
+```
+
+### [updateConsoleProps(log, update)](src/util/index.ts)
+
+Updates the console props of a log entry created with `logCommand`. Pass an object to add or overwrite console props, or a callback that receives the console props object and may mutate it.
+
+```ts
+updateConsoleProps(log, { index, yielded });
+
+updateConsoleProps(log, (consoleProps) => {
+  consoleProps.attempts.push(attempt);
+});
+```
+
+### [addToConsoleProps(log, propertyKey)](src/util/index.ts)
+
+Creates a `.then()` callback that adds the yielded value to the console props under `propertyKey` and yields it unchanged.
+
+```ts
+cy.wrap(subject, NO_LOG)
+  .invoke(NO_LOG, "attr", name)
+  .then(addToConsoleProps(log, "yielded"));
+```
+
+### [addToLog(log, propertyKey[, separator = ", "])](src/util/index.ts)
+
+Like `addToConsoleProps`, but also appends the yielded value to the log message if it is a non-empty string, a number or a boolean, or an array of those.
+
+```ts
+const log = logCommand("param", { message: name, consoleProps: { name } });
+
+cy.location("search", NO_LOG)
+  .then((search) => new URLSearchParams(search).get(name))
+  .then(addToLog(log, "yielded", "=")); // With name "page" and "?page=2", the message becomes "page=2"
 ```
