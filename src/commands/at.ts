@@ -1,3 +1,5 @@
+import { logCommand, updateConsoleProps } from "../util";
+
 declare global {
   namespace Cypress {
     interface Chainable {
@@ -15,16 +17,15 @@ Cypress.Commands.add(
   "at",
   { prevSubject: true },
   (subject: ArrayLike<unknown>, index: number) => {
+    const log = logCommand("at", {
+      message: index,
+      consoleProps: { subject, index },
+    });
+
     const yielded = Cypress._.nth(subject, index);
 
-    Cypress.log({
-      name: "at",
-      message: index,
-      consoleProps: () => ({
-        subject,
-        index,
-        yielded,
-      }),
+    updateConsoleProps(log, (consoleProps) => {
+      consoleProps.yielded = yielded;
     });
 
     return yielded;

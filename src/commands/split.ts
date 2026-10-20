@@ -1,3 +1,5 @@
+import { logCommand, updateConsoleProps } from "../util";
+
 declare global {
   namespace Cypress {
     interface Chainable {
@@ -23,21 +25,23 @@ Cypress.Commands.add(
     separator: string | RegExp = "",
     filterEmptyElements: boolean = false,
   ) => {
+    const log = logCommand("split", {
+      message: separator.toString(),
+      consoleProps: {
+        subject,
+        separator: separator.toString(),
+        "Filter empty elements": filterEmptyElements,
+      },
+    });
+
     let yielded = Cypress._.split(subject, separator);
 
     if (filterEmptyElements) {
       yielded = Cypress._.filter(yielded);
     }
 
-    Cypress.log({
-      name: "split",
-      message: [separator.toString()],
-      consoleProps: () => ({
-        subject,
-        separator: separator.toString(),
-        yielded,
-        "Filter empty elements": filterEmptyElements,
-      }),
+    updateConsoleProps(log, (consoleProps) => {
+      consoleProps.yielded = yielded;
     });
 
     return yielded;

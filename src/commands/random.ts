@@ -1,3 +1,5 @@
+import { logCommand, updateConsoleProps, updateLogMessage } from "../util";
+
 declare global {
   namespace Cypress {
     interface Chainable<Subject> {
@@ -35,6 +37,10 @@ Cypress.Commands.add(
   "random",
   { prevSubject: true },
   (subject: unknown, lower: number = 0, upper: number | null = null) => {
+    const log = logCommand("random", {
+      consoleProps: { lower, upper, subject },
+    });
+
     const { length, keyFn, inFn, itemFn } = determineSubjectOperators(subject);
 
     if (!lower && !upper) {
@@ -49,17 +55,9 @@ Cypress.Commands.add(
     const key = keyFn(index);
     const yielded = inFn(index) ? itemFn(index) : null;
 
-    Cypress.log({
-      name: "random",
-      message: [`[${index}] => ${yielded}`],
-      consoleProps: () => ({
-        lower,
-        upper,
-        subject,
-        index,
-        key,
-        yielded,
-      }),
+    updateLogMessage(log, `[${index}] => ${yielded}`);
+    updateConsoleProps(log, (consoleProps) => {
+      Object.assign(consoleProps, { lower, upper, index, key, yielded });
     });
 
     return yielded;

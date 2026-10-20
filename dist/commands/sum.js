@@ -1,14 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const util_1 = require("../util");
 Cypress.Commands.add("sum", { prevSubject: true }, (subject) => {
+    const log = (0, util_1.logCommand)("sum", {
+        message: [subject],
+        consoleProps: { subject },
+    });
     const yielded = Cypress._.reduce(subject, Cypress._.add, 0);
-    Cypress.log({
-        name: "sum",
-        message: [subject, yielded],
-        consoleProps: () => ({
-            subject: subject,
-            result: yielded,
-        }),
+    (0, util_1.updateLogMessage)(log, yielded);
+    (0, util_1.updateConsoleProps)(log, (consoleProps) => {
+        consoleProps.result = yielded;
     });
     return yielded;
 });
