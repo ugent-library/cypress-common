@@ -19,14 +19,16 @@ declare global {
   }
 }
 
+const COMMAND_NAME = "map";
+
 Cypress.Commands.add(
-  "map",
+  COMMAND_NAME,
   { prevSubject: true },
   (
     subject: ArrayLike<unknown>,
     iteratee: Cypress.Iteratee<unknown, unknown>,
   ) => {
-    const log = logCommand("map", {
+    const log = logCommand(COMMAND_NAME, {
       message: [subject],
       consoleProps: { subject, iteratee },
     });

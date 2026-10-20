@@ -220,7 +220,7 @@ cy.location("search", NO_LOG);
 
 ### [logCommand(name[, options])](src/util/index.ts)
 
-Creates a command log entry and returns it. The display name is derived from the camelCase command name: `"uniqueValues"` is shown as `UNIQUE VALUES`, `"getURLParam"` as `GET URL PARAM`.
+Creates a Cypress command log entry and returns it.
 
 Options:
 

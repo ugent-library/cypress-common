@@ -1,9 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const util_1 = require("../util");
-const url_subject_1 = require("./url-subject");
-Cypress.Commands.add("params", { prevSubject: "optional" }, (subject) => {
-    const log = (0, util_1.logCommand)("params");
+const url_subject_1 = require("../lib/url-subject");
+const COMMAND_NAME = "params";
+Cypress.Commands.add(COMMAND_NAME, { prevSubject: "optional" }, (subject) => {
+    const log = (0, util_1.logCommand)(COMMAND_NAME);
     return (0, url_subject_1.urlSubject)(subject).then((url) => {
         (0, util_1.updateConsoleProps)(log, { subject: url });
         const paramsEntries = new URLSearchParams(url.slice(url.indexOf("?"))).entries();

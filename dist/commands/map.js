@@ -1,8 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const util_1 = require("../util");
-Cypress.Commands.add("map", { prevSubject: true }, (subject, iteratee) => {
-    const log = (0, util_1.logCommand)("map", {
+const COMMAND_NAME = "map";
+Cypress.Commands.add(COMMAND_NAME, { prevSubject: true }, (subject, iteratee) => {
+    const log = (0, util_1.logCommand)(COMMAND_NAME, {
         message: [subject],
         consoleProps: { subject, iteratee },
     });

@@ -1,8 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const util_1 = require("../util");
-Cypress.Commands.add("unique", { prevSubject: true }, (subject, sorted = false) => {
-    const log = (0, util_1.logCommand)("unique", {
+const COMMAND_NAME = "unique";
+Cypress.Commands.add(COMMAND_NAME, { prevSubject: true }, (subject, sorted = false) => {
+    const log = (0, util_1.logCommand)(COMMAND_NAME, {
         message: sorted ? "sorted" : "",
         consoleProps: { subject, sorted },
     });

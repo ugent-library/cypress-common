@@ -5,7 +5,7 @@ import {
   updateConsoleProps,
   updateLogMessage,
 } from "../util";
-import { urlSubject } from "./url-subject";
+import { urlSubject } from "../lib/url-subject";
 
 declare global {
   namespace Cypress {
@@ -24,11 +24,13 @@ declare global {
   }
 }
 
+const COMMAND_NAME = "param";
+
 Cypress.Commands.add(
-  "param",
+  COMMAND_NAME,
   { prevSubject: "optional" },
   (subject: unknown, name: string, defaultValue: string | null = null) => {
-    const log = logCommand("param", {
+    const log = logCommand(COMMAND_NAME, {
       message: name,
       consoleProps: { name, default: defaultValue },
     });

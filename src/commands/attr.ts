@@ -26,8 +26,10 @@ declare global {
   }
 }
 
+const COMMAND_NAME = "attr";
+
 Cypress.Commands.add(
-  "attr",
+  COMMAND_NAME,
   { prevSubject: true },
   (
     subject: JQuery,
@@ -35,7 +37,7 @@ Cypress.Commands.add(
     value: string | number | null = null,
   ) => {
     if (value) {
-      logCommand("attr", {
+      logCommand(COMMAND_NAME, {
         message: `${attributeName} = ${value}`,
         consoleProps: { attributeName, value },
         $el: subject,
@@ -45,7 +47,7 @@ Cypress.Commands.add(
 
       return subject;
     } else {
-      const log = logCommand("attr", {
+      const log = logCommand(COMMAND_NAME, {
         message: attributeName,
         consoleProps: { attributeName },
         $el: subject,

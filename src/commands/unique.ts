@@ -13,11 +13,13 @@ declare global {
   }
 }
 
+const COMMAND_NAME = "unique";
+
 Cypress.Commands.add(
-  "unique",
+  COMMAND_NAME,
   { prevSubject: true },
   (subject: ArrayLike<unknown>, sorted: boolean = false) => {
-    const log = logCommand("unique", {
+    const log = logCommand(COMMAND_NAME, {
       message: sorted ? "sorted" : "",
       consoleProps: { subject, sorted },
     });

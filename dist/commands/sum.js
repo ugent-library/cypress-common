@@ -1,8 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const util_1 = require("../util");
-Cypress.Commands.add("sum", { prevSubject: true }, (subject) => {
-    const log = (0, util_1.logCommand)("sum", {
+const COMMAND_NAME = "sum";
+Cypress.Commands.add(COMMAND_NAME, { prevSubject: true }, (subject) => {
+    const log = (0, util_1.logCommand)(COMMAND_NAME, {
         message: [subject],
         consoleProps: { subject },
     });

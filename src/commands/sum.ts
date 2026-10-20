@@ -11,11 +11,13 @@ declare global {
   }
 }
 
+const COMMAND_NAME = "sum";
+
 Cypress.Commands.add(
-  "sum",
+  COMMAND_NAME,
   { prevSubject: true },
   (subject: ArrayLike<number>) => {
-    const log = logCommand("sum", {
+    const log = logCommand(COMMAND_NAME, {
       message: [subject],
       consoleProps: { subject },
     });

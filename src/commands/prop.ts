@@ -23,12 +23,14 @@ declare global {
   }
 }
 
+const COMMAND_NAME = "prop";
+
 Cypress.Commands.add(
-  "prop",
+  COMMAND_NAME,
   { prevSubject: true },
   (subject: JQuery, propertyName: string, value?: unknown) => {
     if (value !== undefined) {
-      logCommand("prop", {
+      logCommand(COMMAND_NAME, {
         message: `${propertyName} = ${value}`,
         consoleProps: { propertyName, value },
         $el: subject,
@@ -38,7 +40,7 @@ Cypress.Commands.add(
 
       return subject;
     } else {
-      const log = logCommand("prop", {
+      const log = logCommand(COMMAND_NAME, {
         message: propertyName,
         consoleProps: { propertyName },
         $el: subject,
