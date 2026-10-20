@@ -3,12 +3,13 @@ describe("The prop command", () => {
 		'<a id="someLink" href="abc" title="the title" data-id="987" data-type="link">test</a>';
 	const someMeter =
 		'<meter id="someMeter" min="0" max="123" value="75">75%</meter>';
+	const someCheckbox = '<input id="someCheckbox" type="checkbox" checked>';
 
 	beforeEach(() => {
 		cy.origin(
 			Cypress.expose("testUrl"),
-			{ args: { someLink, someMeter } },
-			({ someLink, someMeter }) => {
+			{ args: { someLink, someMeter, someCheckbox } },
+			({ someLink, someMeter, someCheckbox }) => {
 				Cypress.require("../../../src/commands/prop");
 
 				cy.visit("/en/libraries");
@@ -16,6 +17,7 @@ describe("The prop command", () => {
 				cy.document().then((doc) => {
 					Cypress.$(someLink).appendTo(doc.body);
 					Cypress.$(someMeter).appendTo(doc.body);
+					Cypress.$(someCheckbox).appendTo(doc.body);
 				});
 			},
 		);
@@ -82,6 +84,32 @@ describe("The prop command", () => {
 			});
 
 			cy.get("@some-meter").prop<number>("max").should("eq", 456);
+		});
+	});
+
+	it("should be possible to set a falsy property value", () => {
+		cy.origin(Cypress.expose("testUrl"), () => {
+			cy.get("#someCheckbox")
+				.as("some-checkbox")
+				.prop("checked", false)
+				.should("have.id", "someCheckbox");
+
+			cy.get("@some-checkbox").should("not.be.checked");
+			cy.get("@some-checkbox").prop("checked").should("be.false");
+
+			cy.get("#someMeter")
+				.as("some-meter")
+				.prop("max", 0)
+				.should("have.id", "someMeter");
+
+			cy.get("@some-meter").prop("max").should("eq", 0);
+
+			cy.get("#someLink")
+				.as("some-link")
+				.prop("title", "")
+				.should("have.id", "someLink");
+
+			cy.get("@some-link").prop("title").should("eq", "");
 		});
 	});
 });

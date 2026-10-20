@@ -26,8 +26,8 @@ declare global {
 Cypress.Commands.add(
   "prop",
   { prevSubject: true },
-  (subject: JQuery, propertyName: string, value: unknown = null) => {
-    if (value) {
+  (subject: JQuery, propertyName: string, value?: unknown) => {
+    if (value !== undefined) {
       logCommand("prop", {
         message: `${propertyName} = ${value}`,
         consoleProps: { propertyName, value },

@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const util_1 = require("../util");
-Cypress.Commands.add("prop", { prevSubject: true }, (subject, propertyName, value = null) => {
-    if (value) {
+Cypress.Commands.add("prop", { prevSubject: true }, (subject, propertyName, value) => {
+    if (value !== undefined) {
         (0, util_1.logCommand)("prop", {
             message: `${propertyName} = ${value}`,
             consoleProps: { propertyName, value },
