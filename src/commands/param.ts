@@ -5,7 +5,7 @@ import {
   updateConsoleProps,
   updateLogMessage,
 } from "../util";
-import { urlSubject } from "./url-subject";
+import { urlSubject } from "../lib/url-subject";
 
 declare global {
   namespace Cypress {
