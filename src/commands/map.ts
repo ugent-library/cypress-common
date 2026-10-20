@@ -36,9 +36,7 @@ Cypress.Commands.add(
       Cypress._.iteratee(iteratee),
     );
 
-    updateConsoleProps(log, (consoleProps) => {
-      consoleProps.yielded = yielded;
-    });
+    updateConsoleProps(log, { yielded });
 
     return yielded;
   },

@@ -18,9 +18,7 @@ Cypress.Commands.add("random", { prevSubject: true }, (subject, lower = 0, upper
     const key = keyFn(index);
     const yielded = inFn(index) ? itemFn(index) : null;
     (0, util_1.updateLogMessage)(log, `[${index}] => ${yielded}`);
-    (0, util_1.updateConsoleProps)(log, (consoleProps) => {
-        Object.assign(consoleProps, { lower, upper, index, key, yielded });
-    });
+    (0, util_1.updateConsoleProps)(log, { lower, upper, index, key, yielded });
     return yielded;
 });
 function determineSubjectOperators(subject) {

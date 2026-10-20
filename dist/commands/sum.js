@@ -8,8 +8,6 @@ Cypress.Commands.add("sum", { prevSubject: true }, (subject) => {
     });
     const yielded = Cypress._.reduce(subject, Cypress._.add, 0);
     (0, util_1.updateLogMessage)(log, yielded);
-    (0, util_1.updateConsoleProps)(log, (consoleProps) => {
-        consoleProps.result = yielded;
-    });
+    (0, util_1.updateConsoleProps)(log, { result: yielded });
     return yielded;
 });

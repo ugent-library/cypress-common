@@ -28,9 +28,7 @@ Cypress.Commands.add(
       yielded.sort();
     }
 
-    updateConsoleProps(log, (consoleProps) => {
-      consoleProps.yielded = yielded;
-    });
+    updateConsoleProps(log, { yielded });
 
     return yielded;
   },

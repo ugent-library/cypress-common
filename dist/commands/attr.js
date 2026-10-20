@@ -18,9 +18,7 @@ Cypress.Commands.add("attr", { prevSubject: true }, (subject, attributeName, val
             $el: subject,
         });
         const yielded = subject.attr(attributeName);
-        (0, util_1.updateConsoleProps)(log, (consoleProps) => {
-            consoleProps.yielded = yielded;
-        });
+        (0, util_1.updateConsoleProps)(log, { yielded });
         return yielded;
     }
 });

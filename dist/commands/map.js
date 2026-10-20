@@ -7,8 +7,6 @@ Cypress.Commands.add("map", { prevSubject: true }, (subject, iteratee) => {
         consoleProps: { subject, iteratee },
     });
     const yielded = Cypress._.map(subject, Cypress._.iteratee(iteratee));
-    (0, util_1.updateConsoleProps)(log, (consoleProps) => {
-        consoleProps.yielded = yielded;
-    });
+    (0, util_1.updateConsoleProps)(log, { yielded });
     return yielded;
 });

@@ -53,9 +53,7 @@ Cypress.Commands.add(
 
       const yielded = subject.attr(attributeName);
 
-      updateConsoleProps(log, (consoleProps) => {
-        consoleProps.yielded = yielded;
-      });
+      updateConsoleProps(log, { yielded });
 
       return yielded;
     }
