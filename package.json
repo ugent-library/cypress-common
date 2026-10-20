@@ -44,6 +44,14 @@
 			"types": "./dist/assertions/chai/*.d.ts",
 			"default": "./dist/assertions/chai/*.js"
 		},
+		"./util": {
+			"types": "./dist/util/index.d.ts",
+			"default": "./dist/util/index.js"
+		},
+		"./util/index.js": {
+			"types": "./dist/util/index.d.ts",
+			"default": "./dist/util/index.js"
+		},
 		"./package.json": "./package.json"
 	},
 	"typesVersions": {
@@ -65,6 +73,12 @@
 			],
 			"assertions/chai/*": [
 				"dist/assertions/chai/*"
+			],
+			"util": [
+				"dist/util/index.d.ts"
+			],
+			"util/index.js": [
+				"dist/util/index.d.ts"
 			]
 		}
 	},
