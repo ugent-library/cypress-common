@@ -49,7 +49,7 @@ export declare function logCommand(name: string, { message, consoleProps, $el, }
 export declare function updateLogMessage(log: Cypress.Log | undefined, append: unknown, separator?: string): void;
 /**
  * Updates the console props of a log entry created with {@link logCommand}. Does nothing if
- * no log is passed.
+ * no log is passed or the log was not created with {@link logCommand}.
  *
  * @param log The log to update.
  * @param update Either an object with console props to add or overwrite, or a callback that

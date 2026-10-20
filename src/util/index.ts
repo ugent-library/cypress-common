@@ -6,6 +6,9 @@
  */
 export const NO_LOG = Object.freeze({ log: false } as const);
 
+// Mutable console props per log, read lazily by the `consoleProps` callback set in logCommand
+const consolePropsByLog = new WeakMap<Cypress.Log, Cypress.ObjectLike>();
+
 /**
  * Creates a command log entry. The display name is derived from the camelCase command name
  * (`"uniqueValues"` becomes `"UNIQUE VALUES"`, `"getURLParam"` becomes `"GET URL PARAM"`).
@@ -44,14 +47,19 @@ export function logCommand(
       .replace(/([A-Z]+)([A-Z][a-z])/g, "$1 $2")
       .toUpperCase(),
     message,
-    consoleProps: () => ({ props: consoleProps }),
   };
+
+  const props = { ...consoleProps };
+  logOptions.consoleProps = () => ({ props });
 
   if ($el) {
     logOptions.$el = $el;
   }
 
-  return Cypress.log(logOptions);
+  const log = Cypress.log(logOptions);
+  consolePropsByLog.set(log, props);
+
+  return log;
 }
 
 /**
@@ -112,7 +120,7 @@ function formatLogValue(value: unknown): string {
 
 /**
  * Updates the console props of a log entry created with {@link logCommand}. Does nothing if
- * no log is passed.
+ * no log is passed or the log was not created with {@link logCommand}.
  *
  * @param log The log to update.
  * @param update Either an object with console props to add or overwrite, or a callback that
@@ -131,18 +139,14 @@ export function updateConsoleProps(
   log: Cypress.Log | undefined,
   update: Cypress.ObjectLike | ((consoleProps: Cypress.ObjectLike) => void),
 ) {
-  if (!log) return;
-
-  const consoleProps = log.get("consoleProps")?.() ?? {};
-  consoleProps.props ??= {};
+  const props = log && consolePropsByLog.get(log);
+  if (!props) return;
 
   if (typeof update === "function") {
-    update(consoleProps.props);
+    update(props);
   } else {
-    Object.assign(consoleProps.props, update);
+    Object.assign(props, update);
   }
-
-  log.set({ consoleProps: () => consoleProps });
 }
 
 /**
