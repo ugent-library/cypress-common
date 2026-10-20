@@ -38,10 +38,10 @@ Cypress.Commands.add(
 
       const yielded = getParam(url, name);
 
-      updateLogMessage(log, yielded || "(default)");
+      updateLogMessage(log, yielded === "" ? '""' : (yielded ?? "(default)"));
       updateConsoleProps(log, { yielded });
 
-      return cy.wrap(yielded || defaultValue, NO_LOG);
+      return cy.wrap(yielded ?? defaultValue, NO_LOG);
     });
   },
 );
