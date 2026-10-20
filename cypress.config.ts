@@ -4,7 +4,10 @@ export default defineConfig({
 	projectId: "dkufj2",
 	defaultBrowser: "chrome",
 	video: false,
-	retries: 2,
+	retries: {
+		runMode: 2,
+		openMode: 0,
+	},
 	blockHosts: [
 		"*google-analytics.com",
 		"*hotjar.com",
