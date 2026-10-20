@@ -47,4 +47,32 @@ describe("The attr command", () => {
 			cy.get("@some-link").attr("href").should("eq", "/def");
 		});
 	});
+
+	it("should be possible to set a falsy attribute value", () => {
+		cy.origin(Cypress.expose("testUrl"), () => {
+			cy.get("#someLink")
+				.as("some-link")
+				.attr("tabindex", 0)
+				.should("have.id", "someLink");
+
+			cy.get("@some-link").should("have.attr", "tabindex", "0");
+			cy.get("@some-link").attr("tabindex").should("eq", "0");
+
+			cy.get("@some-link").attr("title", "").should("have.id", "someLink");
+
+			cy.get("@some-link").should("have.attr", "title", "");
+			cy.get("@some-link").attr("title").should("eq", "");
+		});
+	});
+
+	it("should remove an attribute when setting it to null", () => {
+		cy.origin(Cypress.expose("testUrl"), () => {
+			cy.get("#someLink")
+				.as("some-link")
+				.attr("title", null)
+				.should("have.id", "someLink");
+
+			cy.get("@some-link").should("not.have.attr", "title");
+		});
+	});
 });

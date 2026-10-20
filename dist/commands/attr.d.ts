@@ -11,7 +11,7 @@ declare global {
              * Set one or more attributes for the set of matched elements. Invokes the jQuery attr method.
              *
              * @param attributeName The name of the attribute to set.
-             * @param value A value to set for the attribute.
+             * @param value A value to set for the attribute, or `null` to remove it.
              */
             attr(attributeName: string, value: string | number | null): Chainable<Subject>;
         }
