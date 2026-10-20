@@ -6,10 +6,9 @@ Cypress.Commands.add("unique", { prevSubject: true }, (subject, sorted = false) 
         message: sorted ? "sorted" : "",
         consoleProps: { subject, sorted },
     });
-    const yielded = Cypress._.uniq(subject);
-    if (sorted) {
-        yielded.sort();
-    }
+    const uniqueValues = Cypress._.uniq(subject);
+    // sortBy compares values directly, so numbers are not sorted as strings like Array.prototype.sort does
+    const yielded = sorted ? Cypress._.sortBy(uniqueValues) : uniqueValues;
     (0, util_1.updateConsoleProps)(log, { yielded });
     return yielded;
 });
