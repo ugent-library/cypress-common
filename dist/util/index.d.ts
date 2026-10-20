@@ -8,8 +8,7 @@ export declare const NO_LOG: Readonly<{
     readonly log: false;
 }>;
 /**
- * Creates a command log entry. The display name is derived from the camelCase command name
- * (`"uniqueValues"` becomes `"UNIQUE VALUES"`, `"getURLParam"` becomes `"GET URL PARAM"`).
+ * Creates a Cypress command log entry.
  * Console props are nested under a `props` key, which the other helpers in this module rely on.
  *
  * @param name The command name.

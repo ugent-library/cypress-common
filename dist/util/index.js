@@ -16,8 +16,7 @@ exports.NO_LOG = Object.freeze({ log: false });
 // Mutable console props per log, read lazily by the `consoleProps` callback set in logCommand
 const consolePropsByLog = new WeakMap();
 /**
- * Creates a command log entry. The display name is derived from the camelCase command name
- * (`"uniqueValues"` becomes `"UNIQUE VALUES"`, `"getURLParam"` becomes `"GET URL PARAM"`).
+ * Creates a Cypress command log entry.
  * Console props are nested under a `props` key, which the other helpers in this module rely on.
  *
  * @param name The command name.
@@ -37,10 +36,7 @@ const consolePropsByLog = new WeakMap();
 function logCommand(name, { message = "", consoleProps = {}, $el, } = {}) {
     const logOptions = {
         name,
-        displayName: name
-            .replace(/([a-z\d])([A-Z])/g, "$1 $2")
-            .replace(/([A-Z]+)([A-Z][a-z])/g, "$1 $2")
-            .toUpperCase(),
+        displayName: name,
         message,
     };
     const props = { ...consoleProps };

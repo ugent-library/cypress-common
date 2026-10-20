@@ -10,8 +10,7 @@ export const NO_LOG = Object.freeze({ log: false } as const);
 const consolePropsByLog = new WeakMap<Cypress.Log, Cypress.ObjectLike>();
 
 /**
- * Creates a command log entry. The display name is derived from the camelCase command name
- * (`"uniqueValues"` becomes `"UNIQUE VALUES"`, `"getURLParam"` becomes `"GET URL PARAM"`).
+ * Creates a Cypress command log entry.
  * Console props are nested under a `props` key, which the other helpers in this module rely on.
  *
  * @param name The command name.
@@ -42,10 +41,7 @@ export function logCommand(
 ) {
   const logOptions: Partial<Cypress.LogConfig> = {
     name,
-    displayName: name
-      .replace(/([a-z\d])([A-Z])/g, "$1 $2")
-      .replace(/([A-Z]+)([A-Z][a-z])/g, "$1 $2")
-      .toUpperCase(),
+    displayName: name,
     message,
   };
 
