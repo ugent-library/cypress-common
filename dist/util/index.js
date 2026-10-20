@@ -13,6 +13,8 @@ exports.addToLog = addToLog;
  * cy.wrap(subject, NO_LOG);
  */
 exports.NO_LOG = Object.freeze({ log: false });
+// Mutable console props per log, read lazily by the `consoleProps` callback set in logCommand
+const consolePropsByLog = new WeakMap();
 /**
  * Creates a command log entry. The display name is derived from the camelCase command name
  * (`"uniqueValues"` becomes `"UNIQUE VALUES"`, `"getURLParam"` becomes `"GET URL PARAM"`).
@@ -40,12 +42,15 @@ function logCommand(name, { message = "", consoleProps = {}, $el, } = {}) {
             .replace(/([A-Z]+)([A-Z][a-z])/g, "$1 $2")
             .toUpperCase(),
         message,
-        consoleProps: () => ({ props: consoleProps }),
     };
+    const props = { ...consoleProps };
+    logOptions.consoleProps = () => ({ props });
     if ($el) {
         logOptions.$el = $el;
     }
-    return Cypress.log(logOptions);
+    const log = Cypress.log(logOptions);
+    consolePropsByLog.set(log, props);
+    return log;
 }
 /**
  * Appends a value to the message of a log entry. Arrays are formatted as `[a, b]` and cut off
@@ -89,7 +94,7 @@ function formatLogValue(value) {
 }
 /**
  * Updates the console props of a log entry created with {@link logCommand}. Does nothing if
- * no log is passed.
+ * no log is passed or the log was not created with {@link logCommand}.
  *
  * @param log The log to update.
  * @param update Either an object with console props to add or overwrite, or a callback that
@@ -105,17 +110,15 @@ function formatLogValue(value) {
  * });
  */
 function updateConsoleProps(log, update) {
-    if (!log)
+    const props = log && consolePropsByLog.get(log);
+    if (!props)
         return;
-    const consoleProps = log.get("consoleProps")?.() ?? {};
-    consoleProps.props ??= {};
     if (typeof update === "function") {
-        update(consoleProps.props);
+        update(props);
     }
     else {
-        Object.assign(consoleProps.props, update);
+        Object.assign(props, update);
     }
-    log.set({ consoleProps: () => consoleProps });
 }
 /**
  * Creates a `.then()` callback that adds the yielded value to the console props of a log entry

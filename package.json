@@ -105,6 +105,9 @@
 		"chai": "^6.2.2",
 		"chai-dom": "^1.12.1"
 	},
+	"peerDependencies": {
+		"cypress": ">=13"
+	},
 	"devDependencies": {
 		"@types/chai-dom": "^1.11.3",
 		"@types/lodash": "^4.17.25",
