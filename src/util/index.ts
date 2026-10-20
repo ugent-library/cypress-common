@@ -4,7 +4,7 @@
  * @example
  * cy.wrap(subject, NO_LOG);
  */
-export const NO_LOG = { log: false };
+export const NO_LOG = Object.freeze({ log: false } as const);
 
 /**
  * Creates a command log entry. The display name is derived from the camelCase command name
