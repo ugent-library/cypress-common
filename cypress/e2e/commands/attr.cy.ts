@@ -3,7 +3,7 @@ describe("The attr command", () => {
     '<a id="someLink" href="abc" title="the title" data-id="987" data-type="link">test</a>';
 
   beforeEach(() => {
-    cy.visit("/en/libraries");
+    cy.visit("/");
 
     cy.document().then((doc) => {
       Cypress.$(someLink).appendTo(doc.body);

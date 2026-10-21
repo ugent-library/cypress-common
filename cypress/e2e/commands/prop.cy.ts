@@ -5,7 +5,7 @@ describe("The prop command", () => {
     '<meter id="someMeter" min="0" max="123" value="75">75%</meter>';
 
   beforeEach(() => {
-    cy.visit("/en/libraries");
+    cy.visit("/");
 
     cy.document().then((doc) => {
       Cypress.$(someLink).appendTo(doc.body);
