@@ -10,6 +10,7 @@
 		"declaration": true,
 		"strict": true,
 		"noUncheckedIndexedAccess": true,
+		"noUnusedLocals": true,
 		"skipLibCheck": true
 	},
 	"include": ["src"]

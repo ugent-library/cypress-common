@@ -1,4 +1,7 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.NO_LOG = void 0;
 exports.logCommand = logCommand;
@@ -6,6 +9,7 @@ exports.updateLogMessage = updateLogMessage;
 exports.updateConsoleProps = updateConsoleProps;
 exports.addToConsoleProps = addToConsoleProps;
 exports.addToLog = addToLog;
+const loupe_1 = __importDefault(require("loupe"));
 /**
  * Options object to suppress command logging.
  *
@@ -36,7 +40,6 @@ const consolePropsByLog = new WeakMap();
 function logCommand(name, { message = "", consoleProps = {}, $el, } = {}) {
     const logOptions = {
         name,
-        displayName: name,
         message,
     };
     const props = { ...consoleProps };
@@ -49,8 +52,9 @@ function logCommand(name, { message = "", consoleProps = {}, $el, } = {}) {
     return log;
 }
 /**
- * Appends a value to the message of a log entry. Arrays are formatted as `[a, b]` and cut off
- * with `...` once their items exceed 50 characters, other values are converted with `String()`.
+ * Appends a value to the message of a log entry. Strings are appended as-is, other values
+ * (objects, arrays, numbers, ...) are formatted with loupe (using double quoted strings) and
+ * truncated to 50 characters.
  * Does nothing if no log is passed.
  *
  * @param log The log to update.
@@ -61,7 +65,7 @@ function logCommand(name, { message = "", consoleProps = {}, $el, } = {}) {
  * const log = logCommand("param", { message: "page" });
  *
  * updateLogMessage(log, 2); // Message is now "page, 2"
- * updateLogMessage(log, ["a", "b"]); // Message is now "page, 2, [a, b]"
+ * updateLogMessage(log, ["a", "b"]); // Message is now 'page, 2, ["a", "b"]'
  */
 function updateLogMessage(log, append, separator = ", ") {
     if (!log)
@@ -70,23 +74,22 @@ function updateLogMessage(log, append, separator = ", ") {
     const formatted = formatLogValue(append);
     log.set("message", message ? `${message}${separator}${formatted}` : formatted);
 }
-const MAX_ARRAY_MESSAGE_LENGTH = 50;
 function formatLogValue(value) {
-    if (!Array.isArray(value)) {
-        return String(value);
+    if (typeof value === "string") {
+        return value;
     }
-    const items = [];
-    let length = 0;
-    for (const item of value.map(formatLogValue)) {
-        length += (items.length > 0 ? 2 : 0) + item.length;
-        // Always keep the first item, so the message never ends up as just "[...]"
-        if (items.length > 0 && length > MAX_ARRAY_MESSAGE_LENGTH) {
-            items.push("...");
-            break;
-        }
-        items.push(item);
+    return ((0, loupe_1.default)(value, { truncate: 50, stylize: doubleQuoteStrings })
+        // Drop the padding loupe adds inside the outer brackets: "[ 1, 2 ]" -> "[1, 2]",
+        // "Set{ 1, 2 }" -> "Set{1, 2}"
+        .replace(/^(\w*[[{]) | ([\]}])$/g, "$1$2"));
+}
+// loupe always single quotes strings, swap them for double quotes (and fix the escaping)
+function doubleQuoteStrings(value, styleType) {
+    if (styleType !== "string") {
+        return value;
     }
-    return `[${items.join(", ")}]`;
+    const content = value.slice(1, -1).replace(/\\'/g, "'").replace(/"/g, '\\"');
+    return `"${content}"`;
 }
 /**
  * Updates the console props of a log entry created with {@link logCommand}. Does nothing if
