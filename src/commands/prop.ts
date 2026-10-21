@@ -1,4 +1,4 @@
-import { logCommand, updateConsoleProps } from "../util";
+import { logCommand, updateConsoleProps, updateLogMessage } from "../util";
 
 declare global {
   namespace Cypress {
@@ -11,14 +11,19 @@ declare global {
       prop<T>(propertyName: string): Chainable<T>;
 
       /**
-       * Set one or more properties for the set of matched elements. Invokes the jQuery prop method.
+       * Set one property for the set of matched elements. Invokes the jQuery prop method.
        *
        * @param propertyName The name of the property to set.
        * @param value A value to set for the property.
        */
       prop<T>(propertyName: string, value: T): Chainable<Subject>;
 
-      // TODO: Add support for 2 more jQuery overloads .prop(properties) and .prop(propertyName, function). See: https://api.jquery.com/prop/
+      /**
+       * Set one or more properties for the set of matched elements. Invokes the jQuery prop method.
+       *
+       * @param properties An object of property-value pairs to set.
+       */
+      prop(properties: Record<string, unknown>): Chainable<Subject>;
     }
   }
 }
@@ -28,8 +33,23 @@ const COMMAND_NAME = "prop";
 Cypress.Commands.add(
   COMMAND_NAME,
   { prevSubject: true },
-  (subject: JQuery, propertyName: string, value?: unknown) => {
-    if (value !== undefined) {
+  (
+    subject: JQuery,
+    propertyName: string | Record<string, unknown>,
+    value?: unknown,
+  ) => {
+    if (typeof propertyName === "object") {
+      const log = logCommand(COMMAND_NAME, {
+        consoleProps: { properties: propertyName },
+        $el: subject,
+      });
+
+      updateLogMessage(log, propertyName);
+
+      subject.prop(propertyName);
+
+      return subject;
+    } else if (value !== undefined) {
       logCommand(COMMAND_NAME, {
         message: `${propertyName} = ${value}`,
         consoleProps: { propertyName, value },

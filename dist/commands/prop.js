@@ -3,7 +3,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const util_1 = require("../util");
 const COMMAND_NAME = "prop";
 Cypress.Commands.add(COMMAND_NAME, { prevSubject: true }, (subject, propertyName, value) => {
-    if (value !== undefined) {
+    if (typeof propertyName === "object") {
+        const log = (0, util_1.logCommand)(COMMAND_NAME, {
+            consoleProps: { properties: propertyName },
+            $el: subject,
+        });
+        (0, util_1.updateLogMessage)(log, propertyName);
+        subject.prop(propertyName);
+        return subject;
+    }
+    else if (value !== undefined) {
         (0, util_1.logCommand)(COMMAND_NAME, {
             message: `${propertyName} = ${value}`,
             consoleProps: { propertyName, value },

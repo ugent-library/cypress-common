@@ -90,6 +90,7 @@ Invokes the jQuery [prop](https://api.jquery.com/prop/) method.
 cy.get("img#logo").prop("src"); // Yields the src property value of the selected IMG
 cy.get("img#logo").prop<string>("src"); // Typescript version of the line above
 cy.get("img#logo").prop("alt", "The corporate logo"); // Yields the selected IMG component
+cy.get("img#logo").prop({ alt: "The corporate logo", title: "Logo" }); // Sets multiple properties and yields the selected IMG component
 ```
 
 ### [random([[lower, ]upper])](src/commands/random.ts)
