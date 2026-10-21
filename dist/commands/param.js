@@ -12,7 +12,12 @@ Cypress.Commands.add(COMMAND_NAME, { prevSubject: "optional" }, (subject, name, 
     return (0, url_subject_1.urlSubject)(subject).then((url) => {
         (0, util_1.updateConsoleProps)(log, { subject: url });
         const yielded = (0, param_helper_1.getParam)(url, name);
-        (0, util_1.updateLogMessage)(log, yielded || "(default)");
+        if (yielded) {
+            (0, util_1.updateLogMessage)(log, yielded);
+        }
+        else if (defaultValue !== null) {
+            (0, util_1.updateLogMessage)(log, `(default: ${defaultValue})`);
+        }
         (0, util_1.updateConsoleProps)(log, { yielded });
         return cy.wrap(yielded || defaultValue, util_1.NO_LOG);
     });

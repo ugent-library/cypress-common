@@ -1,12 +1,12 @@
 {
-	"extends": "../tsconfig.json",
-	"compilerOptions": {
-		"module": "ES2015",
-		"moduleResolution": "bundler",
-		"types": ["cypress", "node"],
-		"allowSyntheticDefaultImports": true,
-		"rootDir": "..",
-		"noEmit": true
-	},
-	"include": ["**/*", "../src"]
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "module": "ES2015",
+    "moduleResolution": "bundler",
+    "types": ["cypress", "node"],
+    "allowSyntheticDefaultImports": true,
+    "rootDir": "..",
+    "noEmit": true
+  },
+  "include": ["**/*", "../src"]
 }
