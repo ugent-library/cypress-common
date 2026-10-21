@@ -11,7 +11,7 @@ describe("The at command", () => {
   });
 
   it("should yield a specific item of a jQuery object (wrapped again by cypress)", () => {
-    cy.visit("/en/libraries");
+    cy.visit("/");
 
     cy.get("img, a").as("items").its("length").should("be.above", 30);
 

@@ -16,7 +16,7 @@ export default defineConfig({
 	],
 
 	e2e: {
-		baseUrl: "https://lib.ugent.be",
+		baseUrl: "https://lib.ugent.be/en/libraries",
 		experimentalRunAllSpecs: true,
 	},
 });

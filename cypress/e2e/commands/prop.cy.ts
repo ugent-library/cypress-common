@@ -3,7 +3,7 @@ describe("The prop command", () => {
     '<input id="someInput" type="text" value="some value" formaction="test" maxLength="123" readonly data-id="987" data-type="input">';
 
   beforeEach(() => {
-    cy.visit("/en/libraries");
+    cy.visit("/");
 
     cy.document().then((doc) => {
       Cypress.$(someInput).appendTo(doc.body);

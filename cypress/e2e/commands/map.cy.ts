@@ -12,7 +12,7 @@ describe("The map command", () => {
   });
 
   it("should map all elements in jQuery object", () => {
-    cy.visit("/en/libraries");
+    cy.visit("/");
 
     cy.get("a:not([onclick])")
       .as("links")

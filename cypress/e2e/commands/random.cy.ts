@@ -46,7 +46,7 @@ describe("The random command", () => {
   });
 
   it("should return a random item of a jQuery object (wrapped again by cypress)", () => {
-    cy.visit("/en/libraries");
+    cy.visit("/");
 
     cy.get("img, a").as("items").its("length").should("be.above", 30);
 
