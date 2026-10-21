@@ -40,7 +40,12 @@ Cypress.Commands.add(
 
       const yielded = getParam(url, name);
 
-      updateLogMessage(log, yielded || "(default)");
+      if (yielded) {
+        updateLogMessage(log, yielded);
+      } else if (defaultValue !== null) {
+        updateLogMessage(log, `(default: ${defaultValue})`);
+      }
+
       updateConsoleProps(log, { yielded });
 
       return cy.wrap(yielded || defaultValue, NO_LOG);
