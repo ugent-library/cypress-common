@@ -14,12 +14,9 @@ export default defineConfig({
 		"*piwik.pro",
 		"*onetrust.com",
 	],
-	expose: {
-		testUrl: "https://lib.ugent.be",
-	},
 
 	e2e: {
+		baseUrl: "https://lib.ugent.be",
 		experimentalRunAllSpecs: true,
-		experimentalOriginDependencies: true,
 	},
 });
