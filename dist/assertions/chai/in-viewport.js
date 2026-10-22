@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 chai.Assertion.addMethod("inViewport", function (window) {
     if (!window || window.constructor.name !== "Window") {
         throw new Error('You should provide the window object, retrieved by "cy.window()", as an argument to the "inViewport" assertion.');
@@ -21,3 +19,4 @@ chai.Assertion.addMethod("inViewport", function (window) {
             (window.innerWidth || window.document.documentElement.clientWidth);
     this.assert(visible, "expected #{this} to be visible inside viewport", "expected #{this} to not be visible inside viewport", undefined);
 });
+export {};
