@@ -1,5 +1,9 @@
-import { logCommand, updateConsoleProps, updateLogMessage } from "../util";
-import { urlSubject } from "../lib/url-subject";
+import {
+  logCommand,
+  updateConsoleProps,
+  updateLogMessage,
+} from "../util/index.js";
+import { urlSubject } from "../lib/url-subject.js";
 
 declare global {
   namespace Cypress {

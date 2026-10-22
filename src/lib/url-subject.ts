@@ -1,4 +1,4 @@
-import { NO_LOG } from "../util";
+import { NO_LOG } from "../util/index.js";
 
 /**
  * Resolves the subject of the `param` and `params` commands to a chainable URL (or query) string:

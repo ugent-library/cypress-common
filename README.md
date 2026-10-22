@@ -22,6 +22,9 @@ Follow these steps to use this project:
   import 'cypress-common/commands/map';
   ```
 
+  Or import everything at once with `import 'cypress-common';`.
+
+- Make sure `compilerOptions.moduleResolution` in your `tsconfig.json` is set to `bundler`, `node16` or `nodenext`, otherwise TypeScript won't find the typings of the commands and assertions.
 - Use the imported assertions/commands in your tests.
 
 ## Commands

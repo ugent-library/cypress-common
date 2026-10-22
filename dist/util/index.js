@@ -1,22 +1,11 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.NO_LOG = void 0;
-exports.logCommand = logCommand;
-exports.updateLogMessage = updateLogMessage;
-exports.updateConsoleProps = updateConsoleProps;
-exports.addToConsoleProps = addToConsoleProps;
-exports.addToLog = addToLog;
-const loupe_1 = __importDefault(require("loupe"));
+import loupe from "loupe";
 /**
  * Options object to suppress command logging.
  *
  * @example
  * cy.wrap(subject, NO_LOG);
  */
-exports.NO_LOG = Object.freeze({ log: false });
+export const NO_LOG = Object.freeze({ log: false });
 // Mutable console props per log, read lazily by the `consoleProps` callback set in logCommand
 const consolePropsByLog = new WeakMap();
 /**
@@ -37,7 +26,7 @@ const consolePropsByLog = new WeakMap();
  *   return cy.wrap(Cypress._.sum(subject), NO_LOG).then(addToLog(log, "yielded"));
  * });
  */
-function logCommand(name, { message = "", consoleProps = {}, $el, } = {}) {
+export function logCommand(name, { message = "", consoleProps = {}, $el, } = {}) {
     const logOptions = {
         name,
         message,
@@ -67,7 +56,7 @@ function logCommand(name, { message = "", consoleProps = {}, $el, } = {}) {
  * updateLogMessage(log, 2); // Message is now "page, 2"
  * updateLogMessage(log, ["a", "b"]); // Message is now 'page, 2, ["a", "b"]'
  */
-function updateLogMessage(log, append, separator = ", ") {
+export function updateLogMessage(log, append, separator = ", ") {
     if (!log)
         return;
     const message = String(log.get("message") ?? "");
@@ -78,7 +67,7 @@ function formatLogValue(value) {
     if (typeof value === "string") {
         return value;
     }
-    return ((0, loupe_1.default)(value, { truncate: 50, stylize: doubleQuoteStrings })
+    return (loupe(value, { truncate: 50, stylize: doubleQuoteStrings })
         // Drop the padding loupe adds inside the outer brackets: "[ 1, 2 ]" -> "[1, 2]",
         // "Set{ 1, 2 }" -> "Set{1, 2}"
         .replace(/^(\w*[[{]) | ([\]}])$/g, "$1$2"));
@@ -108,7 +97,7 @@ function doubleQuoteStrings(value, styleType) {
  *   consoleProps.attempts.push(attempt);
  * });
  */
-function updateConsoleProps(log, update) {
+export function updateConsoleProps(log, update) {
     const props = log && consolePropsByLog.get(log);
     if (!props)
         return;
@@ -134,7 +123,7 @@ function updateConsoleProps(log, update) {
  *   .invoke(NO_LOG, "attr", name)
  *   .then(addToConsoleProps(log, "yielded"));
  */
-function addToConsoleProps(log, propertyKey) {
+export function addToConsoleProps(log, propertyKey) {
     return (yieldedResult) => {
         updateConsoleProps(log, { [propertyKey]: yieldedResult });
         return yieldedResult;
@@ -156,7 +145,7 @@ function addToConsoleProps(log, propertyKey) {
  *   .then((search) => new URLSearchParams(search).get(name))
  *   .then(addToLog(log, "yielded", "=")); // With name "page" and "?page=2", the message becomes "page=2"
  */
-function addToLog(log, propertyKey, separator) {
+export function addToLog(log, propertyKey, separator) {
     const addToProps = addToConsoleProps(log, propertyKey);
     return (yieldedResult) => {
         if (yieldedResult !== "" &&

@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.getParam = getParam;
-function getParam(url, name) {
+export function getParam(url, name) {
     url = url.slice(url.indexOf("?")); // Only use the query
     const [first, ...others] = new URLSearchParams(url).getAll(name);
     if (first === undefined) {
