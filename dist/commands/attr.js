@@ -1,7 +1,7 @@
 import { logCommand, updateConsoleProps, updateLogMessage, } from "../util/index.js";
 const COMMAND_NAME = "attr";
 Cypress.Commands.add(COMMAND_NAME, { prevSubject: true }, (subject, attributeName, value) => {
-    if (typeof attributeName === "object") {
+    if (attributeName !== null && typeof attributeName === "object") {
         const log = logCommand(COMMAND_NAME, {
             consoleProps: { attributes: attributeName },
             $el: subject,

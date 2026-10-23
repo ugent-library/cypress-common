@@ -48,7 +48,7 @@ Cypress.Commands.add(
     attributeName: string | Record<string, unknown>,
     value?: AttrValue,
   ) => {
-    if (typeof attributeName === "object") {
+    if (attributeName !== null && typeof attributeName === "object") {
       const log = logCommand(COMMAND_NAME, {
         consoleProps: { attributes: attributeName },
         $el: subject,
