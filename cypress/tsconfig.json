@@ -1,12 +1,12 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "module": "ES2015",
+    "module": "ESNext",
     "moduleResolution": "bundler",
     "types": ["cypress", "node"],
     "allowSyntheticDefaultImports": true,
-    "rootDir": "..",
+    "rootDir": ".",
     "noEmit": true
   },
-  "include": ["**/*", "../src"]
+  "include": ["**/*"]
 }
