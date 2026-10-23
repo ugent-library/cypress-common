@@ -5,7 +5,7 @@ import {
   logCommand,
   updateConsoleProps,
   updateLogMessage,
-} from "../../src/util";
+} from "cypress-common/util";
 
 function getConsoleProps(log: Cypress.Log) {
   return log.get("consoleProps")().props;

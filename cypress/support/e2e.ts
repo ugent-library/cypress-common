@@ -1,5 +1,5 @@
-import "../../src/assertions";
-import "../../src/commands";
+import "cypress-common/assertions";
+import "cypress-common/commands";
 
 export function expectErrorOnFail(
   done: Mocha.Done,
