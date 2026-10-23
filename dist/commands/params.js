@@ -1,6 +1,6 @@
-import { logCommand, updateConsoleProps, updateLogMessage, } from "../util/index.js";
-import { urlSubject } from "../lib/url-subject.js";
 import { getQuery } from "../lib/param-helper.js";
+import { urlSubject } from "../lib/url-subject.js";
+import { logCommand, updateConsoleProps, updateLogMessage, } from "../util/index.js";
 const COMMAND_NAME = "params";
 Cypress.Commands.add(COMMAND_NAME, { prevSubject: "optional" }, (subject) => {
     const log = logCommand(COMMAND_NAME);

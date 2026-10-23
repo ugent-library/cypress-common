@@ -82,5 +82,3 @@ Cypress.Commands.add(
     }
   },
 );
-
-export {};

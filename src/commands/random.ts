@@ -112,5 +112,3 @@ function isIterable(value: object): value is Iterable<unknown> {
     Symbol.iterator in value && typeof value[Symbol.iterator] === "function"
   );
 }
-
-export {};
