@@ -10,4 +10,10 @@ describe("The unique command", () => {
       .unique(true)
       .should("eql", ["abc", "def", "xyz"]);
   });
+
+  it("should sort numbers numerically", () => {
+    cy.wrap([10, 9, 1, 100, 9, 2])
+      .unique(true)
+      .should("eql", [1, 2, 9, 10, 100]);
+  });
 });
