@@ -42,17 +42,17 @@ const COMMAND_NAME = "random";
 Cypress.Commands.add(
   COMMAND_NAME,
   { prevSubject: true },
-  (subject: unknown, lower: number = 0, upper: number | null = null) => {
+  (subject: unknown, lower?: number, upper?: number) => {
     const log = logCommand(COMMAND_NAME, {
       consoleProps: { lower, upper, subject },
     });
 
     const { length, keyFn, inFn, itemFn } = determineSubjectOperators(subject);
 
-    if (!lower && !upper) {
+    if (lower === undefined) {
       lower = 0;
       upper = length - 1;
-    } else if (!upper) {
+    } else if (upper === undefined) {
       upper = lower;
       lower = 0;
     }
@@ -81,7 +81,7 @@ function determineSubjectOperators(subject: unknown): SubjectOperators {
       return {
         length: subject.length,
         keyFn: (i) => i,
-        inFn: (i) => i < subject.length,
+        inFn: (i) => i >= 0 && i < subject.length,
         itemFn: (i) => subject[i],
       };
     } else if (subject instanceof Map) {

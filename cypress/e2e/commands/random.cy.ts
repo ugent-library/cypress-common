@@ -80,4 +80,25 @@ describe("The random command", () => {
   it("should yield null if the source array is empty", () => {
     cy.wrap([]).random().should("be.null");
   });
+
+  it("should respect an explicit upper bound of 0", () => {
+    for (let i = 0; i < 20; i++) {
+      cy.wrap(list).random(0).should("eq", 100);
+    }
+  });
+
+  it("should respect explicit lower and upper bounds of 0", () => {
+    for (let i = 0; i < 20; i++) {
+      cy.wrap(list).random(0, 0).should("eq", 100);
+    }
+  });
+
+  it("should yield null if the source jQuery object is empty", () => {
+    for (let i = 0; i < 20; i++) {
+      // cy.wrap() would wait for an empty jQuery object to exist, so yield it from then() instead
+      cy.then(() => Cypress.$([]))
+        .random()
+        .should("be.null");
+    }
+  });
 });
