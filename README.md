@@ -50,7 +50,11 @@ Invokes the jQuery [attr](https://api.jquery.com/attr/) method.
 
 ```js
 cy.get("img#logo").attr("src"); // Yields the src attribute value of the selected IMG
+cy.get("img#logo").attr("data-missing"); // Yields undefined if the attribute is not set
 cy.get("img#logo").attr("alt", "The corporate logo"); // Yields the selected IMG component
+cy.get("img#logo").attr("title", null); // Removes the title attribute
+cy.get("img#logo").attr("alt", (index, alt) => alt.toUpperCase()); // Sets the attribute to the return value of the function
+cy.get("img#logo").attr({ alt: "The corporate logo", title: "Logo" }); // Sets multiple attributes and yields the selected IMG component
 ```
 
 ### [map(iteratee)](src/commands/map.ts)
