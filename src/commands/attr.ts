@@ -1,4 +1,14 @@
-import { logCommand, updateConsoleProps } from "../util/index.js";
+import {
+  logCommand,
+  updateConsoleProps,
+  updateLogMessage,
+} from "../util/index.js";
+
+type AttrValue =
+  | string
+  | number
+  | null
+  | ((index: number, attr: string) => string | number | void | undefined);
 
 declare global {
   namespace Cypress {
@@ -8,20 +18,22 @@ declare global {
        *
        * @param attributeName The name of the attribute to get.
        */
-      attr(attributeName: string): Chainable<string>;
+      attr(attributeName: string): Chainable<string | undefined>;
 
       /**
        * Set one or more attributes for the set of matched elements. Invokes the jQuery attr method.
        *
        * @param attributeName The name of the attribute to set.
-       * @param value A value to set for the attribute.
+       * @param value A value to set for the attribute, or `null` to remove it.
        */
-      attr(
-        attributeName: string,
-        value: string | number | null,
-      ): Chainable<Subject>;
+      attr(attributeName: string, value: AttrValue): Chainable<Subject>;
 
-      // TODO: Add support for 2 more jQuery overloads .attr(attributes) and .attr(attributeName, function). See: https://api.jquery.com/attr/
+      /**
+       * Set one or more attributes for the set of matched elements. Invokes the jQuery attr method.
+       *
+       * @param attributes An object of attribute-value pairs to set.
+       */
+      attr(attributes: Record<string, AttrValue>): Chainable<Subject>;
     }
   }
 }
@@ -33,17 +45,32 @@ Cypress.Commands.add(
   { prevSubject: true },
   (
     subject: JQuery,
-    attributeName: string,
-    value: string | number | null = null,
+    attributeName: string | Record<string, unknown>,
+    value?: AttrValue,
   ) => {
-    if (value) {
-      logCommand(COMMAND_NAME, {
+    if (attributeName !== null && typeof attributeName === "object") {
+      const log = logCommand(COMMAND_NAME, {
+        consoleProps: { attributes: attributeName },
+        $el: subject,
+      });
+
+      updateLogMessage(log, attributeName);
+
+      subject.attr(attributeName);
+
+      updateConsoleProps(log, { yielded: subject });
+
+      return subject;
+    } else if (value !== undefined) {
+      const log = logCommand(COMMAND_NAME, {
         message: `${attributeName} = ${value}`,
         consoleProps: { attributeName, value },
         $el: subject,
       });
 
       subject.attr(attributeName, value);
+
+      updateConsoleProps(log, { yielded: subject });
 
       return subject;
     } else {
