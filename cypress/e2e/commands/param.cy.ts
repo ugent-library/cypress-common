@@ -136,6 +136,16 @@ describe("The param command", () => {
     });
   });
 
+  describe("When the parameter has an empty value", () => {
+    it("should yield an empty string instead of the default", () => {
+      cy.wrap("/en/libraries?q=&count=123")
+        .param("q", "abc123")
+        .should("eq", "");
+
+      cy.wrap("/en/libraries?q=&count=123").param("q").should("eq", "");
+    });
+  });
+
   describe("The alternate flow", () => {
     const assertFailure = (
       done: Mocha.Done,
