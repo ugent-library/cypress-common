@@ -1,1 +1,1 @@
-import "./chai";
+import "./chai/index.js";

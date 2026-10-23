@@ -8,8 +8,7 @@ export declare const NO_LOG: Readonly<{
     readonly log: false;
 }>;
 /**
- * Creates a command log entry. The display name is derived from the camelCase command name
- * (`"uniqueValues"` becomes `"UNIQUE VALUES"`, `"getURLParam"` becomes `"GET URL PARAM"`).
+ * Creates a Cypress command log entry.
  * Console props are nested under a `props` key, which the other helpers in this module rely on.
  *
  * @param name The command name.
@@ -32,8 +31,9 @@ export declare function logCommand(name: string, { message, consoleProps, $el, }
     $el?: JQuery;
 }): Cypress.Log;
 /**
- * Appends a value to the message of a log entry. Arrays are formatted as `[a, b]` and cut off
- * with `...` once their items exceed 50 characters, other values are converted with `String()`.
+ * Appends a value to the message of a log entry. Strings are appended as-is, other values
+ * (objects, arrays, numbers, ...) are formatted with loupe (using double quoted strings) and
+ * truncated to 50 characters.
  * Does nothing if no log is passed.
  *
  * @param log The log to update.
@@ -44,7 +44,7 @@ export declare function logCommand(name: string, { message, consoleProps, $el, }
  * const log = logCommand("param", { message: "page" });
  *
  * updateLogMessage(log, 2); // Message is now "page, 2"
- * updateLogMessage(log, ["a", "b"]); // Message is now "page, 2, [a, b]"
+ * updateLogMessage(log, ["a", "b"]); // Message is now 'page, 2, ["a", "b"]'
  */
 export declare function updateLogMessage(log: Cypress.Log | undefined, append: unknown, separator?: string): void;
 /**

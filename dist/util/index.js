@@ -1,23 +1,15 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.NO_LOG = void 0;
-exports.logCommand = logCommand;
-exports.updateLogMessage = updateLogMessage;
-exports.updateConsoleProps = updateConsoleProps;
-exports.addToConsoleProps = addToConsoleProps;
-exports.addToLog = addToLog;
+import loupe from "loupe";
 /**
  * Options object to suppress command logging.
  *
  * @example
  * cy.wrap(subject, NO_LOG);
  */
-exports.NO_LOG = Object.freeze({ log: false });
+export const NO_LOG = Object.freeze({ log: false });
 // Mutable console props per log, read lazily by the `consoleProps` callback set in logCommand
 const consolePropsByLog = new WeakMap();
 /**
- * Creates a command log entry. The display name is derived from the camelCase command name
- * (`"uniqueValues"` becomes `"UNIQUE VALUES"`, `"getURLParam"` becomes `"GET URL PARAM"`).
+ * Creates a Cypress command log entry.
  * Console props are nested under a `props` key, which the other helpers in this module rely on.
  *
  * @param name The command name.
@@ -34,13 +26,9 @@ const consolePropsByLog = new WeakMap();
  *   return cy.wrap(Cypress._.sum(subject), NO_LOG).then(addToLog(log, "yielded"));
  * });
  */
-function logCommand(name, { message = "", consoleProps = {}, $el, } = {}) {
+export function logCommand(name, { message = "", consoleProps = {}, $el, } = {}) {
     const logOptions = {
         name,
-        displayName: name
-            .replace(/([a-z\d])([A-Z])/g, "$1 $2")
-            .replace(/([A-Z]+)([A-Z][a-z])/g, "$1 $2")
-            .toUpperCase(),
         message,
     };
     const props = { ...consoleProps };
@@ -53,8 +41,9 @@ function logCommand(name, { message = "", consoleProps = {}, $el, } = {}) {
     return log;
 }
 /**
- * Appends a value to the message of a log entry. Arrays are formatted as `[a, b]` and cut off
- * with `...` once their items exceed 50 characters, other values are converted with `String()`.
+ * Appends a value to the message of a log entry. Strings are appended as-is, other values
+ * (objects, arrays, numbers, ...) are formatted with loupe (using double quoted strings) and
+ * truncated to 50 characters.
  * Does nothing if no log is passed.
  *
  * @param log The log to update.
@@ -65,32 +54,31 @@ function logCommand(name, { message = "", consoleProps = {}, $el, } = {}) {
  * const log = logCommand("param", { message: "page" });
  *
  * updateLogMessage(log, 2); // Message is now "page, 2"
- * updateLogMessage(log, ["a", "b"]); // Message is now "page, 2, [a, b]"
+ * updateLogMessage(log, ["a", "b"]); // Message is now 'page, 2, ["a", "b"]'
  */
-function updateLogMessage(log, append, separator = ", ") {
+export function updateLogMessage(log, append, separator = ", ") {
     if (!log)
         return;
     const message = String(log.get("message") ?? "");
     const formatted = formatLogValue(append);
     log.set("message", message ? `${message}${separator}${formatted}` : formatted);
 }
-const MAX_ARRAY_MESSAGE_LENGTH = 50;
 function formatLogValue(value) {
-    if (!Array.isArray(value)) {
-        return String(value);
+    if (typeof value === "string") {
+        return value;
     }
-    const items = [];
-    let length = 0;
-    for (const item of value.map(formatLogValue)) {
-        length += (items.length > 0 ? 2 : 0) + item.length;
-        // Always keep the first item, so the message never ends up as just "[...]"
-        if (items.length > 0 && length > MAX_ARRAY_MESSAGE_LENGTH) {
-            items.push("...");
-            break;
-        }
-        items.push(item);
+    return (loupe(value, { truncate: 50, stylize: doubleQuoteStrings })
+        // Drop the padding loupe adds inside the outer brackets: "[ 1, 2 ]" -> "[1, 2]",
+        // "Set{ 1, 2 }" -> "Set{1, 2}"
+        .replace(/^(\w*[[{]) | ([\]}])$/g, "$1$2"));
+}
+// loupe always single quotes strings, swap them for double quotes (and fix the escaping)
+function doubleQuoteStrings(value, styleType) {
+    if (styleType !== "string") {
+        return value;
     }
-    return `[${items.join(", ")}]`;
+    const content = value.slice(1, -1).replace(/\\'/g, "'").replace(/"/g, '\\"');
+    return `"${content}"`;
 }
 /**
  * Updates the console props of a log entry created with {@link logCommand}. Does nothing if
@@ -109,7 +97,7 @@ function formatLogValue(value) {
  *   consoleProps.attempts.push(attempt);
  * });
  */
-function updateConsoleProps(log, update) {
+export function updateConsoleProps(log, update) {
     const props = log && consolePropsByLog.get(log);
     if (!props)
         return;
@@ -135,7 +123,7 @@ function updateConsoleProps(log, update) {
  *   .invoke(NO_LOG, "attr", name)
  *   .then(addToConsoleProps(log, "yielded"));
  */
-function addToConsoleProps(log, propertyKey) {
+export function addToConsoleProps(log, propertyKey) {
     return (yieldedResult) => {
         updateConsoleProps(log, { [propertyKey]: yieldedResult });
         return yieldedResult;
@@ -157,7 +145,7 @@ function addToConsoleProps(log, propertyKey) {
  *   .then((search) => new URLSearchParams(search).get(name))
  *   .then(addToLog(log, "yielded", "=")); // With name "page" and "?page=2", the message becomes "page=2"
  */
-function addToLog(log, propertyKey, separator) {
+export function addToLog(log, propertyKey, separator) {
     const addToProps = addToConsoleProps(log, propertyKey);
     return (yieldedResult) => {
         if (yieldedResult !== "" &&

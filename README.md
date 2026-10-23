@@ -22,6 +22,9 @@ Follow these steps to use this project:
   import 'cypress-common/commands/map';
   ```
 
+  Or import everything at once with `import 'cypress-common';`.
+
+- Make sure `compilerOptions.moduleResolution` in your `tsconfig.json` is set to `bundler`, `node16` or `nodenext`, otherwise TypeScript won't find the typings of the commands and assertions.
 - Use the imported assertions/commands in your tests.
 
 ## Commands
@@ -47,7 +50,11 @@ Invokes the jQuery [attr](https://api.jquery.com/attr/) method.
 
 ```js
 cy.get("img#logo").attr("src"); // Yields the src attribute value of the selected IMG
+cy.get("img#logo").attr("data-missing"); // Yields undefined if the attribute is not set
 cy.get("img#logo").attr("alt", "The corporate logo"); // Yields the selected IMG component
+cy.get("img#logo").attr("title", null); // Removes the title attribute
+cy.get("img#logo").attr("alt", (index, alt) => alt.toUpperCase()); // Sets the attribute to the return value of the function
+cy.get("img#logo").attr({ alt: "The corporate logo", title: "Logo" }); // Sets multiple attributes and yields the selected IMG component
 ```
 
 ### [map(iteratee)](src/commands/map.ts)
@@ -90,6 +97,7 @@ Invokes the jQuery [prop](https://api.jquery.com/prop/) method.
 cy.get("img#logo").prop("src"); // Yields the src property value of the selected IMG
 cy.get("img#logo").prop<string>("src"); // Typescript version of the line above
 cy.get("img#logo").prop("alt", "The corporate logo"); // Yields the selected IMG component
+cy.get("img#logo").prop({ alt: "The corporate logo", title: "Logo" }); // Sets multiple properties and yields the selected IMG component
 ```
 
 ### [random([[lower, ]upper])](src/commands/random.ts)
@@ -220,7 +228,7 @@ cy.location("search", NO_LOG);
 
 ### [logCommand(name[, options])](src/util/index.ts)
 
-Creates a command log entry and returns it. The display name is derived from the camelCase command name: `"uniqueValues"` is shown as `UNIQUE VALUES`, `"getURLParam"` as `GET URL PARAM`.
+Creates a Cypress command log entry and returns it.
 
 Options:
 
