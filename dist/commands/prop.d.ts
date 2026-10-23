@@ -6,14 +6,20 @@ declare global {
              *
              * @param propertyName The name of the property to get.
              */
-            prop<T>(propertyName: string): Chainable<T>;
+            prop<T>(propertyName: string): Chainable<T | undefined>;
             /**
-             * Set one or more properties for the set of matched elements. Invokes the jQuery prop method.
+             * Set one property for the set of matched elements. Invokes the jQuery prop method.
              *
              * @param propertyName The name of the property to set.
              * @param value A value to set for the property.
              */
             prop<T>(propertyName: string, value: T): Chainable<Subject>;
+            /**
+             * Set one or more properties for the set of matched elements. Invokes the jQuery prop method.
+             *
+             * @param properties An object of property-value pairs to set.
+             */
+            prop(properties: Record<string, unknown>): Chainable<Subject>;
         }
     }
 }

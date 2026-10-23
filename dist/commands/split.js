@@ -1,8 +1,7 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const util_1 = require("../util");
-Cypress.Commands.add("split", { prevSubject: true }, (subject, separator = "", filterEmptyElements = false) => {
-    const log = (0, util_1.logCommand)("split", {
+import { logCommand, updateConsoleProps } from "../util/index.js";
+const COMMAND_NAME = "split";
+Cypress.Commands.add(COMMAND_NAME, { prevSubject: true }, (subject, separator = "", filterEmptyElements = false) => {
+    const log = logCommand(COMMAND_NAME, {
         message: separator.toString(),
         consoleProps: {
             subject,
@@ -14,6 +13,6 @@ Cypress.Commands.add("split", { prevSubject: true }, (subject, separator = "", f
     if (filterEmptyElements) {
         yielded = Cypress._.filter(yielded);
     }
-    (0, util_1.updateConsoleProps)(log, { yielded });
+    updateConsoleProps(log, { yielded });
     return yielded;
 });

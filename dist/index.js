@@ -1,4 +1,2 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-require("./assertions");
-require("./commands");
+import "./assertions/index.js";
+import "./commands/index.js";

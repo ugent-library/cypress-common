@@ -1,170 +1,181 @@
 describe("The param command", () => {
-	const query = "/en/libraries?q=test%20search&item=abc&count=123&item=def";
-	const url = "https://lib.ugent.be/" + query;
+  const query = "/en/libraries?q=test%20search&item=abc&count=123&item=def";
+  const url = "https://lib.ugent.be/" + query;
 
-	describe("When chained directly of cy", () => {
-		beforeEach(() => {
-			cy.origin(Cypress.expose("testUrl"), { args: url }, (url) => {
-				Cypress.require("../../../src/commands/param");
+  describe("When chained directly of cy", () => {
+    beforeEach(() => {
+      cy.visit(url);
+    });
 
-				cy.visit(url);
-			});
-		});
+    it("should use the current location", () => {
+      cy.param("q").should("eq", "test search");
+      cy.param("item").should("eql", ["abc", "def"]);
+      cy.param("count").should("eq", "123");
+    });
 
-		it("should use the current location", () => {
-			cy.origin(Cypress.expose("testUrl"), () => {
-				cy.param("q").should("eq", "test search");
-				cy.param("item").should("eql", ["abc", "def"]);
-				cy.param("count").should("eq", "123");
-			});
-		});
+    it("should return the default for an unknown parameter", () => {
+      cy.param("wrong", "abc123").should("eq", "abc123");
 
-		it("should return the default for an unknown parameter", () => {
-			cy.origin(Cypress.expose("testUrl"), () => {
-				cy.param("wrong", "abc123").should("eq", "abc123");
+      cy.param("wrong").should("be.null");
+    });
+  });
 
-				cy.param("wrong").should("be.null");
-			});
-		});
-	});
+  describe("When used on a subject with a toString method", () => {
+    let subj: { propA: number; propB: boolean; toString: () => string };
 
-	describe("When used on a subject with a toString method", () => {
-		let subj: { propA: number; propB: boolean; toString: () => string };
+    beforeEach(() => {
+      subj = {
+        propA: 1,
+        propB: true,
+        toString: () => query,
+      };
+    });
 
-		beforeEach(() => {
-			subj = {
-				propA: 1,
-				propB: true,
-				toString: () => query,
-			};
-		});
+    it("should invoke the toString method", () => {
+      cy.wrap(subj).param("q").should("eq", "test search");
 
-		it("should invoke the toString method", () => {
-			cy.wrap(subj).param("q").should("eq", "test search");
+      cy.wrap(subj).param("item").should("eql", ["abc", "def"]);
 
-			cy.wrap(subj).param("item").should("eql", ["abc", "def"]);
+      cy.wrap(subj).param("count").should("eq", "123");
+    });
 
-			cy.wrap(subj).param("count").should("eq", "123");
-		});
+    it("should invoke the toString method (full url)", () => {
+      subj.toString = () => url;
 
-		it("should invoke the toString method (full url)", () => {
-			subj.toString = () => url;
+      cy.wrap(subj).param("q").should("eq", "test search");
 
-			cy.wrap(subj).param("q").should("eq", "test search");
+      cy.wrap(subj).param("item").should("eql", ["abc", "def"]);
 
-			cy.wrap(subj).param("item").should("eql", ["abc", "def"]);
+      cy.wrap(subj).param("count").should("eq", "123");
+    });
 
-			cy.wrap(subj).param("count").should("eq", "123");
-		});
+    it("should return the default for an unknown parameter", () => {
+      cy.wrap(subj).param("wrong", "abc123").should("eq", "abc123");
 
-		it("should return the default for an unknown parameter", () => {
-			cy.wrap(subj).param("wrong", "abc123").should("eq", "abc123");
+      cy.wrap(subj).param("wrong").should("be.null");
+    });
+  });
 
-			cy.wrap(subj).param("wrong").should("be.null");
-		});
-	});
+  describe("When used on a subject with a url property", () => {
+    let subj: { propA: number; url: string; propB: boolean };
 
-	describe("When used on a subject with a url property", () => {
-		let subj: { propA: number; url: string; propB: boolean };
+    beforeEach(() => {
+      subj = {
+        propA: 1,
+        url: query,
+        propB: true,
+      };
+    });
 
-		beforeEach(() => {
-			subj = {
-				propA: 1,
-				url: query,
-				propB: true,
-			};
-		});
+    it("should get the url property", () => {
+      cy.wrap(subj).param("q").should("eq", "test search");
 
-		it("should get the url property", () => {
-			cy.wrap(subj).param("q").should("eq", "test search");
+      cy.wrap(subj).param("item").should("eql", ["abc", "def"]);
 
-			cy.wrap(subj).param("item").should("eql", ["abc", "def"]);
+      cy.wrap(subj).param("count").should("eq", "123");
+    });
 
-			cy.wrap(subj).param("count").should("eq", "123");
-		});
+    it("should get the url property (full url)", () => {
+      subj.url = url;
 
-		it("should get the url property (full url)", () => {
-			subj.url = url;
+      cy.wrap(subj).param("q").should("eq", "test search");
 
-			cy.wrap(subj).param("q").should("eq", "test search");
+      cy.wrap(subj).param("item").should("eql", ["abc", "def"]);
 
-			cy.wrap(subj).param("item").should("eql", ["abc", "def"]);
+      cy.wrap(subj).param("count").should("eq", "123");
+    });
 
-			cy.wrap(subj).param("count").should("eq", "123");
-		});
+    it("should return the default for an unknown parameter", () => {
+      cy.wrap(subj).param("wrong", "abc123").should("eq", "abc123");
 
-		it("should return the default for an unknown parameter", () => {
-			cy.wrap(subj).param("wrong", "abc123").should("eq", "abc123");
+      cy.wrap(subj).param("wrong").should("be.null");
+    });
+  });
 
-			cy.wrap(subj).param("wrong").should("be.null");
-		});
-	});
+  describe("When used on a string subject", () => {
+    it("should use the string as subject", () => {
+      cy.wrap(query).param("q").should("eq", "test search");
 
-	describe("When used on a string subject", () => {
-		it("should use the string as subject", () => {
-			cy.wrap(query).param("q").should("eq", "test search");
+      cy.wrap(query).param("item").should("eql", ["abc", "def"]);
 
-			cy.wrap(query).param("item").should("eql", ["abc", "def"]);
+      cy.wrap(query).param("count").should("eq", "123");
+    });
 
-			cy.wrap(query).param("count").should("eq", "123");
-		});
+    it("should use the string as subject (full url)", () => {
+      cy.wrap(url).param("q").should("eq", "test search");
 
-		it("should use the string as subject (full url)", () => {
-			cy.wrap(url).param("q").should("eq", "test search");
+      cy.wrap(url).param("item").should("eql", ["abc", "def"]);
 
-			cy.wrap(url).param("item").should("eql", ["abc", "def"]);
+      cy.wrap(url).param("count").should("eq", "123");
+    });
 
-			cy.wrap(url).param("count").should("eq", "123");
-		});
+    it("should return the default for an unknown parameter", () => {
+      cy.wrap(query).param("wrong", "abc123").should("eq", "abc123");
 
-		it("should return the default for an unknown parameter", () => {
-			cy.wrap(query).param("wrong", "abc123").should("eq", "abc123");
+      cy.wrap(query).param("wrong").should("be.null");
+    });
+  });
 
-			cy.wrap(query).param("wrong").should("be.null");
-		});
-	});
+  describe("When used on a string without a question mark", () => {
+    it("should parse a bare query string", () => {
+      const bareQuery = "q=test%20search&item=abc&count=123&item=def";
 
-	describe("When the parameter has an empty value", () => {
-		it("should yield an empty string instead of the default", () => {
-			cy.wrap("/en/libraries?q=&count=123")
-				.param("q", "abc123")
-				.should("eq", "");
+      cy.wrap(bareQuery).param("q").should("eq", "test search");
 
-			cy.wrap("/en/libraries?q=&count=123").param("q").should("eq", "");
-		});
-	});
+      cy.wrap(bareQuery).param("item").should("eql", ["abc", "def"]);
 
-	describe("The alternate flow", () => {
-		const assertFailure = (
-			done: Mocha.Done,
-			subject: string | number | boolean,
-		) => {
-			cy.on("fail", (error) => {
-				expect(error.constructor.name).to.eq("Error");
-				expect(error.message).to.eq(
-					`Cannot get query parameter for ${subject}`,
-				);
+      cy.wrap(bareQuery).param("count").should("eq", "123");
+    });
 
-				done();
-			});
-		};
+    it("should return the default for a url without query", () => {
+      cy.wrap("https://lib.ugent.be/en/libraries")
+        .param("libraries", "abc123")
+        .should("eq", "abc123");
 
-		it("should throw an error if subject is a number", (done) => {
-			assertFailure(done, 123);
+      cy.wrap("/en/libraries").param("libraries").should("be.null");
+    });
+  });
 
-			cy.wrap(123).param("name");
-		});
+  describe("When the parameter has an empty value", () => {
+    it("should yield an empty string instead of the default", () => {
+      cy.wrap("/en/libraries?q=&count=123")
+        .param("q", "abc123")
+        .should("eq", "");
 
-		it("should throw an error if subject is a boolean", (done) => {
-			assertFailure(done, true);
+      cy.wrap("/en/libraries?q=&count=123").param("q").should("eq", "");
+    });
+  });
 
-			cy.wrap(true).param("name");
-		});
+  describe("The alternate flow", () => {
+    const assertFailure = (
+      done: Mocha.Done,
+      subject: string | number | boolean,
+    ) => {
+      cy.on("fail", (error) => {
+        expect(error.constructor.name).to.eq("Error");
+        expect(error.message).to.eq(
+          `Cannot get query parameter for ${subject}`,
+        );
+        done();
+      });
+    };
 
-		it("should throw an error if subject is an object without toString method and url property", (done) => {
-			assertFailure(done, "[object Object]");
+    it("should throw an error if subject is a number", (done) => {
+      assertFailure(done, 123);
 
-			cy.wrap({ propA: 123, propB: false }).param("name");
-		});
-	});
+      cy.wrap(123).param("name");
+    });
+
+    it("should throw an error if subject is a boolean", (done) => {
+      assertFailure(done, true);
+
+      cy.wrap(true).param("name");
+    });
+
+    it("should throw an error if subject is an object without toString method and url property", (done) => {
+      assertFailure(done, "[object Object]");
+
+      cy.wrap({ propA: 123, propB: false }).param("name");
+    });
+  });
 });
