@@ -8,15 +8,17 @@ Cypress.Commands.add(COMMAND_NAME, { prevSubject: true }, (subject, propertyName
         });
         updateLogMessage(log, propertyName);
         subject.prop(propertyName);
+        updateConsoleProps(log, { yielded: subject });
         return subject;
     }
     else if (value !== undefined) {
-        logCommand(COMMAND_NAME, {
+        const log = logCommand(COMMAND_NAME, {
             message: `${propertyName} = ${value}`,
             consoleProps: { propertyName, value },
             $el: subject,
         });
         subject.prop(propertyName, value);
+        updateConsoleProps(log, { yielded: subject });
         return subject;
     }
     else {
