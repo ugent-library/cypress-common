@@ -1,4 +1,4 @@
-import { logCommand, updateConsoleProps } from "../util";
+import { logCommand, updateConsoleProps } from "../util/index.js";
 
 declare global {
   namespace Cypress {
@@ -13,11 +13,13 @@ declare global {
   }
 }
 
+const COMMAND_NAME = "at";
+
 Cypress.Commands.add(
-  "at",
+  COMMAND_NAME,
   { prevSubject: true },
   (subject: ArrayLike<unknown>, index: number) => {
-    const log = logCommand("at", {
+    const log = logCommand(COMMAND_NAME, {
       message: index,
       consoleProps: { subject, index },
     });

@@ -1,2 +1,2 @@
-import "./assertions";
-import "./commands";
+import "./assertions/index.js";
+import "./commands/index.js";

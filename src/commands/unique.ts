@@ -1,4 +1,4 @@
-import { logCommand, updateConsoleProps } from "../util";
+import { logCommand, updateConsoleProps } from "../util/index.js";
 
 declare global {
   namespace Cypress {
@@ -13,11 +13,13 @@ declare global {
   }
 }
 
+const COMMAND_NAME = "unique";
+
 Cypress.Commands.add(
-  "unique",
+  COMMAND_NAME,
   { prevSubject: true },
   (subject: ArrayLike<unknown>, sorted: boolean = false) => {
-    const log = logCommand("unique", {
+    const log = logCommand(COMMAND_NAME, {
       message: sorted ? "sorted" : "",
       consoleProps: { subject, sorted },
     });

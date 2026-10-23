@@ -1,4 +1,8 @@
-import { logCommand, updateConsoleProps, updateLogMessage } from "../util";
+import {
+  logCommand,
+  updateConsoleProps,
+  updateLogMessage,
+} from "../util/index.js";
 
 declare global {
   namespace Cypress {
@@ -33,11 +37,13 @@ type SubjectOperators = {
   itemFn: (index: number) => unknown;
 };
 
+const COMMAND_NAME = "random";
+
 Cypress.Commands.add(
-  "random",
+  COMMAND_NAME,
   { prevSubject: true },
   (subject: unknown, lower?: number, upper?: number) => {
-    const log = logCommand("random", {
+    const log = logCommand(COMMAND_NAME, {
       consoleProps: { lower, upper, subject },
     });
 

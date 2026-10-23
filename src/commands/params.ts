@@ -1,5 +1,10 @@
-import { logCommand, updateConsoleProps, updateLogMessage } from "../util";
-import { urlSubject } from "./url-subject";
+import {
+  logCommand,
+  updateConsoleProps,
+  updateLogMessage,
+} from "../util/index.js";
+import { urlSubject } from "../lib/url-subject.js";
+import { getQuery } from "../lib/param-helper.js";
 
 declare global {
   namespace Cypress {
@@ -12,18 +17,18 @@ declare global {
   }
 }
 
+const COMMAND_NAME = "params";
+
 Cypress.Commands.add(
-  "params",
+  COMMAND_NAME,
   { prevSubject: "optional" },
   (subject: unknown) => {
-    const log = logCommand("params");
+    const log = logCommand(COMMAND_NAME);
 
     return urlSubject(subject).then((url) => {
       updateConsoleProps(log, { subject: url });
 
-      const paramsEntries = new URLSearchParams(
-        url.slice(url.indexOf("?")),
-      ).entries();
+      const paramsEntries = new URLSearchParams(getQuery(url)).entries();
 
       const yielded = [...paramsEntries].reduce<
         Record<string, string | string[]>

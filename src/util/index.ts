@@ -1,3 +1,5 @@
+import loupe from "loupe";
+
 /**
  * Options object to suppress command logging.
  *
@@ -10,8 +12,7 @@ export const NO_LOG = Object.freeze({ log: false } as const);
 const consolePropsByLog = new WeakMap<Cypress.Log, Cypress.ObjectLike>();
 
 /**
- * Creates a command log entry. The display name is derived from the camelCase command name
- * (`"uniqueValues"` becomes `"UNIQUE VALUES"`, `"getURLParam"` becomes `"GET URL PARAM"`).
+ * Creates a Cypress command log entry.
  * Console props are nested under a `props` key, which the other helpers in this module rely on.
  *
  * @param name The command name.
@@ -42,10 +43,6 @@ export function logCommand(
 ) {
   const logOptions: Partial<Cypress.LogConfig> = {
     name,
-    displayName: name
-      .replace(/([a-z\d])([A-Z])/g, "$1 $2")
-      .replace(/([A-Z]+)([A-Z][a-z])/g, "$1 $2")
-      .toUpperCase(),
     message,
   };
 
@@ -63,8 +60,9 @@ export function logCommand(
 }
 
 /**
- * Appends a value to the message of a log entry. Arrays are formatted as `[a, b]` and cut off
- * with `...` once their items exceed 50 characters, other values are converted with `String()`.
+ * Appends a value to the message of a log entry. Strings are appended as-is, other values
+ * (objects, arrays, numbers, ...) are formatted with loupe (using double quoted strings) and
+ * truncated to 50 characters.
  * Does nothing if no log is passed.
  *
  * @param log The log to update.
@@ -75,7 +73,7 @@ export function logCommand(
  * const log = logCommand("param", { message: "page" });
  *
  * updateLogMessage(log, 2); // Message is now "page, 2"
- * updateLogMessage(log, ["a", "b"]); // Message is now "page, 2, [a, b]"
+ * updateLogMessage(log, ["a", "b"]); // Message is now 'page, 2, ["a", "b"]'
  */
 export function updateLogMessage(
   log: Cypress.Log | undefined,
@@ -93,29 +91,28 @@ export function updateLogMessage(
   );
 }
 
-const MAX_ARRAY_MESSAGE_LENGTH = 50;
-
 function formatLogValue(value: unknown): string {
-  if (!Array.isArray(value)) {
-    return String(value);
+  if (typeof value === "string") {
+    return value;
   }
 
-  const items: string[] = [];
-  let length = 0;
+  return (
+    loupe(value, { truncate: 50, stylize: doubleQuoteStrings })
+      // Drop the padding loupe adds inside the outer brackets: "[ 1, 2 ]" -> "[1, 2]",
+      // "Set{ 1, 2 }" -> "Set{1, 2}"
+      .replace(/^(\w*[[{]) | ([\]}])$/g, "$1$2")
+  );
+}
 
-  for (const item of value.map(formatLogValue)) {
-    length += (items.length > 0 ? 2 : 0) + item.length;
-
-    // Always keep the first item, so the message never ends up as just "[...]"
-    if (items.length > 0 && length > MAX_ARRAY_MESSAGE_LENGTH) {
-      items.push("...");
-      break;
-    }
-
-    items.push(item);
+// loupe always single quotes strings, swap them for double quotes (and fix the escaping)
+function doubleQuoteStrings(value: string, styleType: string): string {
+  if (styleType !== "string") {
+    return value;
   }
 
-  return `[${items.join(", ")}]`;
+  const content = value.slice(1, -1).replace(/\\'/g, "'").replace(/"/g, '\\"');
+
+  return `"${content}"`;
 }
 
 /**

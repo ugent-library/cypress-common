@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 chai.Assertion.addProperty("end", function () {
     return {
         with: (substring) => {
@@ -7,3 +5,4 @@ chai.Assertion.addProperty("end", function () {
         },
     };
 });
+export {};

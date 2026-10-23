@@ -1,4 +1,8 @@
-import { logCommand, updateConsoleProps } from "../util";
+import {
+  logCommand,
+  updateConsoleProps,
+  updateLogMessage,
+} from "../util/index.js";
 
 declare global {
   namespace Cypress {
@@ -8,27 +12,51 @@ declare global {
        *
        * @param propertyName The name of the property to get.
        */
-      prop<T>(propertyName: string): Chainable<T>;
+      prop<T>(propertyName: string): Chainable<T | undefined>;
 
       /**
-       * Set one or more properties for the set of matched elements. Invokes the jQuery prop method.
+       * Set one property for the set of matched elements. Invokes the jQuery prop method.
        *
        * @param propertyName The name of the property to set.
        * @param value A value to set for the property.
        */
       prop<T>(propertyName: string, value: T): Chainable<Subject>;
 
-      // TODO: Add support for 2 more jQuery overloads .prop(properties) and .prop(propertyName, function). See: https://api.jquery.com/prop/
+      /**
+       * Set one or more properties for the set of matched elements. Invokes the jQuery prop method.
+       *
+       * @param properties An object of property-value pairs to set.
+       */
+      prop(properties: Record<string, unknown>): Chainable<Subject>;
     }
   }
 }
 
+const COMMAND_NAME = "prop";
+
 Cypress.Commands.add(
-  "prop",
+  COMMAND_NAME,
   { prevSubject: true },
-  (subject: JQuery, propertyName: string, value: unknown = null) => {
-    if (value) {
-      logCommand("prop", {
+  (
+    subject: JQuery,
+    propertyName: string | Record<string, unknown>,
+    value?: unknown,
+  ) => {
+    if (propertyName !== null && typeof propertyName === "object") {
+      const log = logCommand(COMMAND_NAME, {
+        consoleProps: { properties: propertyName },
+        $el: subject,
+      });
+
+      updateLogMessage(log, propertyName);
+
+      subject.prop(propertyName);
+
+      updateConsoleProps(log, { yielded: subject });
+
+      return subject;
+    } else if (value !== undefined) {
+      const log = logCommand(COMMAND_NAME, {
         message: `${propertyName} = ${value}`,
         consoleProps: { propertyName, value },
         $el: subject,
@@ -36,9 +64,11 @@ Cypress.Commands.add(
 
       subject.prop(propertyName, value);
 
+      updateConsoleProps(log, { yielded: subject });
+
       return subject;
     } else {
-      const log = logCommand("prop", {
+      const log = logCommand(COMMAND_NAME, {
         message: propertyName,
         consoleProps: { propertyName },
         $el: subject,
