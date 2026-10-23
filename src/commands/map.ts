@@ -1,6 +1,6 @@
 import type { IterateeShorthand } from "lodash";
 
-import { logCommand, updateConsoleProps } from "../util";
+import { logCommand, updateConsoleProps } from "../util/index.js";
 
 declare global {
   namespace Cypress {
@@ -19,14 +19,16 @@ declare global {
   }
 }
 
+const COMMAND_NAME = "map";
+
 Cypress.Commands.add(
-  "map",
+  COMMAND_NAME,
   { prevSubject: true },
   (
     subject: ArrayLike<unknown>,
     iteratee: Cypress.Iteratee<unknown, unknown>,
   ) => {
-    const log = logCommand("map", {
+    const log = logCommand(COMMAND_NAME, {
       message: [subject],
       consoleProps: { subject, iteratee },
     });

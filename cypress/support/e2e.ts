@@ -1,9 +1,5 @@
-import chaiDom from "chai-dom";
-
-import "../../src/assertions";
-import "../../src/commands";
-
-chai.use(chaiDom);
+import "cypress-common/assertions";
+import "cypress-common/commands";
 
 export function expectErrorOnFail(
   done: Mocha.Done,

@@ -1,4 +1,4 @@
-import { logCommand, updateConsoleProps } from "../util";
+import { logCommand, updateConsoleProps } from "../util/index.js";
 
 declare global {
   namespace Cypress {
@@ -26,16 +26,14 @@ declare global {
   }
 }
 
+const COMMAND_NAME = "attr";
+
 Cypress.Commands.add(
-  "attr",
+  COMMAND_NAME,
   { prevSubject: true },
-  (
-    subject: JQuery,
-    attributeName: string,
-    value?: string | number | null,
-  ) => {
+  (subject: JQuery, attributeName: string, value?: string | number | null) => {
     if (value !== undefined) {
-      logCommand("attr", {
+      logCommand(COMMAND_NAME, {
         message: `${attributeName} = ${value}`,
         consoleProps: { attributeName, value },
         $el: subject,
@@ -45,7 +43,7 @@ Cypress.Commands.add(
 
       return subject;
     } else {
-      const log = logCommand("attr", {
+      const log = logCommand(COMMAND_NAME, {
         message: attributeName,
         consoleProps: { attributeName },
         $el: subject,
