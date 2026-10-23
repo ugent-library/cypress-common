@@ -1,7 +1,7 @@
 import { logCommand, updateConsoleProps, updateLogMessage, } from "../util/index.js";
 const COMMAND_NAME = "prop";
 Cypress.Commands.add(COMMAND_NAME, { prevSubject: true }, (subject, propertyName, value) => {
-    if (typeof propertyName === "object") {
+    if (propertyName !== null && typeof propertyName === "object") {
         const log = logCommand(COMMAND_NAME, {
             consoleProps: { properties: propertyName },
             $el: subject,

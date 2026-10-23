@@ -12,7 +12,7 @@ declare global {
        *
        * @param propertyName The name of the property to get.
        */
-      prop<T>(propertyName: string): Chainable<T>;
+      prop<T>(propertyName: string): Chainable<T | undefined>;
 
       /**
        * Set one property for the set of matched elements. Invokes the jQuery prop method.
@@ -42,7 +42,7 @@ Cypress.Commands.add(
     propertyName: string | Record<string, unknown>,
     value?: unknown,
   ) => {
-    if (typeof propertyName === "object") {
+    if (propertyName !== null && typeof propertyName === "object") {
       const log = logCommand(COMMAND_NAME, {
         consoleProps: { properties: propertyName },
         $el: subject,
@@ -51,7 +51,7 @@ Cypress.Commands.add(
       updateLogMessage(log, propertyName);
 
       subject.prop(propertyName);
-      
+
       updateConsoleProps(log, { yielded: subject });
 
       return subject;
@@ -65,7 +65,7 @@ Cypress.Commands.add(
       subject.prop(propertyName, value);
 
       updateConsoleProps(log, { yielded: subject });
-      
+
       return subject;
     } else {
       const log = logCommand(COMMAND_NAME, {

@@ -6,7 +6,7 @@ declare global {
              *
              * @param propertyName The name of the property to get.
              */
-            prop<T>(propertyName: string): Chainable<T>;
+            prop<T>(propertyName: string): Chainable<T | undefined>;
             /**
              * Set one property for the set of matched elements. Invokes the jQuery prop method.
              *
