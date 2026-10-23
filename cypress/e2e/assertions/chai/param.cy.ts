@@ -19,6 +19,17 @@ describe("The param method", () => {
 			).to.have.param("test", ["abc123", "def456"]);
 		});
 
+		it("should parse a bare query string without a question mark", () => {
+			expect("q=test%20search&item=abc&item=def").to.have.param(
+				"q",
+				"test search",
+			);
+			expect("q=test%20search&item=abc&item=def").to.have.param("item", [
+				"abc",
+				"def",
+			]);
+		});
+
 		it("should throw when the param does not exist", (done) => {
 			expectAssertionErrorOnFail(done, "expected param 'other' to exist");
 
@@ -44,6 +55,11 @@ describe("The param method", () => {
 	describe("In negative  mode", () => {
 		it("should not throw when the param does not exist", () => {
 			expect("https://lib.ugent.be/?test=abc123").to.not.have.param("other");
+		});
+
+		it("should not find params in a url without query", () => {
+			expect("https://lib.ugent.be/en/libraries").to.not.have.param("s");
+			expect("/en/libraries").to.not.have.param("s");
 		});
 
 		it("should throw when the param does exist", (done) => {
