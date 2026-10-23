@@ -51,10 +51,12 @@ Cypress.Commands.add(
       updateLogMessage(log, propertyName);
 
       subject.prop(propertyName);
+      
+      updateConsoleProps(log, { yielded: subject });
 
       return subject;
     } else if (value !== undefined) {
-      logCommand(COMMAND_NAME, {
+      const log = logCommand(COMMAND_NAME, {
         message: `${propertyName} = ${value}`,
         consoleProps: { propertyName, value },
         $el: subject,
@@ -62,6 +64,8 @@ Cypress.Commands.add(
 
       subject.prop(propertyName, value);
 
+      updateConsoleProps(log, { yielded: subject });
+      
       return subject;
     } else {
       const log = logCommand(COMMAND_NAME, {
