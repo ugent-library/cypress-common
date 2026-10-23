@@ -4,6 +4,7 @@ import {
   updateLogMessage,
 } from "../util/index.js";
 import { urlSubject } from "../lib/url-subject.js";
+import { getQuery } from "../lib/param-helper.js";
 
 declare global {
   namespace Cypress {
@@ -27,9 +28,7 @@ Cypress.Commands.add(
     return urlSubject(subject).then((url) => {
       updateConsoleProps(log, { subject: url });
 
-      const paramsEntries = new URLSearchParams(
-        url.slice(url.indexOf("?")),
-      ).entries();
+      const paramsEntries = new URLSearchParams(getQuery(url)).entries();
 
       const yielded = [...paramsEntries].reduce<
         Record<string, string | string[]>

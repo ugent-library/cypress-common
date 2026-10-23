@@ -116,6 +116,26 @@ describe("The param command", () => {
     });
   });
 
+  describe("When used on a string without a question mark", () => {
+    it("should parse a bare query string", () => {
+      const bareQuery = "q=test%20search&item=abc&count=123&item=def";
+
+      cy.wrap(bareQuery).param("q").should("eq", "test search");
+
+      cy.wrap(bareQuery).param("item").should("eql", ["abc", "def"]);
+
+      cy.wrap(bareQuery).param("count").should("eq", "123");
+    });
+
+    it("should return the default for a url without query", () => {
+      cy.wrap("https://lib.ugent.be/en/libraries")
+        .param("libraries", "abc123")
+        .should("eq", "abc123");
+
+      cy.wrap("/en/libraries").param("libraries").should("be.null");
+    });
+  });
+
   describe("The alternate flow", () => {
     const assertFailure = (
       done: Mocha.Done,
@@ -126,7 +146,6 @@ describe("The param command", () => {
         expect(error.message).to.eq(
           `Cannot get query parameter for ${subject}`,
         );
-
         done();
       });
     };
