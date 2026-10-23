@@ -63,7 +63,9 @@ describe("The attr command", () => {
     // Boolean
     cy.get("@some-input").should("not.have.attr", "required");
     cy.get("@some-input").should("have.prop", "required").and("be.false");
-    cy.get("@some-input").attr("required", "required").should("have.id", "someInput");
+    cy.get("@some-input")
+      .attr("required", "required")
+      .should("have.id", "someInput");
     cy.get("@some-input").should("have.attr", "required").and("eq", "required");
     cy.get("@some-input").should("have.prop", "required").and("be.true");
 
@@ -152,30 +154,27 @@ describe("The attr command", () => {
     cy.get("#someInput").as("some-input");
 
     const attributes = [
-      { name: "value", type: "string", reset: "test" },
-      { name: "maxlength", type: "number", reset: 123 },
-    ] as const;
-
-    const falsyValues: {
-      value: string | number;
-      exp: Record<"string" | "number", string>;
-    }[] = [
-      { value: "", exp: { string: "", number: "" } },
-      { value: 0, exp: { string: "0", number: "0" } },
+      { name: "value", reset: "test" },
+      { name: "maxlength", reset: 123 },
     ];
 
-    for (const { name, type, reset } of attributes) {
+    const falsyValues = [
+      { value: "", exp: "" },
+      { value: 0, exp: "0" },
+    ];
+
+    for (const { name, reset } of attributes) {
       for (const falsyValue of falsyValues) {
         cy.log(
           `Setting ${name} to ${falsyValue.value === "" ? '""' : falsyValue.value}`,
         );
         cy.get("@some-input").attr(name, reset).should("have.id", "someInput");
-        cy.get("@some-input").should("have.attr", name, reset);
+        cy.get("@some-input").should("have.attr", name, String(reset));
 
         cy.get("@some-input")
           .attr(name, falsyValue.value)
           .should("have.id", "someInput");
-        cy.get("@some-input").should("have.attr", name, falsyValue.exp[type]);
+        cy.get("@some-input").should("have.attr", name, falsyValue.exp);
       }
     }
   });
