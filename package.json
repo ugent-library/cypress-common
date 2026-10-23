@@ -20,15 +20,15 @@
   "license": "BSD-3-Clause",
   "scripts": {
     "build": "node -e \"fs.rmSync('dist', { recursive: true, force: true })\" && tsc",
+    "check": "biome check",
     "check-dist": "scripts/check-dist.sh",
-    "check-format": "biome format",
-    "format": "biome format --write",
-    "lint": "biome lint && tsc --noEmit && tsc --project cypress",
+    "format": "biome check --write",
+    "lint": "tsc --noEmit && tsc --project cypress",
     "test": "cypress run",
     "precommit": "node node_modules/js-precommit-hook"
   },
   "pre-commit": [
-    "check-format",
+    "check",
     "check-dist",
     "lint",
     "test",

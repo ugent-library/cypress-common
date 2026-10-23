@@ -1,10 +1,10 @@
+import { getQuery } from "../lib/param-helper.js";
+import { urlSubject } from "../lib/url-subject.js";
 import {
   logCommand,
   updateConsoleProps,
   updateLogMessage,
 } from "../util/index.js";
-import { urlSubject } from "../lib/url-subject.js";
-import { getQuery } from "../lib/param-helper.js";
 
 declare global {
   namespace Cypress {
