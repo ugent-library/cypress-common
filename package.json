@@ -23,7 +23,7 @@
     "check-dist": "scripts/check-dist.sh",
     "check-format": "biome format",
     "format": "biome format --write",
-    "lint": "tsc --noEmit && tsc --project cypress",
+    "lint": "biome lint && tsc --noEmit && tsc --project cypress",
     "test": "cypress run",
     "precommit": "node node_modules/js-precommit-hook"
   },
