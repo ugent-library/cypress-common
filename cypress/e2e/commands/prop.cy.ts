@@ -23,7 +23,7 @@ describe("The prop command", () => {
     cy.get("@some-input")
       .prop("formAction")
       .should("be.a", "string")
-      .and("eq", `${Cypress.config("baseUrl")}/en/libraries/test`);
+      .and("eq", `${Cypress.config("baseUrl")}/test`);
 
     // Number
     cy.get("@some-input")
