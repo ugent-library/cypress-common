@@ -114,7 +114,7 @@ describe("The attr command", () => {
       .attr({
         value: () => "yet another value",
         maxlength: () => 789,
-        disabled: ()=> "disabled",
+        disabled: () => "disabled",
       })
       .should("have.id", "someInput");
     cy.get("@some-input").should("have.attr", "value", "yet another value");
