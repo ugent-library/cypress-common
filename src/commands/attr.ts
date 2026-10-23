@@ -33,7 +33,7 @@ declare global {
        *
        * @param attributes An object of attribute-value pairs to set.
        */
-      attr(attributes: Record<string, unknown>): Chainable<Subject>;
+      attr(attributes: Record<string, AttrValue>): Chainable<Subject>;
     }
   }
 }

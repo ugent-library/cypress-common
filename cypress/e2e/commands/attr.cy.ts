@@ -101,7 +101,7 @@ describe("The attr command", () => {
       .attr({
         value: "some other value",
         maxlength: 456,
-        required: true,
+        required: "required",
       })
       .should("have.id", "someInput");
     cy.get("@some-input").should("have.attr", "value", "some other value");
@@ -109,6 +109,19 @@ describe("The attr command", () => {
     cy.get("@some-input").should("have.prop", "maxLength", 456);
     cy.get("@some-input").should("have.attr", "required", "required");
     cy.get("@some-input").should("have.prop", "required", true);
+
+    cy.get("@some-input")
+      .attr({
+        value: () => "yet another value",
+        maxlength: () => 789,
+        disabled: ()=> "disabled",
+      })
+      .should("have.id", "someInput");
+    cy.get("@some-input").should("have.attr", "value", "yet another value");
+    cy.get("@some-input").should("have.attr", "maxlength", "789");
+    cy.get("@some-input").should("have.prop", "maxLength", 789);
+    cy.get("@some-input").should("have.attr", "disabled", "disabled");
+    cy.get("@some-input").should("have.prop", "disabled", true);
   });
 
   it("should be possible to set one or more attributes on multiple objects at once", () => {
@@ -133,7 +146,7 @@ describe("The attr command", () => {
       .attr({
         value: "some other value",
         maxlength: 456,
-        required: true,
+        required: "required",
       })
       .should("have.id", "someInput");
 
