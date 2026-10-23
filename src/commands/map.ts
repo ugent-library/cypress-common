@@ -1,6 +1,6 @@
 import type { IterateeShorthand } from "lodash";
 
-import { logCommand, updateConsoleProps } from "../util";
+import { logCommand, updateConsoleProps } from "../util/index.js";
 
 declare global {
   namespace Cypress {

@@ -1,19 +1,17 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const util_1 = require("../util");
+import { logCommand, updateConsoleProps, updateLogMessage, } from "../util/index.js";
 const COMMAND_NAME = "prop";
 Cypress.Commands.add(COMMAND_NAME, { prevSubject: true }, (subject, propertyName, value) => {
     if (typeof propertyName === "object") {
-        const log = (0, util_1.logCommand)(COMMAND_NAME, {
+        const log = logCommand(COMMAND_NAME, {
             consoleProps: { properties: propertyName },
             $el: subject,
         });
-        (0, util_1.updateLogMessage)(log, propertyName);
+        updateLogMessage(log, propertyName);
         subject.prop(propertyName);
         return subject;
     }
     else if (value !== undefined) {
-        (0, util_1.logCommand)(COMMAND_NAME, {
+        logCommand(COMMAND_NAME, {
             message: `${propertyName} = ${value}`,
             consoleProps: { propertyName, value },
             $el: subject,
@@ -22,13 +20,13 @@ Cypress.Commands.add(COMMAND_NAME, { prevSubject: true }, (subject, propertyName
         return subject;
     }
     else {
-        const log = (0, util_1.logCommand)(COMMAND_NAME, {
+        const log = logCommand(COMMAND_NAME, {
             message: propertyName,
             consoleProps: { propertyName },
             $el: subject,
         });
         const yielded = subject.prop(propertyName);
-        (0, util_1.updateConsoleProps)(log, { yielded });
+        updateConsoleProps(log, { yielded });
         return yielded;
     }
 });

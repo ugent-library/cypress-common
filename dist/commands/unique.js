@@ -1,9 +1,7 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const util_1 = require("../util");
+import { logCommand, updateConsoleProps } from "../util/index.js";
 const COMMAND_NAME = "unique";
 Cypress.Commands.add(COMMAND_NAME, { prevSubject: true }, (subject, sorted = false) => {
-    const log = (0, util_1.logCommand)(COMMAND_NAME, {
+    const log = logCommand(COMMAND_NAME, {
         message: sorted ? "sorted" : "",
         consoleProps: { subject, sorted },
     });
@@ -11,6 +9,6 @@ Cypress.Commands.add(COMMAND_NAME, { prevSubject: true }, (subject, sorted = fal
     if (sorted) {
         yielded.sort();
     }
-    (0, util_1.updateConsoleProps)(log, { yielded });
+    updateConsoleProps(log, { yielded });
     return yielded;
 });

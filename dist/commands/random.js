@@ -1,9 +1,7 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const util_1 = require("../util");
+import { logCommand, updateConsoleProps, updateLogMessage, } from "../util/index.js";
 const COMMAND_NAME = "random";
 Cypress.Commands.add(COMMAND_NAME, { prevSubject: true }, (subject, lower = 0, upper = null) => {
-    const log = (0, util_1.logCommand)(COMMAND_NAME, {
+    const log = logCommand(COMMAND_NAME, {
         consoleProps: { lower, upper, subject },
     });
     const { length, keyFn, inFn, itemFn } = determineSubjectOperators(subject);
@@ -18,8 +16,8 @@ Cypress.Commands.add(COMMAND_NAME, { prevSubject: true }, (subject, lower = 0, u
     const index = Cypress._.random(lower, upper);
     const key = keyFn(index);
     const yielded = inFn(index) ? itemFn(index) : null;
-    (0, util_1.updateLogMessage)(log, `[${index}] => ${yielded}`);
-    (0, util_1.updateConsoleProps)(log, { lower, upper, index, key, yielded });
+    updateLogMessage(log, `[${index}] => ${yielded}`);
+    updateConsoleProps(log, { lower, upper, index, key, yielded });
     return yielded;
 });
 function determineSubjectOperators(subject) {
