@@ -24,11 +24,9 @@ Cypress.Commands.add(
       consoleProps: { subject, sorted },
     });
 
-    const yielded = Cypress._.uniq(subject);
-
-    if (sorted) {
-      yielded.sort();
-    }
+    const uniqueValues = Cypress._.uniq(subject);
+    // sortBy compares values directly, so numbers are not sorted as strings like Array.prototype.sort does
+    const yielded = sorted ? Cypress._.sortBy(uniqueValues) : uniqueValues;
 
     updateConsoleProps(log, { yielded });
 
