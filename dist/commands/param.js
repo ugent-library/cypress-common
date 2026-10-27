@@ -10,13 +10,13 @@ Cypress.Commands.add(COMMAND_NAME, { prevSubject: "optional" }, (subject, name, 
     return urlSubject(subject).then((url) => {
         updateConsoleProps(log, { subject: url });
         const yielded = getParam(url, name);
-        if (yielded) {
-            updateLogMessage(log, yielded);
+        if (yielded !== null) {
+            updateLogMessage(log, yielded === "" ? '""' : yielded);
         }
         else if (defaultValue !== null) {
             updateLogMessage(log, `(default: ${defaultValue})`);
         }
         updateConsoleProps(log, { yielded });
-        return cy.wrap(yielded || defaultValue, NO_LOG);
+        return cy.wrap(yielded ?? defaultValue, NO_LOG);
     });
 });
