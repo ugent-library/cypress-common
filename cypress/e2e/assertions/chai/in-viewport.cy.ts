@@ -42,7 +42,7 @@ describe("The inViewport method", () => {
         'You should provide the window object, retrieved by "cy.window()", as an argument to the "inViewport" assertion.',
       );
 
-      cy.window().then((w) => {
+      cy.window().then(() => {
         expect(Cypress.$("#test")).to.be.inViewport(
           undefined as unknown as Window,
         );

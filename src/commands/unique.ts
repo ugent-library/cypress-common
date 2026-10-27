@@ -33,5 +33,3 @@ Cypress.Commands.add(
     return yielded;
   },
 );
-
-export {};

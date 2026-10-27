@@ -8,7 +8,15 @@ type AttrValue =
   | string
   | number
   | null
-  | ((index: number, attr: string) => string | number | void | undefined);
+  | ((
+      index: number,
+      attr: string,
+    ) =>
+      | string
+      | number
+      // biome-ignore lint/suspicious/noConfusingVoidType: mirrors jQuery's attr callback type, so callbacks without a return value are accepted
+      | void
+      | undefined);
 
 declare global {
   namespace Cypress {
@@ -88,5 +96,3 @@ Cypress.Commands.add(
     }
   },
 );
-
-export {};

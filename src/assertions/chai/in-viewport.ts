@@ -12,7 +12,7 @@ declare global {
 }
 
 chai.Assertion.addMethod("inViewport", function (window: Window) {
-  if (!window || window.constructor.name !== "Window") {
+  if (window?.constructor.name !== "Window") {
     throw new Error(
       'You should provide the window object, retrieved by "cy.window()", as an argument to the "inViewport" assertion.',
     );

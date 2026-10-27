@@ -1,8 +1,8 @@
 import {
-  NO_LOG,
   addToConsoleProps,
   addToLog,
   logCommand,
+  NO_LOG,
   updateConsoleProps,
   updateLogMessage,
 } from "cypress-common/util";
