@@ -35,7 +35,7 @@
     "precommit"
   ],
   "dependencies": {
-    "chai": "^6.2.2",
+    "chai": "^6.3.0",
     "loupe": "^3.2.1"
   },
   "peerDependencies": {
@@ -44,14 +44,14 @@
   "devDependencies": {
     "@biomejs/biome": "2.6.2",
     "@types/chai-dom": "^1.11.3",
-    "@types/lodash": "^4.17.25",
-    "@types/node": "^25.9.5",
-    "cypress": "^16.2.0",
+    "@types/lodash": "^4.17.27",
+    "@types/node": "^25.9.9",
+    "cypress": "^16.2.1",
     "js-precommit-hook": "github:ugent-library/js-precommit-hook#semver:^v2.1.6",
     "typescript": "^6.0.3"
   },
   "allowScripts": {
     "pre-commit@2.0.0": true,
-    "cypress@16.2.0": true
+    "cypress@16.2.1": true
   }
 }
